@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-hi, kiuy
-=======
-hi let go high!!
->>>>>>> 5a775f72bb9612a62e7e11e2d53a656e8bb98f53
