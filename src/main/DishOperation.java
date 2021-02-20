@@ -278,7 +278,7 @@ public class DishOperation {
 
     private void write_data_into_file() {
         try {
-            FileOutputStream fileOut = new FileOutputStream("..\\DSA-Assignment\\src\\menu.txt");
+            FileOutputStream fileOut = new FileOutputStream("src/menu.txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(menuList);
             out.close();
@@ -291,7 +291,7 @@ public class DishOperation {
 
     private void read_data_from_File() {
         try {
-            FileInputStream fileIn = new FileInputStream("..\\DSA-Assignment\src\\menu.txt");
+            FileInputStream fileIn = new FileInputStream("src/menu.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             menuList = (DishList<Dish>)in.readObject();
             in.close();
