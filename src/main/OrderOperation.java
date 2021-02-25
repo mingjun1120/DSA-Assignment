@@ -8,8 +8,25 @@ import entity.Dish;
 
 public class OrderOperation {
     private static DishListInterface<Dish> menuList = new DishList<>();
+    private static DishListInterface<Dish> orderList = new DishList<>();
     Scanner scan = new Scanner(System.in);
 
+    public void addNewOrder() {
+
+        String[] all_dish_name = getAllDishNames();
+        char anymore;
+        do {
+            Dish dish = inputDishDetails(all_dish_name, d);
+            menuList.add(dish);
+            do {
+                System.out.print("Anymore? (Y/N): ");
+                anymore = isChar(scan);
+                is_Yes_and_No(anymore);
+            } while(anymore != 'Y' && anymore != 'N');
+        } while (anymore != 'N');
+
+        write_data_into_file();
+    }
 
     public int orderDish() {
 
