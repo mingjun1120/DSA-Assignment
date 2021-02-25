@@ -4,33 +4,43 @@ import java.util.*;
 import static main.mainClass.doSelection;
 import adt.DishList;
 import adt.DishListInterface;
+import adt.OrderQueueInterface;
+import adt.OrderQueueLinked;
 import entity.Dish;
+import entity.OrderDish;
 
 public class OrderOperation {
-    private static DishListInterface<Dish> menuList = new DishList<>();
-    private static DishListInterface<Dish> orderList = new DishList<>();
-    Scanner scan = new Scanner(System.in);
+    DishListInterface<Dish> menuList = new DishList<>();
+    OrderQueueInterface<OrderDish> orderList = new OrderQueueLinked<>();
+    public static Scanner scan = new Scanner(System.in);
+
+    public OrderDish inputDishDetails() {
+
+        System.out.println("\n**ORDERING**");
+        System.out.println("--------------");
+
+        int choice = doSelection(menuList.getLength() + 1, "Enter your choice (1-");
+
+        int qty;
+        do {
+            System.out.print("Enter quantity: ");
+            qty = isDigit();
+        } while (qty == -1);
+
+        return new OrderDish(qty, menuList.getEntry(choice));
+    }
 
     public void addNewOrder() {
-
-        String[] all_dish_name = getAllDishNames();
+        menuTable();
         char anymore;
         do {
-            Dish dish = inputDishDetails(all_dish_name, d);
-            menuList.add(dish);
+            OrderDish cus_order = inputDishDetails();
+            orderList.enqueue(cus_order);
             do {
                 System.out.print("Anymore? (Y/N): ");
                 anymore = isChar(scan);
-                is_Yes_and_No(anymore);
-            } while(anymore != 'Y' && anymore != 'N');
+            } while(is_Yes_and_No(anymore));
         } while (anymore != 'N');
-
-        write_data_into_file();
-    }
-
-    public int orderDish() {
-
-        return doSelection(menuList.getLength() + 1, "Enter your choice (1-");
     }
 
     public void menuTable()
@@ -52,6 +62,44 @@ public class OrderOperation {
 
     public int getDishLen() {
         return menuList.getLength();
+    }
+
+    private static int isDigit()
+    {
+        int selection;
+        if(scan.hasNextInt()) {
+            selection = scan.nextInt();
+        }
+        else{
+            selection = -1;
+        }
+        scan.nextLine();
+        return selection;
+    }
+
+    private char isChar(Scanner scan)
+    {
+        String input;
+        input = scan.nextLine();
+        char my_char;
+
+        if(input.length() == 1 && input.matches("^[a-zA-Z]+$"))
+        {
+            my_char = Character.toUpperCase(input.charAt(0));
+
+        } else{
+            my_char = '~'; //Means false
+        }
+        return my_char;
+    }
+
+    private boolean is_Yes_and_No(char ans) {
+        if (ans != 'Y' && ans != 'N') {
+            System.out.println("Invalid input! Please enter again!\n");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void read_data_from_File() {
