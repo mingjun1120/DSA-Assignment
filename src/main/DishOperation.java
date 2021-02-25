@@ -253,7 +253,7 @@ public class DishOperation {
         System.out.println("+----------------------------------------------------+");
     }
 
-    public static char isChar(Scanner scan)
+    private char isChar(Scanner scan)
     {
         String input;
         input = scan.nextLine();
