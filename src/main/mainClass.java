@@ -17,18 +17,13 @@ public class mainClass {
             int selection;
             switch (operation_selection)
             {
-                case 1: do {
-                            orderOp.menuTable();
-                            selection = orderOp.orderDish();
-                        } while(selection != orderOp.getDishLen() + 1);
+                case 1: orderOp.addNewOrder(); break;
+                case 2: do {
+                            modifyMenuTable();
+                            selection = doSelection(5, "Enter your choice (1-");
+                            switch_func(selection);
+                        } while (selection != 5);
                         break;
-                case 2: //int modify_selection2;
-                    do {
-                        modifyMenuTable();
-                        selection = doSelection(5, "Enter your choice (1-");
-                        switch_func(selection);
-                    } while (selection != 5);
-                    break;
                 case 3: System.out.println("Hiii!"); break;
                 case 4: System.out.println("Hiiii!"); break;
                 default:
