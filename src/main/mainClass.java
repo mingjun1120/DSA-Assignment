@@ -5,7 +5,7 @@ import java.util.*;
 public class mainClass {
     public static Scanner scan = new Scanner(System.in);
     private static final DishOperation dishOp = new DishOperation();
-
+    private static final OrderOperation orderOp = new OrderOperation();
     public static void main(String[] args) {
 
         int operation_selection;
@@ -14,17 +14,21 @@ public class mainClass {
             //Print operation (e.g. Order, Modify Menu, Report & etc.)
             operationMenuTable();
             operation_selection = doSelection(5, "Enter your choice (1-");
-
+            int selection;
             switch (operation_selection)
             {
-                case 1: System.out.println("Hi!"); break;
-                case 2: int modify_selection;
-                        do {
-                            modifyMenuTable();
-                            modify_selection = doSelection(5, "Enter your choice (1-");
-                            switch_func(modify_selection);
-                        } while (modify_selection != 5);
+                case 1: do {
+                            orderOp.menuTable();
+                            selection = orderOp.orderDish();
+                        } while(selection != orderOp.getDishLen() + 1);
                         break;
+                case 2: //int modify_selection2;
+                    do {
+                        modifyMenuTable();
+                        selection = doSelection(5, "Enter your choice (1-");
+                        switch_func(selection);
+                    } while (selection != 5);
+                    break;
                 case 3: System.out.println("Hiii!"); break;
                 case 4: System.out.println("Hiiii!"); break;
                 default:
