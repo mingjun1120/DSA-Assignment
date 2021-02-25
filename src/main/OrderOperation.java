@@ -39,7 +39,7 @@ public class OrderOperation {
 
     private void read_data_from_File() {
         try {
-            FileInputStream fileIn = new FileInputStream("..\\TestTakeEatEz\\src\\menu.txt");
+            FileInputStream fileIn = new FileInputStream("src/menu.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             menuList = (DishList<Dish>)in.readObject();
             in.close();
