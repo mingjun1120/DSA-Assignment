@@ -51,25 +51,28 @@ public class OrderOperation {
     public void displayOrder() {
         //read_data_from_File();
         System.out.print("\n");
-        System.out.println("+------------------------------------------------------------+");
-        System.out.println("|                         ORDER LIST                         |");
-        System.out.println("+------------------------------------------------------------+");
-        System.out.printf("| %-4s    %-4s    %-18s    %-8s    %-8s|\n", "No.", "ID", "Name", "Quantity", "Price(RM)");
-        System.out.println("|------------------------------------------------------------|");
+        System.out.println("+----------------------------------------------------------------------------------+");
+        System.out.println("|                                    ORDER LIST                                    |");
+        System.out.println("+----------------------------------------------------------------------------------+");
+        System.out.printf("| %-4s    %-4s    %-18s    %-8s    %-18s    %-9s|\n", "No.", "ID", "Name", "Quantity", "Price Per Unit(RM)", "Total(RM)");
+        System.out.println("|----------------------------------------------------------------------------------|");
         for (int position = 1; position <= orderList.size(); position++) {
-            System.out.printf("| %-4d    %-4s    %-18s    %-8d    %-9.2f|\n",
+            System.out.printf("| %-4d    %-4s    %-18s    %-8d    %-18.2f    %-9.2f|\n",
                     position,
                     orderList.getEntry(position).getChosenDish().getId(),
                     orderList.getEntry(position).getChosenDish().getName(),
-                    orderList.getEntry(position).getQty(), orderList.getEntry(position).getQty()*menuList.getEntry(position).getPrice());
+                    orderList.getEntry(position).getQty(),
+                    orderList.getEntry(position).getChosenDish().getPrice(),
+                    orderList.getEntry(position).getQty() * orderList.getEntry(position).getChosenDish().getPrice());
         }
-        System.out.println("+------------------------------------------------------------+");
+        System.out.println("+----------------------------------------------------------------------------------+");
 
-//        OrderDish[] orderDishList = orderList.getAllEntries();
-//        for (OrderDish cus_order : orderDishList) {
+//        for (OrderDish cus_order : orderList.getAllEntries()) {
 //            System.out.println(cus_order);
 //        }
     }
+
+
 
     public void menuTable()
     {
