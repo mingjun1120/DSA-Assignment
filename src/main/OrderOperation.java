@@ -19,7 +19,9 @@ public class OrderOperation {
         System.out.println("\n**ORDERING**");
         System.out.println("--------------");
 
-        int choice = doSelection(menuList.getLength() + 1, "Enter your choice (1-");
+        int choice = doSelection(getDishLen() + 1, "Enter your choice (1-");
+        if (choice == getDishLen() + 1)
+            return null;
 
         int qty;
         do {
@@ -35,6 +37,8 @@ public class OrderOperation {
         char anymore;
         do {
             OrderDish cus_order = inputDishDetails();
+            if (cus_order == null)
+                break;
             orderList.enqueue(cus_order);
             do {
                 System.out.print("Anymore? (Y/N): ");
