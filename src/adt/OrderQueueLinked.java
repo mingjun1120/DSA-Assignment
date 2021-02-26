@@ -104,18 +104,18 @@ public class OrderQueueLinked<T> implements OrderQueueInterface<T>, Serializable
         return data;
     }
 
-//    @Override
-//    public T[] getAllEntries() {
-//        T[] temp = (T[]) new Object[size];
-//        Node currentNode = firstNode;
-//        int i = 0;
-//        while(currentNode != null) {
-//            temp[i] = currentNode.data;
-//            currentNode = currentNode.next;
-//            i++;
-//        }
-//        return temp;
-//    }
+    @Override
+    public T[] getAllEntries() {
+        T[] temp = (T[]) new Object[size];
+        Node currentNode = firstNode;
+        int i = 0;
+        while(currentNode != null) {
+            temp[i] = currentNode.data;
+            currentNode = currentNode.next;
+            i++;
+        }
+        return temp;
+    }
 
 //    @Override
 //    public void getAllEntries() {
