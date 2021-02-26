@@ -8,6 +8,7 @@ import adt.OrderQueueInterface;
 import adt.OrderQueueLinked;
 import entity.Dish;
 import entity.OrderDish;
+import org.w3c.dom.Node;
 
 public class OrderOperation {
     DishListInterface<Dish> menuList = new DishList<>();
@@ -45,6 +46,29 @@ public class OrderOperation {
                 anymore = isChar(scan);
             } while(is_Yes_and_No(anymore));
         } while (anymore != 'N');
+    }
+
+    public void displayOrder() {
+        //read_data_from_File();
+        System.out.print("\n");
+        System.out.println("+------------------------------------------------------------+");
+        System.out.println("|                         ORDER LIST                         |");
+        System.out.println("+------------------------------------------------------------+");
+        System.out.printf("| %-4s    %-4s    %-18s    %-8s    %-8s|\n", "No.", "ID", "Name", "Quantity", "Price(RM)");
+        System.out.println("|------------------------------------------------------------|");
+        for (int position = 1; position <= orderList.size(); position++) {
+            System.out.printf("| %-4d    %-4s    %-18s    %-8d    %-9.2f|\n",
+                    position,
+                    orderList.getEntry(position).getChosenDish().getId(),
+                    orderList.getEntry(position).getChosenDish().getName(),
+                    orderList.getEntry(position).getQty(), orderList.getEntry(position).getQty()*menuList.getEntry(position).getPrice());
+        }
+        System.out.println("+------------------------------------------------------------+");
+
+//        OrderDish[] orderDishList = orderList.getAllEntries();
+//        for (OrderDish cus_order : orderDishList) {
+//            System.out.println(cus_order);
+//        }
     }
 
     public void menuTable()
