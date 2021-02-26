@@ -52,10 +52,19 @@ public interface OrderQueueInterface<T> {
 
     void clear();
     /*
-     * Description  - Removes all entries from the queue.
+     * Description   - Removes all entries from the queue.
      * Precondition  - None
 	 * Postcondition - The queue become empty
 	 * Return        - None
-	 * */
+	 */
 
+    T getEntry(int givenPosition);
+
+//    T[] getAllEntries();
+    /*
+     * Description   - Retrieves all entries from the queue.
+     * Precondition  - The queue is not empty
+     * Postcondition - The queue become empty
+     * Return        - None
+     */
 }
