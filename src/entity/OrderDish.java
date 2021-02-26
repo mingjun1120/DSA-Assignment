@@ -28,6 +28,6 @@ public class OrderDish {
 
     @Override
     public String toString() {
-        return "Chosen Dish: " + chosenDish.getName() + "Quantity: " + qty;
+        return "Chosen Dish: " + chosenDish.getName() + " Quantity: " + qty;
     }
 }
