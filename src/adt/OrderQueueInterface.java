@@ -60,7 +60,7 @@ public interface OrderQueueInterface<T> {
 
     T getEntry(int givenPosition);
 
-//    T[] getAllEntries();
+    T[] getAllEntries();
     /*
      * Description   - Retrieves all entries from the queue.
      * Precondition  - The queue is not empty
