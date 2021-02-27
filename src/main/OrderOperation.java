@@ -48,6 +48,7 @@ public class OrderOperation {
 
     public void displayOrder() {
         //read_data_from_File();
+        double sum = 0;
         System.out.print("\n");
         System.out.println("+----------------------------------------------------------------------------------+");
         System.out.println("|                                    ORDER LIST                                    |");
@@ -63,7 +64,10 @@ public class OrderOperation {
                     orderList.getEntry(position).getChosenDish().getPrice(),
                     orderList.getEntry(position).getQty() * orderList.getEntry(position).getChosenDish().getPrice()
             );
+            sum += orderList.getEntry(position).getQty() * orderList.getEntry(position).getChosenDish().getPrice();
         }
+        System.out.println("+----------------------------------------------------------------------------------+");
+        System.out.printf("|%74s%-8.2f|\n","TOTAL PRICE NEED TO PAY:   RM", sum);
         System.out.println("+----------------------------------------------------------------------------------+");
 
 //        for (OrderDish cus_order : orderList.getAllEntries()) {
