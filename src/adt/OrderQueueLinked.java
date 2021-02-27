@@ -69,6 +69,7 @@ public class OrderQueueLinked<T> implements OrderQueueInterface<T>, Serializable
     public void clear() {
         firstNode = null;
         lastNode = null;
+        size = 0;
     }
 
     @Override
