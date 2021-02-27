@@ -79,24 +79,55 @@ public class OrderOperation {
 
     public void paymentConfirmation() {
         char anymore;
+        char proceed;
         do {
             System.out.println("Is there anything to add on or modify? (Y/N): ");
             anymore = isChar(scan);
         } while(is_Yes_and_No(anymore));
 
         if (anymore == 'Y') {
-
-            System.out.println("+-------------------------------+");
-            System.out.println("|           OPERATION           |");
-            System.out.println("+-------------------------------+");
-            System.out.println("|         1. Add Order          |");
-            System.out.println("|         2. Modify             |");
-            System.out.println("+-------------------------------+");
-            int choice = doSelection(3, "Enter your choice (1-");
+            operation();
         } else {
-            System.out.println("Confirm proceed to checkout? (Y/N): ");
 
+            do {
+                System.out.println("Confirm proceed to checkout? (Y/N): ");
+                proceed = isChar(scan);
+            } while(is_Yes_and_No(proceed));
+
+            if(proceed == 'Y')
+                payment();
+
+            if (proceed == 'N'){
+                System.out.println("This Order Cancelled Successfully !!!");
+                orderList.clear();
+            }
         }
+    }
+
+    private void operation(){
+
+        System.out.println("+-------------------------------+");
+        System.out.println("|           OPERATION           |");
+        System.out.println("+-------------------------------+");
+        System.out.println("|         1. Add Order          |");
+        System.out.println("|         2. Modify             |");
+        System.out.println("+-------------------------------+");
+        int choice = doSelection(2, "Enter your choice (1-");
+
+        if(choice == 1){
+            addNewOrder();
+            displayOrder();
+            paymentConfirmation();
+        }
+
+        else if(choice == 2)
+            modifyOrder();
+    }
+
+    private void payment(){
+
+
+        //write into file
     }
 
     private void menuTable()
@@ -114,6 +145,10 @@ public class OrderOperation {
             }
         }
         System.out.println("+----------------------------------------------------+");
+    }
+
+    private void modifyOrder(){
+        System.out.println("xixixixi");
     }
 
     public int getDishLen() {
