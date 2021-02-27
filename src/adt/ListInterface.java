@@ -37,4 +37,6 @@ public interface ListInterface<T> {
      * Postcondition - list remain unchanged
      * Return        - return the size of the list
      */
+
+    void clear();
 }
