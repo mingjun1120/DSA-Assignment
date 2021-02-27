@@ -5,6 +5,7 @@ public class DishArrayList<T> implements DishListInterface<T>, Serializable {
     private final static int MAX_SIZE = 100;
     private T[] dishList;
     private int numberOfEntries;
+    private static final long serialVersionUID = -3896112140209065945L;
 
     public DishArrayList() {
         dishList = (T[]) new Object[MAX_SIZE];
@@ -55,6 +56,11 @@ public class DishArrayList<T> implements DishListInterface<T>, Serializable {
     @Override
     public int getLength() {
         return numberOfEntries;
+    }
+
+    @Override
+    public void clear() {
+        numberOfEntries = 0;
     }
 
     @Override
