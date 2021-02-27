@@ -17,7 +17,10 @@ public class mainClass {
             int selection;
             switch (operation_selection)
             {
-                case 1: orderOp.addNewOrder(); orderOp.displayOrder(); break;
+                case 1: orderOp.addNewOrder();
+                        orderOp.displayOrder();
+                        orderOp.paymentConfirmation();
+                        break;
                 case 2: do {
                             modifyMenuTable();
                             selection = doSelection(5, "Enter your choice (1-");
