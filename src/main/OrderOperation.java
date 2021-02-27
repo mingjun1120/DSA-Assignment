@@ -34,8 +34,10 @@ public class OrderOperation {
         char anymore;
         do {
             OrderDish cus_order = inputDishDetails();
-            if (cus_order == null)
+            if (cus_order == null){
+                orderList.clear();
                 break;
+            }
             orderList.offer(cus_order);
             do {
                 System.out.print("Anymore? (Y/N): ");
@@ -75,7 +77,29 @@ public class OrderOperation {
 //        }
     }
 
-    public void menuTable()
+    public void paymentConfirmation() {
+        char anymore;
+        do {
+            System.out.println("Is there anything to add on or modify? (Y/N): ");
+            anymore = isChar(scan);
+        } while(is_Yes_and_No(anymore));
+
+        if (anymore == 'Y') {
+
+            System.out.println("+-------------------------------+");
+            System.out.println("|           OPERATION           |");
+            System.out.println("+-------------------------------+");
+            System.out.println("|         1. Add Order          |");
+            System.out.println("|         2. Modify             |");
+            System.out.println("+-------------------------------+");
+            int choice = doSelection(3, "Enter your choice (1-");
+        } else {
+            System.out.println("Confirm proceed to checkout? (Y/N): ");
+
+        }
+    }
+
+    private void menuTable()
     {
         read_data_from_File();
         System.out.println("+----------------------------------------------------+");
