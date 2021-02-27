@@ -1,13 +1,15 @@
 package main;
 
-import adt.*;
-import entity.*;
+import adt.DishArrayList;
+import adt.DishListInterface;
+import entity.Dish;
 import java.io.*;
-import java.util.*;
+import java.util.Scanner;
+
 import static main.mainClass.doSelection;
 
 public class DishOperation {
-    private static DishListInterface<Dish> menuList = new DishList<>();
+    private static DishListInterface<Dish> menuList = new DishArrayList<>();
     Scanner scan = new Scanner(System.in);
 
     public void display() {
@@ -293,7 +295,7 @@ public class DishOperation {
         try {
             FileInputStream fileIn = new FileInputStream("src/menu.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            menuList = (DishList<Dish>)in.readObject();
+            menuList = (DishArrayList<Dish>)in.readObject();
             in.close();
             fileIn.close();
         } catch (IOException i) {

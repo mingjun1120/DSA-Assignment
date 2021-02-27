@@ -1,12 +1,12 @@
 package adt;
 import java.io.Serializable;
 
-public class DishList<T> implements DishListInterface<T>, Serializable {
+public class DishArrayList<T> implements DishListInterface<T>, Serializable {
     private final static int MAX_SIZE = 100;
     private T[] dishList;
     private int numberOfEntries;
 
-    public DishList() {
+    public DishArrayList() {
         dishList = (T[]) new Object[MAX_SIZE];
         numberOfEntries = 0;
     }

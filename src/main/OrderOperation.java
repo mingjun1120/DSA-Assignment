@@ -2,21 +2,17 @@ package main;
 import java.io.*;
 import java.util.*;
 import static main.mainClass.doSelection;
-import adt.DishList;
-import adt.DishListInterface;
-import adt.OrderQueueInterface;
-import adt.OrderQueueLinked;
+
+import adt.*;
 import entity.Dish;
 import entity.OrderDish;
-import org.w3c.dom.Node;
 
 public class OrderOperation {
-    DishListInterface<Dish> menuList = new DishList<>();
-    OrderQueueInterface<OrderDish> orderList = new OrderQueueLinked<>();
+    DishListInterface<Dish> menuList = new DishArrayList<>();
+    OrderListInterface<OrderDish> orderList = new OrderLinkedList<>();
     public static Scanner scan = new Scanner(System.in);
 
     public OrderDish inputDishDetails() {
-
         System.out.println("\n**ORDERING**");
         System.out.println("--------------");
 
@@ -40,12 +36,14 @@ public class OrderOperation {
             OrderDish cus_order = inputDishDetails();
             if (cus_order == null)
                 break;
-            orderList.enqueue(cus_order);
+            orderList.offer(cus_order);
             do {
                 System.out.print("Anymore? (Y/N): ");
                 anymore = isChar(scan);
             } while(is_Yes_and_No(anymore));
         } while (anymore != 'N');
+
+       // write_data_into_file();
     }
 
     public void displayOrder() {
@@ -56,14 +54,15 @@ public class OrderOperation {
         System.out.println("+----------------------------------------------------------------------------------+");
         System.out.printf("| %-4s    %-4s    %-18s    %-8s    %-18s    %-9s|\n", "No.", "ID", "Name", "Quantity", "Price Per Unit(RM)", "Total(RM)");
         System.out.println("|----------------------------------------------------------------------------------|");
-        for (int position = 1; position <= orderList.size(); position++) {
+        for (int position = 1; position <= orderList.getLength(); position++) {
             System.out.printf("| %-4d    %-4s    %-18s    %-8d    %-18.2f    %-9.2f|\n",
                     position,
                     orderList.getEntry(position).getChosenDish().getId(),
                     orderList.getEntry(position).getChosenDish().getName(),
                     orderList.getEntry(position).getQty(),
                     orderList.getEntry(position).getChosenDish().getPrice(),
-                    orderList.getEntry(position).getQty() * orderList.getEntry(position).getChosenDish().getPrice());
+                    orderList.getEntry(position).getQty() * orderList.getEntry(position).getChosenDish().getPrice()
+            );
         }
         System.out.println("+----------------------------------------------------------------------------------+");
 
@@ -71,8 +70,6 @@ public class OrderOperation {
 //            System.out.println(cus_order);
 //        }
     }
-
-
 
     public void menuTable()
     {
@@ -137,7 +134,7 @@ public class OrderOperation {
         try {
             FileInputStream fileIn = new FileInputStream("src/menu.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            menuList = (DishList<Dish>)in.readObject();
+            menuList = (DishArrayList<Dish>)in.readObject();
             in.close();
             fileIn.close();
         } catch (IOException i) {
@@ -147,4 +144,17 @@ public class OrderOperation {
             c.printStackTrace();
         }
     }
+
+//    private void write_data_into_file() {
+//        try {
+//            FileOutputStream fileOut = new FileOutputStream("src/orderList.txt");
+//            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+//            out.writeObject(orderList);
+//            out.close();
+//            fileOut.close();
+//            System.out.print("Serialized data is saved in src/orderList.txt\n");
+//        } catch (IOException i) {
+//            i.printStackTrace();
+//        }
+//    }
 }

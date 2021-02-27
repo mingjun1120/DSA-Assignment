@@ -32,7 +32,7 @@ public interface OrderQueueInterface<T> {
      * Precondition  - Queue is not empty
      * Postcondition - Queue remains unchanged
      * Return        - T Object at the front; null otherwise if the queue is empty
-     * */
+     */
 
     boolean remove(T t);
     /*
