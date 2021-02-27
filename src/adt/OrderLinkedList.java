@@ -96,6 +96,13 @@ public class OrderLinkedList<T> implements OrderListInterface<T>, Serializable {
         return last;
     }
 
+    @Override
+    public void clear() {
+        lastNode = null;
+        firstNode = null;
+        size = 0;
+    }
+
     private class Node {
 
         private T data;
