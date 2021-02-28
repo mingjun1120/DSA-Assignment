@@ -41,6 +41,16 @@ public interface ListInterface<T> {
     void clear();
     /*
      * Description   - clear all the elements in the list
+     * Precondition  - None
      * Postcondition - list remain nothing, become empty list
+     * Return        - None
+     */
+
+    T[] getAllEntries();
+    /*
+     * Description   - Store all the elements in the list into an array
+     * Precondition  - List in not empty
+     * Postcondition - list remains unchanged
+     * Return        - Return an array that contains all the elements in the list
      */
 }
