@@ -28,9 +28,7 @@ public class mainClass {
                             while (ans == 'Y') {
                                 choice = orderOp.operation();
                                 switch (choice) {
-                                    case 1 -> {
-                                        ans = 'N';
-                                    }
+                                    case 1 -> ans = 'N';
                                     case 2 -> {
                                         orderOp.editOrderQty();
                                         sum = orderOp.displayOrder();
@@ -123,7 +121,7 @@ public class mainClass {
 
     public static int doSelection(int menu_num, String message)
     {
-        int selection = 0;
+        int selection;
         do {
             System.out.printf( message + "%d): ", menu_num);
             selection = isDigit();
