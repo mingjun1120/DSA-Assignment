@@ -1,4 +1,6 @@
 package adt;
+import entity.OrderDish;
+
 import java.io.Serializable;
 
 public class OrderLinkedList<T> implements OrderListInterface<T>, Serializable {
@@ -94,6 +96,19 @@ public class OrderLinkedList<T> implements OrderListInterface<T>, Serializable {
             last = lastNode.data;
         }
         return last;
+    }
+
+    @Override
+    public T[] getAllEntries() {
+        T[] temp = (T[]) new Object[size];
+        Node currentNode = firstNode;
+        int i = 0;
+        while (currentNode != null){
+            temp[i] = currentNode.data;
+            currentNode = currentNode.next;
+            i++;
+        }
+        return temp;
     }
 
     @Override
