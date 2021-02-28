@@ -69,6 +69,13 @@ public class DishArrayList<T> implements DishListInterface<T>, Serializable {
     }
 
     @Override
+    public T[] getAllEntries() {
+        T[] temp = (T[]) new Object[numberOfEntries];
+        if (numberOfEntries >= 0) System.arraycopy(dishList, 0, temp, 0, numberOfEntries);
+        return temp;
+    }
+
+    @Override
     public void doubleSize(){
         T[] tempDishList = (T[]) new Object[dishList.length * 2];
 
