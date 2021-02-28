@@ -58,8 +58,6 @@ public interface OrderQueueInterface<T> {
 	 * Return        - None
 	 */
 
-    T getEntry(int givenPosition);
-
     T[] getAllEntries();
     /*
      * Description   - Retrieves all entries from the queue.
