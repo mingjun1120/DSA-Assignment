@@ -93,19 +93,6 @@ public class OrderQueueLinked<T> implements OrderQueueInterface<T>, Serializable
     }
 
     @Override
-    public T getEntry(int givenPosition) {
-        T data = null;
-        if(givenPosition >= 1 && givenPosition <= size) {
-            Node currentNode = firstNode;
-            for(int index = 1; index < givenPosition; index++){
-                currentNode = currentNode.next;
-            }
-            data = currentNode.data;
-        }
-        return data;
-    }
-
-    @Override
     public T[] getAllEntries() {
         T[] temp = (T[]) new Object[size];
         Node currentNode = firstNode;
@@ -117,15 +104,6 @@ public class OrderQueueLinked<T> implements OrderQueueInterface<T>, Serializable
         }
         return temp;
     }
-
-//    @Override
-//    public void getAllEntries() {
-//        Node currentNode = firstNode;
-//        while(currentNode != null) {
-//            System.out.println(currentNode.data.toString());
-//            currentNode = currentNode.next;
-//        }
-//    }
 
     private class Node {
 
