@@ -1,5 +1,4 @@
 package adt;
-import org.w3c.dom.Node;
 import java.io.Serializable;
 
 public class OrderQueueLinked<T> implements OrderQueueInterface<T>, Serializable{
