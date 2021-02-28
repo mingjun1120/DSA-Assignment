@@ -39,4 +39,8 @@ public interface ListInterface<T> {
      */
 
     void clear();
+    /*
+     * Description   - clear all the elements in the list
+     * Postcondition - list remain nothing, become empty list
+     */
 }
