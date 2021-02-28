@@ -1,5 +1,4 @@
 package entity;
-
 import java.util.GregorianCalendar;
 
 public class Order {
@@ -8,7 +7,7 @@ public class Order {
     private double orderTotalPrice;
     private int quantity;
 
-    public Order(int orderNum, GregorianCalendar orderTime, double orderTotalPrice, int quantity) {
+    public Order(String orderID, GregorianCalendar orderTime, double orderTotalPrice, int quantity) {
         this.orderID = orderID;
         this.orderTime = orderTime;
         this.orderTotalPrice = orderTotalPrice;
