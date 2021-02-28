@@ -110,7 +110,7 @@ public class OrderDishOperation {
             boolean yes_no_ans;
             orderList.remove(order_selected);
             do {
-                ans = getAns("Anymore? (Y/N): ");
+                ans = getAns();
                 yes_no_ans = is_Yes_and_No(ans);
                 if (!yes_no_ans) { //yes_no_ans == false
                     if (ans == 'Y') {
@@ -136,23 +136,7 @@ public class OrderDishOperation {
             int error = -1;
             do{
                 System.out.print("Enter the amount to pay: ");
-                if (scan.hasNextDouble()) {
-                    double amt_received = scan.nextDouble();
-                    error = -2;
-                    if (amt_received >= sum) {
-                        System.out.println("\nORDERED SUCCESSFUL!");
-                        //write_data_into_file();
-                        error = 1;
-                    }
-                }
-                scan.nextLine();
-                if (error == -1) {
-                    System.out.println("Invalid input! Please enter again!\n");
-                }
-                if(error == -2) {
-                    System.out.println("Insufficient collection! Please enter again!\n");
-                    error = -1;
-                }
+                error = getAmtPaidByCust(sum, error);
             } while(error == -1);
         } else {
             System.out.println("\nThis order has been successfully cancelled!");
@@ -170,6 +154,27 @@ public class OrderDishOperation {
         System.out.println("|         4. Exit               |");
         System.out.println("+-------------------------------+");
         return doSelection(4, "Enter your choice (1-");
+    }
+
+    private int getAmtPaidByCust(double sum, int error) {
+        if (scan.hasNextDouble()) {
+            double amt_received = scan.nextDouble();
+            error = -2;
+            if (amt_received >= sum) {
+                System.out.println("\nORDERED SUCCESSFUL!");
+                //write_data_into_file();
+                error = 1;
+            }
+        }
+        scan.nextLine();
+        if (error == -1) {
+            System.out.println("Invalid input! Please enter again!\n");
+        }
+        if(error == -2) {
+            System.out.println("Insufficient collection! Please enter again!\n");
+            error = -1;
+        }
+        return error;
     }
 
     private int editDishQtyConfirmation(int order_selected) {
@@ -208,9 +213,9 @@ public class OrderDishOperation {
         return menuList.getLength();
     }
 
-    private char getAns(String msg) {
+    private char getAns() {
         char ans;
-        System.out.print(msg);
+        System.out.print("Anymore? (Y/N): ");
         ans = isChar(scan);
         return ans;
     }
