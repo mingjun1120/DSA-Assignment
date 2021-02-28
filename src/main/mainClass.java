@@ -5,7 +5,7 @@ import java.util.*;
 public class mainClass {
     public static Scanner scan = new Scanner(System.in);
     private static final DishOperation dishOp = new DishOperation();
-    private static final OrderOperation orderOp = new OrderOperation();
+    private static final OrderDishOperation orderOp = new OrderDishOperation();
     public static void main(String[] args) {
 
         int operation_selection;
@@ -17,9 +17,38 @@ public class mainClass {
             int selection;
             switch (operation_selection)
             {
-                case 1: orderOp.addNewOrder();
-                        orderOp.displayOrder();
-                        orderOp.paymentConfirmation();
+                case 1: char ans;
+                        double sum;
+                        int choice;
+                        do {
+                            choice = 0;
+                            orderOp.addNewOrder();
+                            sum = orderOp.displayOrder();
+                            ans = orderOp.addOn_or_modify_confirmation_before_payment();
+                            while (ans == 'Y') {
+                                choice = orderOp.operation();
+                                switch (choice) {
+                                    case 1 -> {
+                                        ans = 'N';
+                                    }
+                                    case 2 -> {
+                                        orderOp.editOrderQty();
+                                        sum = orderOp.displayOrder();
+                                        ans = orderOp.addOn_or_modify_confirmation_before_payment();
+                                    }
+                                    case 3 -> {
+                                        orderOp.removeOrder();
+                                        sum = orderOp.displayOrder();
+                                        ans = orderOp.addOn_or_modify_confirmation_before_payment();
+                                    }
+                                    default ->{
+                                        sum = orderOp.displayOrder();
+                                        ans = orderOp.addOn_or_modify_confirmation_before_payment();
+                                    }
+                                }
+                            }
+                        } while(choice == 1);
+                        orderOp.paymentConfirmation(sum);
                         break;
                 case 2: do {
                             modifyMenuTable();
@@ -34,6 +63,8 @@ public class mainClass {
         } while(operation_selection >= 1 && operation_selection <= 4);
     }
 
+
+
     private static void switch_func(int modify_selection) {
         switch (modify_selection) {
             case 1: addNewDish(); break;
@@ -44,7 +75,7 @@ public class mainClass {
         }
     }
 
-    public static void operationMenuTable()
+    private static void operationMenuTable()
     {
         System.out.println("\n+------------------------------------+");
         System.out.println("|           Operation List           |");
@@ -57,7 +88,7 @@ public class mainClass {
         System.out.println("+------------------------------------+");
     }
 
-    public static void modifyMenuTable()
+    private static void modifyMenuTable()
     {
         System.out.println("\n+------------------------------------+");
         System.out.println("|          Menu Operation            |");
