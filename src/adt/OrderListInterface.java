@@ -23,4 +23,6 @@ public interface OrderListInterface<T> extends ListInterface<T> {
      * Postcondition - List remains unchanged
      * Return        - T Object at the back; null otherwise if the list is empty
      */
+
+    T[] getAllEntries();
 }
