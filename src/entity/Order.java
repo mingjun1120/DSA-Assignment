@@ -7,8 +7,17 @@ public class Order {
     private double orderTotalPrice;
     private OrderDish cusOrder;
 
+    private static int id_no = 1;
+
     public Order(String orderID, GregorianCalendar orderTime, double orderTotalPrice, OrderDish cusOrder) {
         this.orderID = orderID;
+        this.orderTime = orderTime;
+        this.orderTotalPrice = orderTotalPrice;
+        this.cusOrder = cusOrder;
+    }
+
+    public Order(GregorianCalendar orderTime, double orderTotalPrice, OrderDish cusOrder) {
+        this.orderID = "OD".concat(String.valueOf(id_no++));
         this.orderTime = orderTime;
         this.orderTotalPrice = orderTotalPrice;
         this.cusOrder = cusOrder;
