@@ -1,6 +1,7 @@
 package entity;
+import java.io.Serializable;
 
-public class OrderDish {
+public class OrderDish implements Serializable {
 
     private int qty;
     private Dish chosenDish;
