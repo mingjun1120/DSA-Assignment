@@ -1,22 +1,23 @@
 package entity;
-import java.util.GregorianCalendar;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
-public class Order {
+public class Order implements Serializable {
     private String orderID;
-    private GregorianCalendar orderTime;
+    private LocalDateTime orderTime;
     private double orderTotalPrice;
-    private OrderDish cusOrder;
+    private OrderDish[] cusOrder;
 
     private static int id_no = 1;
 
-    public Order(String orderID, GregorianCalendar orderTime, double orderTotalPrice, OrderDish cusOrder) {
+    public Order(String orderID, LocalDateTime orderTime, double orderTotalPrice, OrderDish[] cusOrder) {
         this.orderID = orderID;
         this.orderTime = orderTime;
         this.orderTotalPrice = orderTotalPrice;
         this.cusOrder = cusOrder;
     }
 
-    public Order(GregorianCalendar orderTime, double orderTotalPrice, OrderDish cusOrder) {
+    public Order(LocalDateTime orderTime, double orderTotalPrice, OrderDish[] cusOrder) {
         this.orderID = "OD".concat(String.valueOf(id_no++));
         this.orderTime = orderTime;
         this.orderTotalPrice = orderTotalPrice;
@@ -31,11 +32,11 @@ public class Order {
         this.orderID = orderID;
     }
 
-    public GregorianCalendar getOrderTime() {
+    public LocalDateTime getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(GregorianCalendar orderTime) {
+    public void setOrderTime(LocalDateTime orderTime) {
         this.orderTime = orderTime;
     }
 
@@ -47,11 +48,11 @@ public class Order {
         this.orderTotalPrice = orderTotalPrice;
     }
 
-    public OrderDish getCusOrder() {
+    public OrderDish[] getCusOrder() {
         return cusOrder;
     }
 
-    public void setCusOrder(OrderDish cusOrder) {
+    public void setCusOrder(OrderDish[] cusOrder) {
         this.cusOrder = cusOrder;
     }
 
