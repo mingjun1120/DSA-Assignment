@@ -75,10 +75,10 @@ public class DishOperation {
 // ========================================================== Main Functions =============================================================
     public void addNewDish() {
         read_data_from_File();
-        Dish d = menuList.getEntry(menuList.getLength()); // Use to check ID. Return null if there is no any dishes
-        String[] all_dish_name = getAllDishNames();
         char anymore;
         do {
+            Dish d = menuList.getEntry(menuList.getLength()); // Use to check ID. Return null if there is no any dishes
+            String[] all_dish_name = getAllDishNames();
             Dish dish = inputDishDetails(all_dish_name, d);
             menuList.add(dish);
             do {
