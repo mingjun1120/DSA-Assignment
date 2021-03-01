@@ -1,14 +1,18 @@
 package main;
 import java.io.*;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import static main.mainClass.doSelection;
 import adt.*;
 import entity.Dish;
+import entity.Order;
 import entity.OrderDish;
 
 public class OrderDishOperation {
     DishListInterface<Dish> menuList = new DishArrayList<>();
     OrderListInterface<OrderDish> orderList = new OrderLinkedList<>();
+    QueueInterface<Order> orderedList = new OrderQueueLinked<>();
     public static Scanner scan = new Scanner(System.in);
 
     public OrderDish inputDishDetails() {
@@ -161,6 +165,17 @@ public class OrderDishOperation {
             double amt_received = scan.nextDouble();
             error = -2;
             if (amt_received >= sum) {
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+                ZoneId zoneId = ZoneId.of("Asia/Kuala_Lumpur");
+                LocalDateTime localDateTime = LocalDateTime.now(zoneId);
+
+                //orderedList.enqueue(new Order(localDateTime, sum, orderList.getAllEntries()));
+
+                //print_receipt();
+
+                //System.out.println(Arrays.toString(orderedList.getFront().getCusOrder()));
+
                 System.out.println("\nORDERED SUCCESSFUL!");
                 //write_data_into_file();
                 error = 1;
@@ -175,6 +190,45 @@ public class OrderDishOperation {
             error = -1;
         }
         return error;
+    }
+
+    private void print_receipt() {
+
+        System.out.println("\n+---------------------------------------------------------------------------------------+");
+        System.out.println("|                                    NOODLES UNLIMITED                                    |");
+        System.out.println("|                          TARUC KUALA LUMPUR, JLN GENTING KLANG                          |");
+        System.out.println("|                           Lot 5.103.00 - 5.105.00 & P5.10.00,                           |");
+        System.out.println("|                               53300 Kuala Lumpur, Malaysia                              |");
+        System.out.println("|                                                                                         |");
+        System.out.println("|                                         RECEIPT                                         |");
+        System.out.println("|                                       -----------                                       |");
+        System.out.println("|                                                                                         |");
+        System.out.println("|                                                                                         |");
+        System.out.println("|    +-------------------------------------------------------------------------------+    |");
+        System.out.println("|    |  Dish ID  |        Dish Name        |  Qty  |  Price(RM)  |  Total Price(RM)  |    |");
+        System.out.println("|    |-----------|-------------------------|-------|-------------|-------------------|    |");
+
+        for (OrderDish ob : orderList.getAllEntries()) {
+            System.out.printf("|    |  %-8s| %-24s| %-6d| %-12.2f| %-18.2f|    |\n",
+                    ob.getChosenDish().getId(),
+                    ob.getChosenDish().getName(),
+                    ob.getQty(),
+                    ob.getChosenDish().getPrice(),
+                    ob.getQty() * ob.getChosenDish().getPrice()
+            );
+        }
+        System.out.println("|    +-------------------------------------------------------------------------------+    |");
+        System.out.println("|                                                                                         |");
+        System.out.println("|                                                                                         |");
+//         System.out.printf("|                  %14s %40.2f            |\n","Total  :RM", total);
+//         System.out.printf("|                  %14s %40.2f            |\n","Paid   :RM", cash);
+//         System.out.printf("|                  %14s %40.2f            |\n","Change :RM", cash - total);
+        System.out.println("|                                                                                         |");
+        System.out.println("|                                                                                         |");
+        System.out.println("|                                   Payment Successful!                                   |");
+        System.out.println("|                              Thank You, Have a nice day =)                              |");
+        System.out.println("\n+---------------------------------------------------------------------------------------+");
+
     }
 
     private int editDishQtyConfirmation(int order_selected) {
