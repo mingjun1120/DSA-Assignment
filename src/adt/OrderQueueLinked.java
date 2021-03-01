@@ -1,7 +1,9 @@
 package adt;
-import java.io.Serializable;
 
-public class OrderQueueLinked<T> implements OrderQueueInterface<T>, Serializable{
+import java.io.Serializable;
+import java.util.Iterator;
+
+public class OrderQueueLinked<T> implements QueueInterface<T>, Serializable{
 
     private Node firstNode; // references node at front of queue
     private Node lastNode;  // references node at back of queue
@@ -102,6 +104,35 @@ public class OrderQueueLinked<T> implements OrderQueueInterface<T>, Serializable
             i++;
         }
         return temp;
+    }
+
+    @Override
+    public Iterator<T> getIterator() {
+        return new LinkedQueueIterator();
+    }
+
+    private class LinkedQueueIterator implements Iterator<T> {
+
+        private Node iteratorPointer;
+
+        public LinkedQueueIterator() {
+            iteratorPointer = firstNode;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return iteratorPointer != null;
+        }
+
+        @Override
+        public T next() {
+            T returnData = null;
+            if (hasNext()) {
+                returnData = iteratorPointer.data;
+                iteratorPointer = iteratorPointer.next;
+            }
+            return returnData;
+        }
     }
 
     private class Node {
