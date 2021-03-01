@@ -100,7 +100,7 @@ public class OrderLinkedList<T> implements OrderListInterface<T>, Serializable {
 
     @Override
     public T[] getAllEntries() {
-        T[] temp = (T[]) new Object[size];
+        T[] temp = (T[]) new OrderDish[size];
         Node currentNode = firstNode;
         int i = 0;
         while (currentNode != null){
