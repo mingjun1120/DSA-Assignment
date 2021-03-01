@@ -62,6 +62,16 @@ public class OrderQueueLinked<T> implements QueueInterface<T>, Serializable{
     }
 
     @Override
+    public T getLast() {
+        T last = null;
+
+        if (!isEmpty()) {
+            last = lastNode.data;
+        }
+        return last;
+    }
+
+    @Override
     public boolean isEmpty() {
         return (firstNode == null) && (lastNode == null);
     }
