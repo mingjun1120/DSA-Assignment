@@ -35,6 +35,14 @@ public interface QueueInterface<T> {
      * Return        - T Object at the front; null otherwise if the queue is empty
      */
 
+    T getLast();
+    /*
+     * Description   - Retrieve the first T object
+     * Precondition  - Queue is not empty
+     * Postcondition - Queue remains unchanged
+     * Return        - T Object at the front; null otherwise if the queue is empty
+     */
+
     boolean remove(T t);
     /*
      * Description   - Remove the object of type T from the queue
