@@ -2,7 +2,7 @@ package adt;
 import java.io.Serializable;
 
 public class DishArrayList<T> implements DishListInterface<T>, Serializable {
-    private final static int MAX_SIZE = 100;
+    private final static int MAX_SIZE = 5;
     private T[] dishList;
     private int numberOfEntries;
     private static final long serialVersionUID = -3896112140209065945L;
