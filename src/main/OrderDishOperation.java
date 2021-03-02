@@ -189,7 +189,7 @@ public class OrderDishOperation {
     }
 
     private void print_receipt(double sum, double amt_received) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss a");
 
         System.out.println("\n+-----------------------------------------------------------------------------------------+");
         System.out.println("|                                    NOODLES UNLIMITED                                    |");
@@ -199,7 +199,7 @@ public class OrderDishOperation {
         System.out.println("|                                                                                         |");
         System.out.println("|                                         RECEIPT                                         |");
         System.out.println("|                                       -----------                                       |");
-         System.out.printf("|    ORDER ID: %-5s                                        DATETIME: %-19s |\n", orderedList.getLast().getOrderID(), orderedList.getLast().getOrderTime().format(formatter));
+         System.out.printf("|    ORDER ID: %-5s                                     DATETIME: %-15s |\n", orderedList.getLast().getOrderID(), orderedList.getLast().getOrderTime().format(formatter));
         System.out.println("|                                                                                         |");
         System.out.println("|                                                                                         |");
         System.out.println("|    +-------------------------------------------------------------------------------+    |");
