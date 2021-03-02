@@ -165,7 +165,7 @@ public class OrderDishOperation {
             double amt_received = scan.nextDouble();
             error = -2;
             if (amt_received >= sum) {
-                System.out.println("\nORDERED SUCCESSFUL!\n");
+                System.out.println("\nORDERED SUCCESSFUL!");
 
                 ZoneId zoneId = ZoneId.of("Asia/Kuala_Lumpur");
                 LocalDateTime localDateTime = LocalDateTime.now(zoneId);
@@ -220,7 +220,7 @@ public class OrderDishOperation {
         System.out.println("|    +-------------------------------------------------------------------------------+    |");
         System.out.println("|                                                                                         |");
         System.out.println("|                                                                                         |");
-         System.out.printf("|                  %44s %8.2f                  |\n","TOTAL  :RM", sum);
+         System.out.printf("|                  %44s %8.2f                  |\n","TOTAL  :RM", orderedList.getLast().getOrderTotalPrice());
          System.out.printf("|                  %44s %8.2f                  |\n","PAID   :RM", amt_received);
          System.out.printf("|                  %44s %8.2f                  |\n","CHANGE :RM", amt_received - sum);
         System.out.println("|                                                                                         |");
