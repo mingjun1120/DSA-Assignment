@@ -46,7 +46,8 @@ public class mainClass {
                                 }
                             }
                         } while(choice == 1);
-                        orderOp.paymentConfirmation(sum);
+                        if (sum > 0)
+                            orderOp.paymentConfirmation(sum);
                         break;
                 case 2: do {
                             modifyMenuTable();
