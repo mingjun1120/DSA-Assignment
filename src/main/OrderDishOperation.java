@@ -34,7 +34,7 @@ public class OrderDishOperation {
     }
 
     public void addNewOrder() {
-        //read_order_data_from_File();
+        read_order_data_from_File();
         menuTable();
         char anymore;
         do {
@@ -345,7 +345,7 @@ public class OrderDishOperation {
         try {
             FileOutputStream fileOut = new FileOutputStream("src/orderedList.txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(orderList);
+            out.writeObject(orderedList);
             out.close();
             fileOut.close();
             //System.out.print("Serialized data is saved in src/orderedList.txt\n");
