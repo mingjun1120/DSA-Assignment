@@ -118,7 +118,7 @@ public class OrderLinkedList<T> implements OrderListInterface<T>, Serializable {
         size = 0;
     }
 
-    private class Node {
+    private class Node implements Serializable {
 
         private T data;
         private Node next;
