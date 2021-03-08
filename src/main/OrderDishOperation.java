@@ -5,9 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import static main.mainClass.doSelection;
 import adt.*;
-import entity.Dish;
-import entity.Order;
-import entity.OrderDish;
+import entity.*;
 
 public class OrderDishOperation {
     DishListInterface<Dish> menuList = new DishArrayList<>();
@@ -27,7 +25,7 @@ public class OrderDishOperation {
         do {
             System.out.print("Enter quantity: ");
             qty = isDigit();
-            if (qty == -1){
+            if (qty == -1) {
                 System.out.println("Invalid input! Please enter again!\n");
             }
         } while (qty == -1);
@@ -36,6 +34,7 @@ public class OrderDishOperation {
     }
 
     public void addNewOrder() {
+        //read_order_data_from_File();
         menuTable();
         char anymore;
         do {
@@ -109,7 +108,7 @@ public class OrderDishOperation {
         System.out.println("\nNOTE!!! ENTER " + (orderList.getLength() + 1) + " TO EXIT!");
         int order_selected = doSelection(orderList.getLength() + 1, "Enter which order you want to remove (1-");
 
-        while (order_selected != orderList.getLength() + 1){
+        while (order_selected != orderList.getLength() + 1) {
             char ans;
             boolean yes_no_ans;
             orderList.remove(order_selected);
@@ -173,7 +172,7 @@ public class OrderDishOperation {
 
                 print_receipt(sum, amt_received);
 
-                //write_data_into_file();
+                write_data_into_file();
                 error = 1;
             }
         }
@@ -327,14 +326,29 @@ public class OrderDishOperation {
         }
     }
 
+    private void read_order_data_from_File() {
+        try {
+            FileInputStream fileIn = new FileInputStream("src/orderedList.txt");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            orderedList = (OrderQueueLinked<Order>)in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+        }
+    }
+
     private void write_data_into_file() {
         try {
-            FileOutputStream fileOut = new FileOutputStream("src/orderList.txt");
+            FileOutputStream fileOut = new FileOutputStream("src/orderedList.txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             out.writeObject(orderList);
             out.close();
             fileOut.close();
-            System.out.print("Serialized data is saved in src/orderList.txt\n");
+            //System.out.print("Serialized data is saved in src/orderedList.txt\n");
         } catch (IOException i) {
             i.printStackTrace();
         }
