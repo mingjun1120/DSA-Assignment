@@ -239,7 +239,7 @@ public class DishOperation {
         }
     }
 
-    public void menuTable()
+    private void menuTable()
     {
         System.out.println("+----------------------------------------------------+");
         System.out.println("|                        MENU                        |");
