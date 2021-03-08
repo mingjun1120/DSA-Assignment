@@ -121,7 +121,7 @@ public class OrderQueueLinked<T> implements QueueInterface<T>, Serializable{
         return new LinkedQueueIterator();
     }
 
-    private class LinkedQueueIterator implements Iterator<T> {
+    private class LinkedQueueIterator implements Iterator<T>, Serializable {
 
         private Node iteratorPointer;
 
@@ -145,7 +145,7 @@ public class OrderQueueLinked<T> implements QueueInterface<T>, Serializable{
         }
     }
 
-    private class Node {
+    private class Node implements Serializable {
 
         private T data;
         private Node next;
