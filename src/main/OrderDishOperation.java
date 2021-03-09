@@ -168,7 +168,9 @@ public class OrderDishOperation {
 
                 ZoneId zoneId = ZoneId.of("Asia/Kuala_Lumpur");
                 LocalDateTime localDateTime = LocalDateTime.now(zoneId);
+
                 orderedList.enqueue(new Order(localDateTime, sum, orderList.getAllEntries()));
+                orderList.clear();
 
                 print_receipt(sum, amt_received);
 
@@ -205,7 +207,7 @@ public class OrderDishOperation {
         System.out.println("|    |  Dish ID  |        Dish Name        |  Qty  |  Price(RM)  |  Total Price(RM)  |    |");
         System.out.println("|    |-----------|-------------------------|-------|-------------|-------------------|    |");
 
-        for (OrderDish ob : orderList.getAllEntries()) {
+        for (OrderDish ob : orderedList.getLast().getCusOrder()) {
             System.out.printf("|    |  %-9s| %-24s| %-6d| %-12.2f| %-18.2f|    |\n",
                     ob.getChosenDish().getId(),
                     ob.getChosenDish().getName(),
@@ -214,6 +216,7 @@ public class OrderDishOperation {
                     ob.getQty() * ob.getChosenDish().getPrice()
             );
         }
+
         System.out.println("|    +-------------------------------------------------------------------------------+    |");
          System.out.printf("|    |%57s  | %-18.2f|    |\n","TOTAL PRICE NEED TO PAY:   RM", sum);
         System.out.println("|    +-------------------------------------------------------------------------------+    |");
