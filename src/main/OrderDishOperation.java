@@ -5,12 +5,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import static main.mainClass.doSelection;
 import adt.*;
+import adt.ArrayList;
+import adt.LinkedList;
 import entity.*;
 
 public class OrderDishOperation {
-    DishListInterface<Dish> menuList = new DishArrayList<>();
-    OrderListInterface<OrderDish> orderList = new OrderLinkedList<>();
-    QueueInterface<Order> orderedList = new OrderQueueLinked<>();
+    ArrayListInterface<Dish> menuList = new ArrayList<>();
+    ListInterface<OrderDish> orderList = new LinkedList<>();
+    QueueInterface<Order> orderedList = new LinkedQueue<>();
     public static Scanner scan = new Scanner(System.in);
 
     public OrderDish inputDishDetails() {
@@ -41,7 +43,7 @@ public class OrderDishOperation {
             OrderDish cus_order = inputDishDetails();
             if (cus_order == null)
                 break;
-            orderList.offer(cus_order);
+            orderList.add(cus_order);
             do {
                 System.out.print("Anymore? (Y/N): ");
                 anymore = isChar(scan);
@@ -318,7 +320,7 @@ public class OrderDishOperation {
         try {
             FileInputStream fileIn = new FileInputStream("src/menu.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            menuList = (DishArrayList<Dish>)in.readObject();
+            menuList = (ArrayList<Dish>)in.readObject();
             in.close();
             fileIn.close();
         } catch (IOException i) {
@@ -333,7 +335,7 @@ public class OrderDishOperation {
         try {
             FileInputStream fileIn = new FileInputStream("src/orderedList.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            orderedList = (OrderQueueLinked<Order>)in.readObject();
+            orderedList = (LinkedQueue<Order>)in.readObject();
             in.close();
             fileIn.close();
         } catch (IOException i) {
