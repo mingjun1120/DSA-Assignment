@@ -47,7 +47,7 @@ public class OrderLinkedList<T> implements OrderListInterface<T>, Serializable {
         T data = null;
         if(givenPosition >= 1 && givenPosition <= size) {
             Node currentNode = firstNode;
-            for(int index = 1; index < givenPosition; index++){
+            for(int index = 1; index < givenPosition; index++) {
                 currentNode = currentNode.next;
             }
             data = currentNode.data;
@@ -76,6 +76,22 @@ public class OrderLinkedList<T> implements OrderListInterface<T>, Serializable {
         }
         lastNode = newNode;
         size++;
+    }
+
+    @Override
+    public T poll() {
+        T front = null;
+
+        if (!isEmpty()) {
+            front = firstNode.data;
+            firstNode = firstNode.next;
+
+            if (firstNode == null) {
+                lastNode = null;
+            }
+        }
+        size--;
+        return front;
     }
 
     @Override
