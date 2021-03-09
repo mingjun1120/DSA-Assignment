@@ -1,7 +1,7 @@
 package main;
 
-import adt.DishArrayList;
-import adt.DishListInterface;
+import adt.ArrayList;
+import adt.ArrayListInterface;
 import entity.Dish;
 import java.io.*;
 import java.util.Scanner;
@@ -9,7 +9,7 @@ import java.util.Scanner;
 import static main.mainClass.doSelection;
 
 public class DishOperation {
-    private static DishListInterface<Dish> menuList = new DishArrayList<>();
+    private static ArrayListInterface<Dish> menuList = new ArrayList<>();
     Scanner scan = new Scanner(System.in);
 
     public void display() {
@@ -295,7 +295,7 @@ public class DishOperation {
         try {
             FileInputStream fileIn = new FileInputStream("src/menu.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            menuList = (DishArrayList<Dish>)in.readObject();
+            menuList = (ArrayList<Dish>)in.readObject();
             in.close();
             fileIn.close();
         } catch (IOException i) {
