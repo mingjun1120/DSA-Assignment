@@ -26,11 +26,12 @@ public class DishOperation {
         System.out.println("+----------------------------------------------------+");
     }
 
-    public Dish inputDishDetails(String[] all_dish_name, Dish d) {
+    public Dish inputDishDetails(Dish d) {
 
         System.out.println("\n**NEW DISH REGISTRATION**");
         System.out.println("-------------------------");
         String name;
+        String[] all_dish_name = getAllDishNames();
         do {
             System.out.print("Enter new dish name: ");
             name = getDishName(all_dish_name);
@@ -78,8 +79,8 @@ public class DishOperation {
         char anymore;
         do {
             Dish d = menuList.getEntry(menuList.getLength()); // Use to check ID. Return null if there is no any dishes
-            String[] all_dish_name = getAllDishNames();
-            Dish dish = inputDishDetails(all_dish_name, d);
+            //String[] all_dish_name = getAllDishNames();
+            Dish dish = inputDishDetails(d);
             menuList.add(dish);
             do {
                 System.out.print("Anymore? (Y/N): ");
