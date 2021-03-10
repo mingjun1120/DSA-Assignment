@@ -15,7 +15,7 @@ public class OrderDishOperation {
     QueueInterface<Order> orderedList = new LinkedQueue<>();
     public static Scanner scan = new Scanner(System.in);
 
-    public OrderDish inputDishDetails() {
+    private OrderDish inputDishDetails() {
         System.out.println("\n**ORDERING**");
         System.out.println("--------------");
 
@@ -161,6 +161,33 @@ public class OrderDishOperation {
         return doSelection(4, "Enter your choice (1-");
     }
 
+    public int viewOrderQueue() {
+        int loopAgn = 0;
+        read_order_data_from_File();
+        if (orderedList.size() == 0) {
+            System.out.println("THERE IS NO ORDER IN QUEUE CURRENTLY!");
+        } else {
+            System.out.println("\n+--------------------------------+");
+            System.out.println("|   ORDER ID WAITING TO BE OUT   |");
+            System.out.println("+--------------------------------+");
+            //System.out.println("|            1. OD100            |");
+            Iterator<Order> it = orderedList.getIterator();
+            int position = 1;
+            while (it.hasNext()){
+                System.out.printf("|%12d. %-14s    |\n", position, it.next().getOrderID());
+                position++;
+            }
+            System.out.println("+--------------------------------+");
+
+            System.out.print("\nPress 'D' to dequeue an order (any other key to exit): ");
+            if (scan.next().charAt(0) == 'D') {
+                orderedList.dequeue();
+                loopAgn = 1;
+            }
+        }
+        return loopAgn;
+    }
+
     private int getAmtPaidByCust(double sum, int error) {
         if (scan.hasNextDouble()) {
             double amt_received = scan.nextDouble();
@@ -267,7 +294,7 @@ public class OrderDishOperation {
         System.out.println("+----------------------------------------------------+");
     }
 
-    public int getDishLen() {
+    private int getDishLen() {
         return menuList.getLength();
     }
 
