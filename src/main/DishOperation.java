@@ -26,7 +26,7 @@ public class DishOperation {
         System.out.println("+----------------------------------------------------+");
     }
 
-    public Dish inputDishDetails(Dish d) {
+    private Dish inputDishDetails(Dish d) {
 
         System.out.println("\n**NEW DISH REGISTRATION**");
         System.out.println("-------------------------");
