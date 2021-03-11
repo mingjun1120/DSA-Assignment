@@ -31,7 +31,10 @@ public class mainClass {
                         break;
                 case 3: System.out.println("Hiii!"); break;
                 case 4: System.out.println("Hiiii!"); break;
-                default:
+                default: if (orderOp.current_ordered.size() > 0) {
+                             System.out.println("\nTHERE ARE ORDERS STILL WAITING TO BE SENT OUT!!!\nPLEASE CLEAR THOSE ORDERS!!!");
+                             operation_selection = 1;
+                         }
             }
         } while(operation_selection >= 1 && operation_selection <= 4);
     }
