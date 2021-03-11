@@ -13,6 +13,7 @@ public class OrderDishOperation {
     ArrayListInterface<Dish> menuList = new ArrayList<>();
     ListInterface<OrderDish> orderList = new LinkedList<>();
     QueueInterface<Order> orderedList = new LinkedQueue<>();
+    QueueInterface<Order> current_ordered = new LinkedQueue<>();
     public static Scanner scan = new Scanner(System.in);
 
     private OrderDish inputDishDetails() {
@@ -163,15 +164,15 @@ public class OrderDishOperation {
 
     public int viewOrderQueue() {
         int loopAgn = 0;
-        read_order_data_from_File();
-        if (orderedList.size() == 0) {
-            System.out.println("THERE IS NO ORDER IN QUEUE CURRENTLY!");
+        int error;
+        if (current_ordered.size() == 0) {
+            System.out.println("\nTHERE IS NO ORDER IN QUEUE CURRENTLY!");
         } else {
             System.out.println("\n+--------------------------------+");
             System.out.println("|   ORDER ID WAITING TO BE OUT   |");
             System.out.println("+--------------------------------+");
             //System.out.println("|            1. OD100            |");
-            Iterator<Order> it = orderedList.getIterator();
+            Iterator<Order> it = current_ordered.getIterator();
             int position = 1;
             while (it.hasNext()){
                 System.out.printf("|%12d. %-14s    |\n", position, it.next().getOrderID());
@@ -179,12 +180,25 @@ public class OrderDishOperation {
             }
             System.out.println("+--------------------------------+");
 
-            System.out.print("\nPress 'D' to dequeue an order (any other key to exit): ");
-            if (scan.next().charAt(0) == 'D') {
-                orderedList.dequeue();
-                write_data_into_file();
-                loopAgn = 1;
-            }
+            do {
+                loopAgn = 0;
+                error = 0;
+                System.out.print("\nPress 'D' to dequeue an order (Q to exit): ");
+                String ans = scan.nextLine();
+                if (ans.length() == 1){
+                    if (!(Character.toString(ans.charAt(0)).matches("^[dDqQ]?$"))) {
+                        error = 1;
+                    } else if (Character.toString(ans.charAt(0)).matches("^[dD]?$")){
+                        current_ordered.dequeue();
+                        loopAgn = 1;
+                    } else {
+                        return loopAgn;
+                    }
+                } else { error = 1; }
+                if (ans.length() != 1 || error == 1) {
+                    System.out.println("Invalid input! Please enter again!");
+                }
+            } while (error == 1);
         }
         return loopAgn;
     }
@@ -200,6 +214,7 @@ public class OrderDishOperation {
                 LocalDateTime localDateTime = LocalDateTime.now(zoneId);
 
                 orderedList.enqueue(new Order(localDateTime, sum, orderList.getAllEntries()));
+                current_ordered.enqueue(new Order(orderedList.getLast().getOrderID(), orderedList.getLast().getOrderTime(), sum, orderList.getAllEntries()));
                 orderList.clear();
 
                 print_receipt(sum, amt_received);
