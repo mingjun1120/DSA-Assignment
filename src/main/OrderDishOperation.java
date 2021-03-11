@@ -182,6 +182,7 @@ public class OrderDishOperation {
             System.out.print("\nPress 'D' to dequeue an order (any other key to exit): ");
             if (scan.next().charAt(0) == 'D') {
                 orderedList.dequeue();
+                write_data_into_file();
                 loopAgn = 1;
             }
         }
