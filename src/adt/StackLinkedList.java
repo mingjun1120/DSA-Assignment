@@ -56,19 +56,18 @@ public class StackLinkedList<T> implements StackInterface<T> {
         topNode = null;
     }
 
-    private class Node{
+    private class Node {
         private T data;
         private Node next;
 
-        public Node(T data){
+        public Node(T data) {
             this.data = data;
         }
 
-        public Node(T data, Node next){
+        public Node(T data, Node next) {
             this.data = data;
-            this.data = (T) next;
+            this.next = next;
         }
-
     }
 
 }
