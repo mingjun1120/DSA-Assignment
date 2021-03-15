@@ -1,49 +1,32 @@
 package main;
 
 import java.io.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 import adt.*;
 import entity.*;
 
 public class TransHistOperation {
     public static Scanner scan = new Scanner(System.in);
-    StackInterface<TransHist> transaction = new StackLinkedList<TransHist>();
-    private LinkedQueue<Order> orderedList;
+    StackInterface<TransHist> tran_history = new LinkedStack<>();
 
-    private void addTransaction(){
-        read_order_data_from_File(orderedList);
-        Order[] ordered = orderedList.getAllEntries();
-        ordered.toString();
+    public void print_Tran_History() {
+        DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss a");
 
-    }
+        System.out.println("+---------------------------------------------------+");
+        System.out.println("|                TRANSACTION HISTORY                |");
+        System.out.println("+---------------------------------------------------+");
 
-    private void read_order_data_from_File(LinkedQueue<Order> orderedList) {
-        try {
-            FileInputStream fileIn = new FileInputStream("src/orderedList.txt");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            orderedList = (LinkedQueue<Order>)in.readObject();
-            in.close();
-            fileIn.close();
-        } catch (IOException i) {
-            i.printStackTrace();
-        } catch (ClassNotFoundException c) {
-            System.out.println("Employee class not found");
-            c.printStackTrace();
+        Iterator<TransHist> it = tran_history.getIterator();
+        while(it.hasNext()) {
+            System.out.printf("|  %-5s  |  %-10s  |  %-11s  |  %-5s  |  -%5.2f  |\n", it.next().getTranID(),
+                                                     it.next().getTranTime().format(formatter_date),
+                                                     it.next().getTranTime().format(formatter_time),
+                                                     it.next().getTranDetail().getOrderID(),
+                                                     it.next().getTranDetail().getOrderTotalPrice()
+            );
         }
+        System.out.println(tran_history.isEmpty());
     }
-
-   /** private void write_data_into_file() {
-        try {
-            FileOutputStream fileOut = new FileOutputStream("src/transHist.txt");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(TransactionHistory);
-            out.close();
-            fileOut.close();
-            //System.out.print("Serialized data is saved in src/orderedList.txt\n");
-        } catch (IOException i) {
-            i.printStackTrace();
-        }
-    }*/
-
 }
