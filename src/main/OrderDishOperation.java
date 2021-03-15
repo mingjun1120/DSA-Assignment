@@ -3,6 +3,7 @@ import java.io.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import static main.TransHistOperation.tran_history;
 import static main.mainClass.doSelection;
 import adt.*;
 import adt.ArrayList;
@@ -14,7 +15,7 @@ public class OrderDishOperation {
     ListInterface<OrderDish> orderList = new LinkedList<>();
     QueueInterface<Order> orderedList = new LinkedQueue<>();
     QueueInterface<Order> current_ordered = new LinkedQueue<>();
-    StackInterface<TransHist> tran_history = new LinkedStack<>();
+    //StackInterface<TransHist> tran_history = new LinkedStack<>();
     public static Scanner scan = new Scanner(System.in);
 
     private OrderDish inputDishDetails() {
@@ -216,24 +217,19 @@ public class OrderDishOperation {
                 LocalDateTime localDateTime = LocalDateTime.now(zoneId);
 
                 Order od = orderedList.getLast();
-
-                if (od == null) {
-                    orderedList.enqueue(new Order(localDateTime, sum, orderList.getAllEntries()));
-                } else {
-                    if (od.getOrderTime().format(formatter).equals(localDateTime.format(formatter))){ //compare date only
-                        int id_no = Integer.parseInt(od.getOrderID().substring(2));
-                        orderedList.enqueue(new Order(++id_no, localDateTime, sum, orderList.getAllEntries()));
-                    } else {
-                        orderedList.enqueue(new Order(localDateTime, sum, orderList.getAllEntries()));
-                    }
-                }
-                tran_history.push(new TransHist(localDateTime, orderedList.getLast()));
+                enqueue_confirmed_order(sum, formatter, localDateTime, od);
                 current_ordered.enqueue(new Order(orderedList.getLast().getOrderID(), orderedList.getLast().getOrderTime(), sum, orderList.getAllEntries()));
+
+                read_tran_history_from_File();
+                TransHist th = TransHistOperation.tran_history.peek();
+                push_confirmed_order_as_TranHis(localDateTime, th);
+
                 orderList.clear();
 
                 print_receipt(sum, amt_received);
 
-                write_data_into_file();
+                write_data_into_file(); // Write orderedList data
+                write_tran_history_data_into_file(); // Write transaction history data
                 error = 1;
             }
         }
@@ -246,6 +242,28 @@ public class OrderDishOperation {
             error = -1;
         }
         return error;
+    }
+
+    private void push_confirmed_order_as_TranHis(LocalDateTime localDateTime, TransHist th) {
+        if (th == null){
+            TransHistOperation.push(new TransHist(localDateTime, orderedList.getLast()));
+        } else {
+            int id_no = Integer.parseInt(th.getTranID().substring(1));
+            TransHistOperation.push(new TransHist(++id_no, localDateTime, orderedList.getLast()));
+        }
+    }
+
+    private void enqueue_confirmed_order(double sum, DateTimeFormatter formatter, LocalDateTime localDateTime, Order od) {
+        if (od == null) {
+            orderedList.enqueue(new Order(localDateTime, sum, orderList.getAllEntries()));
+        } else {
+            if (od.getOrderTime().format(formatter).equals(localDateTime.format(formatter))){ //compare date only
+                int id_no = Integer.parseInt(od.getOrderID().substring(2));
+                orderedList.enqueue(new Order(++id_no, localDateTime, sum, orderList.getAllEntries()));
+            } else {
+                orderedList.enqueue(new Order(localDateTime, sum, orderList.getAllEntries()));
+            }
+        }
     }
 
     private void print_receipt(double sum, double amt_received) {
@@ -403,6 +421,21 @@ public class OrderDishOperation {
         }
     }
 
+    private void read_tran_history_from_File() {
+        try {
+            FileInputStream fileIn = new FileInputStream("src/tranHistory.txt");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            tran_history = (LinkedStack<TransHist>)in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        } catch (ClassNotFoundException c) {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+        }
+    }
+
     private void write_data_into_file() {
         try {
             FileOutputStream fileOut = new FileOutputStream("src/orderedList.txt");
@@ -411,6 +444,18 @@ public class OrderDishOperation {
             out.close();
             fileOut.close();
             //System.out.print("Serialized data is saved in src/orderedList.txt\n");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    private void write_tran_history_data_into_file() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("src/tranHistory.txt");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(tran_history);
+            out.close();
+            fileOut.close();
         } catch (IOException i) {
             i.printStackTrace();
         }
