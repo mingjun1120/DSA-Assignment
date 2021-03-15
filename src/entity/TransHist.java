@@ -1,44 +1,56 @@
 package entity;
 
 import java.time.LocalDateTime;
-import import java.io.Serializable;
+import java.io.Serializable;
 
-public class TransHist implements Serializable{
-    private int totalTransMade;
-    private double totalTransPrice;
+public class TransHist implements Serializable {
+    private String tranID;
+    private LocalDateTime tranTime;
+    private Order tranDetail;
 
-    public TransHist(String orderID, LocalDateTime orderTime, double orderTotalPrice, OrderDish[] cusOrder, int totalTransMade, double totalTransPrice) {
-        super(orderID, orderTime, orderTotalPrice, cusOrder);
-        this.totalTransMade = totalTransMade;
-        this.totalTransPrice = totalTransPrice;
+    private static int id_no = 1;
+    private static final String tranType = "Cash";
 
+    public TransHist(LocalDateTime tranTime, Order tranDetail) {
+        this.tranID = "T".concat(String.valueOf(id_no++));
+        this.tranTime = tranTime;
+        this.tranDetail = tranDetail;
     }
 
-    public double getTotalTransMade() {
-        return totalTransMade;
+    public String getTranID() {
+        return tranID;
     }
 
-    public void setTotalTransMade(int totalTransMade) {
-
-        this.totalTransMade = totalTransMade;
+    public void setTranID(String tranID) {
+        this.tranID = tranID;
     }
 
-    public double getTotalTransPrice() {
-
-        return totalTransPrice;
+    public LocalDateTime getTranTime() {
+        return tranTime;
     }
 
-    public void setTotalTransPrice(double totalTransPrice) {
+    public void setTranTime(LocalDateTime tranTime) {
+        this.tranTime = tranTime;
+    }
 
-        this.totalTransPrice = totalTransPrice;
+    public static String getTranType() {
+        return tranType;
+    }
+
+    public Order getTranDetail() {
+        return tranDetail;
+    }
+
+    public void setTranDetail(Order tranDetail) {
+        this.tranDetail = tranDetail;
     }
 
     @Override
     public String toString() {
-        super.toString();
         return "TransHist{" +
-                "totalTransMade:" + totalTransMade +
-                ", totalTransPrice:" + totalTransPrice +
+                "tranID='" + tranID + '\'' +
+                ", tranTime=" + tranTime +
+                ", tranDetail=" + tranDetail +
                 '}';
     }
 }
