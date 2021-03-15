@@ -17,6 +17,12 @@ public class TransHist implements Serializable {
         this.tranDetail = tranDetail;
     }
 
+    public TransHist(int tranID, LocalDateTime tranTime, Order tranDetail) {
+        this.tranID = "T".concat(String.valueOf(tranID));
+        this.tranTime = tranTime;
+        this.tranDetail = tranDetail;
+    }
+
     public String getTranID() {
         return tranID;
     }
