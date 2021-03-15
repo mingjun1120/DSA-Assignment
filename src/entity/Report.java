@@ -1,11 +1,30 @@
-
 package entity;
+import java.time.LocalDateTime;
 
 public class Report implements Comparable<Report> {
+    private String reportID;
     private String reportName;
+    private LocalDateTime reportDate;
+    private static int id_no = 1;
 
-    public Report(String reportName){
+    public Report(String reportID, String reportName, LocalDateTime reportDate) {
+        this.reportID = reportID;
         this.reportName = reportName;
+        this.reportDate = reportDate;
+    }
+
+    public Report(String reportName, LocalDateTime reportDate) {
+        this.reportID = "RE".concat(String.valueOf(id_no++));
+        this.reportName = reportName;
+        this.reportDate = reportDate;
+    }
+
+    public String getReportID() {
+        return reportID;
+    }
+
+    public void setReportID(String reportID) {
+        this.reportID = reportID;
     }
 
     public String getReportName() {
@@ -16,11 +35,17 @@ public class Report implements Comparable<Report> {
         this.reportName = reportName;
     }
 
+    public LocalDateTime getReportDate() {
+        return reportDate;
+    }
+
+    public void setReportDate(LocalDateTime reportDate) {
+        this.reportDate = reportDate;
+    }
+
     @Override
     public String toString() {
-        return "Report{" +
-                "reportName = '" + reportName + '\'' +
-                '}';
+        return reportID + reportDate + reportName;
     }
 
     @Override

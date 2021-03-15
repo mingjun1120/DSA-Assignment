@@ -17,6 +17,8 @@ public interface ReportListInterface<T extends Comparable<T>>{
      * Return        - The element that was removed if it exists in the set; null otherwise.
      */
 
+    boolean contains (T anEntry);
+
     boolean isEmpty();
     /*
      * Description   - Checks whether the list is empty or not.

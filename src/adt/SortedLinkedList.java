@@ -67,6 +67,11 @@ public class SortedLinkedList<T extends Comparable<T>> implements ReportListInte
     }
 
     @Override
+    public boolean contains(T anEntry){
+        return searchNode(anEntry, firstNode) != null;
+    }
+
+    @Override
     public boolean isEmpty() {
         return firstNode == null;
     }
@@ -85,6 +90,18 @@ public class SortedLinkedList<T extends Comparable<T>> implements ReportListInte
     @Override
     public void reverse() {
 
+    }
+
+    @Override
+    public String toString() {
+        String str = "";
+        Node currentNode = firstNode;
+
+        while(currentNode != null){
+            str += currentNode.data + "\n";
+            currentNode = currentNode.next;
+        }
+        return str;
     }
 
     private class Node{
