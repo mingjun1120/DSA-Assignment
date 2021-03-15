@@ -1,7 +1,8 @@
 package adt;
+import java.io.Serializable;
 import java.util.Iterator;
 
-public class LinkedStack<T> implements StackInterface<T> {
+public class LinkedStack<T> implements StackInterface<T>, Serializable{
     private Node topNode;
 
     public LinkedStack(){
@@ -63,7 +64,7 @@ public class LinkedStack<T> implements StackInterface<T> {
         return new LinkedStackIterator();
     }
 
-    private class LinkedStackIterator implements Iterator<T> {
+    private class LinkedStackIterator implements Iterator<T>, Serializable{
 
         private Node iteratorPointer;
 
@@ -88,7 +89,7 @@ public class LinkedStack<T> implements StackInterface<T> {
 
     }
 
-    private class Node {
+    private class Node implements Serializable {
         private T data;
         private Node next;
 
