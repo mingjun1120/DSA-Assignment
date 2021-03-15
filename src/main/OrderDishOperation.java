@@ -14,6 +14,7 @@ public class OrderDishOperation {
     ListInterface<OrderDish> orderList = new LinkedList<>();
     QueueInterface<Order> orderedList = new LinkedQueue<>();
     QueueInterface<Order> current_ordered = new LinkedQueue<>();
+    StackInterface<TransHist> tran_history = new LinkedStack<>();
     public static Scanner scan = new Scanner(System.in);
 
     private OrderDish inputDishDetails() {
@@ -226,6 +227,7 @@ public class OrderDishOperation {
                         orderedList.enqueue(new Order(localDateTime, sum, orderList.getAllEntries()));
                     }
                 }
+                tran_history.push(new TransHist(localDateTime, orderedList.getLast()));
                 current_ordered.enqueue(new Order(orderedList.getLast().getOrderID(), orderedList.getLast().getOrderTime(), sum, orderList.getAllEntries()));
                 orderList.clear();
 
