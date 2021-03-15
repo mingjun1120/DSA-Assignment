@@ -6,6 +6,7 @@ public class mainClass {
     public static Scanner scan = new Scanner(System.in);
     private static final DishOperation dishOp = new DishOperation();
     private static final OrderDishOperation orderOp = new OrderDishOperation();
+    private static final TransHistOperation tranHis = new TransHistOperation();
     public static void main(String[] args) {
 
         int operation_selection;
@@ -23,13 +24,17 @@ public class mainClass {
                              switch_func1(selection);
                         } while (selection != 3);
                         break;
+
                 case 2: do {
                             modifyMenuTable();
                             selection = doSelection(5, "Enter your choice (1-");
                             switch_func2(selection);
                         } while (selection != 5);
                         break;
-                case 3: System.out.println("Hiii!"); break;
+
+                case 3: tranHis.print_Tran_History();
+                        break;
+
                 case 4: System.out.println("Hiiii!"); break;
                 default: if (orderOp.current_ordered.size() > 0) {
                              System.out.println("\nTHERE ARE ORDERS STILL WAITING TO BE SENT OUT!!!\nPLEASE CLEAR THOSE ORDERS!!!");
