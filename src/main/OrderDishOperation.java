@@ -210,10 +210,22 @@ public class OrderDishOperation {
             if (amt_received >= sum) {
                 System.out.println("\nORDERED SUCCESSFUL!");
 
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd");
                 ZoneId zoneId = ZoneId.of("Asia/Kuala_Lumpur");
                 LocalDateTime localDateTime = LocalDateTime.now(zoneId);
 
-                orderedList.enqueue(new Order(localDateTime, sum, orderList.getAllEntries()));
+                Order od = orderedList.getLast();
+
+                if (od == null) {
+                    orderedList.enqueue(new Order(localDateTime, sum, orderList.getAllEntries()));
+                } else {
+                    if (od.getOrderTime().format(formatter).equals(localDateTime.format(formatter))){ //compare date only
+                        int id_no = Integer.parseInt(od.getOrderID().substring(2));
+                        orderedList.enqueue(new Order(++id_no, localDateTime, sum, orderList.getAllEntries()));
+                    } else {
+                        orderedList.enqueue(new Order(localDateTime, sum, orderList.getAllEntries()));
+                    }
+                }
                 current_ordered.enqueue(new Order(orderedList.getLast().getOrderID(), orderedList.getLast().getOrderTime(), sum, orderList.getAllEntries()));
                 orderList.clear();
 

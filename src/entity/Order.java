@@ -24,6 +24,13 @@ public class Order implements Serializable {
         this.cusOrder = cusOrder;
     }
 
+    public Order(int orderID, LocalDateTime orderTime, double orderTotalPrice, OrderDish[] cusOrder) {
+        this.orderID = "OD".concat(String.valueOf(orderID));
+        this.orderTime = orderTime;
+        this.orderTotalPrice = orderTotalPrice;
+        this.cusOrder = cusOrder;
+    }
+
     public String getOrderID() {
         return orderID;
     }
