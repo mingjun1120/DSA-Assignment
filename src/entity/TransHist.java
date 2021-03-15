@@ -1,8 +1,9 @@
 package entity;
 
 import java.time.LocalDateTime;
+import import java.io.Serializable;
 
-public class TransHist extends Order {
+public class TransHist implements Serializable{
     private int totalTransMade;
     private double totalTransPrice;
 
@@ -23,6 +24,7 @@ public class TransHist extends Order {
     }
 
     public double getTotalTransPrice() {
+
         return totalTransPrice;
     }
 
