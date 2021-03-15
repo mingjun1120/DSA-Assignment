@@ -1,6 +1,5 @@
-
 package adt;
-
+import java.util.Iterator;
 
 public interface StackInterface<T> {
 
@@ -13,6 +12,8 @@ public interface StackInterface<T> {
     public boolean isEmpty();
 
     public void clear();
+
+    Iterator<T> getIterator();
 }
     
 
