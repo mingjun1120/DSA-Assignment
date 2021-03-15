@@ -13,8 +13,8 @@ public class TransHistOperation {
 
     private void addTransaction(){
         read_order_data_from_File(orderedList);
-        Order[] transactionsMade = orderedList.getAllEntries();
-        transactionsMade.toString();
+        Order[] ordered = orderedList.getAllEntries();
+        ordered.toString();
 
     }
 
