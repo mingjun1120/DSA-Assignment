@@ -3,7 +3,6 @@ import java.io.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import static main.TransHistOperation.tran_history;
 import static main.mainClass.doSelection;
 import adt.*;
 import adt.ArrayList;
@@ -421,11 +420,11 @@ public class OrderDishOperation {
         }
     }
 
-    private void read_tran_history_from_File() {
+    public static void read_tran_history_from_File() {
         try {
             FileInputStream fileIn = new FileInputStream("src/tranHistory.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            tran_history = (LinkedStack<TransHist>)in.readObject();
+            TransHistOperation.tran_history = (LinkedStack<TransHist>)in.readObject();
             in.close();
             fileIn.close();
         } catch (IOException i) {
@@ -453,7 +452,7 @@ public class OrderDishOperation {
         try {
             FileOutputStream fileOut = new FileOutputStream("src/tranHistory.txt");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(tran_history);
+            out.writeObject(TransHistOperation.tran_history);
             out.close();
             fileOut.close();
         } catch (IOException i) {
