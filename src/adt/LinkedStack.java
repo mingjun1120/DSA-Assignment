@@ -15,8 +15,6 @@ public class LinkedStack<T> implements StackInterface<T>, Serializable{
         Node newNode = new Node(newEntry);
         newNode.next = topNode;
         topNode = newNode;
-
-        System.out.println("Hi, I got push!!!");
     }
 
     @Override
