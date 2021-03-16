@@ -32,7 +32,11 @@ public class mainClass {
                         } while (selection != 5);
                         break;
 
-                case 3: tranHis.print_Tran_History();
+                case 3: do {
+                            tranHistoryTable();
+                            selection = doSelection(3, "Enter your choice (1-");
+                            switch_func3(selection);
+                        } while (selection != 3);
                         break;
 
                 case 4: System.out.println("Hiiii!"); break;
@@ -44,6 +48,12 @@ public class mainClass {
         } while(operation_selection >= 1 && operation_selection <= 4);
     }
 
+    private static void orderQueue() {
+        int loopAgn;
+        do {
+            loopAgn = orderOp.viewOrderQueue();
+        } while (loopAgn == 1);
+    }
 
     private static void switch_func1(int selection) {
         switch (selection) {
@@ -51,13 +61,6 @@ public class mainClass {
             case 2: orderQueue(); break;
             default:
         }
-    }
-
-    private static void orderQueue() {
-        int loopAgn;
-        do {
-            loopAgn = orderOp.viewOrderQueue();
-        } while (loopAgn == 1);
     }
 
     private static void switch_func2(int modify_selection) {
@@ -68,6 +71,24 @@ public class mainClass {
             case 4: removeDish(); break;
             default:
         }
+    }
+
+    private static void switch_func3(int selection) {
+        switch (selection) {
+            case 1: tranHis.print_Tran_History();; break;
+            case 2: tranHis.print_filtered_Tran_History(); break;
+            default:
+        }
+    }
+
+    private static void tranHistoryTable() {
+        System.out.println("\n+--------------------------------------+");
+        System.out.println("|           View Transaction           |");
+        System.out.println("+--------------------------------------+");
+        System.out.println("|  1. Display all transaction history  |");
+        System.out.println("|  2. Display through filter date      |");
+        System.out.println("|  3. Exit                             |");
+        System.out.println("+--------------------------------------+");
     }
 
     private static void operationMenuTable()
