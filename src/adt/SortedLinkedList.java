@@ -88,11 +88,6 @@ public class SortedLinkedList<T extends Comparable<T>> implements ReportListInte
     }
 
     @Override
-    public void reverse() {
-
-    }
-
-    @Override
     public String toString() {
         String str = "";
         Node currentNode = firstNode;

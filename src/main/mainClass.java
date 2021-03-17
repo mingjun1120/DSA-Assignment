@@ -7,6 +7,7 @@ public class mainClass {
     private static final DishOperation dishOp = new DishOperation();
     private static final OrderDishOperation orderOp = new OrderDishOperation();
     private static final TransHistOperation tranHis = new TransHistOperation();
+    private static final ReportOperation reportOp = new ReportOperation();
     public static void main(String[] args) {
 
         int operation_selection;
@@ -39,7 +40,13 @@ public class mainClass {
                         } while (selection != 3);
                         break;
 
-                case 4: System.out.println("Hiiii!"); break;
+                case 4: do {
+                            reportTypeTable();
+                            selection = doSelection(4, "Enter your choice (1-");
+                            switch_func4(selection);
+                        } while (selection != 4);
+
+                break;
                 default: if (orderOp.current_ordered.size() > 0) {
                              System.out.println("\nTHERE ARE ORDERS STILL WAITING TO BE SENT OUT!!!\nPLEASE CLEAR THOSE ORDERS!!!");
                              operation_selection = 1;
@@ -75,8 +82,17 @@ public class mainClass {
 
     private static void switch_func3(int selection) {
         switch (selection) {
-            case 1: tranHis.print_Tran_History();; break;
+            case 1: tranHis.print_Tran_History(); break;
             case 2: tranHis.print_filtered_Tran_History(); break;
+            default:
+        }
+    }
+
+    private static void switch_func4(int selection) {
+        switch (selection) {
+            case 1: reportOp.display_Daily_Sales_Report(); break;
+            case 2: reportOp.display_Weekly_Sales_Report(); break;
+            case 3: reportOp.display_Dish_Rankings_Report(); break;
             default:
         }
     }
@@ -125,6 +141,17 @@ public class mainClass {
         System.out.println("|         1. Make order              |");
         System.out.println("|         2. View order in queue     |");
         System.out.println("|         3. Exit                    |");
+        System.out.println("+------------------------------------+");
+    }
+
+    private static void reportTypeTable(){
+        System.out.println("\n+------------------------------------+");
+        System.out.println("|            Report Type             |");
+        System.out.println("+------------------------------------+");
+        System.out.println("|         1. Daily Sales Report      |");
+        System.out.println("|         2. Weekly Sales Report     |");
+        System.out.println("|         3. Dish Rankings Report    |");
+        System.out.println("|         4. Exit                    |");
         System.out.println("+------------------------------------+");
     }
 

@@ -18,6 +18,11 @@ public interface ReportListInterface<T extends Comparable<T>>{
      */
 
     boolean contains (T anEntry);
+    /*
+     * Description   - Checks whether the list contains the given element.
+     * Postcondition - The list remains unchanged.
+     * Return        - True if the list contains the specified element; false otherwise.
+     */
 
     boolean isEmpty();
     /*
@@ -39,9 +44,4 @@ public interface ReportListInterface<T extends Comparable<T>>{
      * Return        - The number of elements in the list.
      */
 
-    void reverse();
-    /*
-     * Description   - Sorts the list in descending order.
-     * Postcondition - The elements are sorted in descending order and stored into the list.
-     */
 }
