@@ -1,6 +1,6 @@
 package adt;
 
-public class SortedLinkedList<T extends Comparable<T>> implements ReportListInterface<T>{
+public class SortedLinkedList<T extends Comparable<T>> implements SortedLinkedListInterface<T> {
     private Node firstNode;
     private Node currentNode;
     private int length;
