@@ -24,6 +24,7 @@ public class mainClass {
                              selection = doSelection(3, "Enter your choice (1-");
                              switch_func1(selection);
                         } while (selection != 3);
+                        break;
 
                 case 2: do {
                             modifyMenuTable();

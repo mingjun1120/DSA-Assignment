@@ -1,6 +1,6 @@
 package adt;
 
-public interface ReportListInterface<T extends Comparable<T>>{
+public interface SortedLinkedListInterface<T extends Comparable<T>>{
 
     boolean add (T newEntry);
     /*

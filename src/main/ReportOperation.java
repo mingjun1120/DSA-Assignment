@@ -81,7 +81,7 @@ public class ReportOperation {
         System.out.println("|                                                -----------                                             |");
         System.out.printf("|%-13s  %-14s  %-15s  %-15s %-17s %-12s %s|\n", "Order ID", "Date", "Time", "Dish Name", "Price Each(RM)", "Quantity", "Price(RM)");
     }
-    
+
     private void readOrderedListTextFile() {
         try {
             FileInputStream fis = new FileInputStream("src/orderedList.txt");

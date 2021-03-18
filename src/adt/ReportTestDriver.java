@@ -4,7 +4,7 @@ import entity.Report;
 
 public class ReportTestDriver {
     public static void main(String[] args) {
-        ReportListInterface<Report> reportList = new SortedLinkedList<>();
+        SortedLinkedListInterface<Report> reportList = new SortedLinkedList<>();
 
         System.out.println("Is report empty: " + reportList.isEmpty());
 
