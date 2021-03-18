@@ -18,53 +18,29 @@ public class ReportOperation {
         DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss a");
 
         readOrderedListTextFile();
-
-        System.out.print("\n");
-        System.out.println("\n+-----------------------------------------------------------------------------------------+");
-        System.out.println("|                                    NOODLES UNLIMITED                                    |");
-        System.out.println("|                          TARUC KUALA LUMPUR, JLN GENTING KLANG                          |");
-        System.out.println("|                           Lot 5.103.00 - 5.105.00 & P5.10.00,                           |");
-        System.out.println("|                               53300 Kuala Lumpur, Malaysia                              |");
-        System.out.println("|                                                                                         |");
-        System.out.println("|                                    Daily Sales Report                                   |");
-        System.out.println("|                                        -----------                                      |");
-        System.out.printf("|%-13s  %-14s  %-15s %7s %s %s %s\n", "Order ID", "Date", "Time", "Dish Name", "Price Each", "Quantity", "Price(RM)");
-
-        //orderID, Date, Time, Dish Name, Price Each, qty, total price
-        //                     Dish Name, Price Each, qty, total price
-
+        display_Report_Header();
 
         Iterator<Order> it = orderedList.getIterator();
         while(it.hasNext()) {
             Order order = it.next();
-            System.out.printf("|  %-5s |   %-10s   |  %-11s  |   %-5.2f  |   %-20s   |\n",
+            System.out.printf("|  %-5s |   %-10s   |  %-11s  |",
                     order.getOrderID(),
                     order.getOrderTime().format(formatter_date),
-                    order.getOrderTime().format(formatter_time),
-                    order.getOrderTotalPrice(),
-                    order.getCusOrder()
+                    order.getOrderTime().format(formatter_time)
             );
+            int count = 0;
+            for (OrderDish od : order.getCusOrder()){
+                if(count > 0)
+                    System.out.printf("%43s", " ");
+                System.out.printf("  %-13s    |  %9.2f      |  %5d     | %10.2f|\n",
+                        od.getChosenDish().getName(),
+                        od.getChosenDish().getPrice(),
+                        od.getQty(),
+                        od.getChosenDish().getPrice() * od.getQty()
+                );
+                count++;
+            }
         }
-//        Order order = it1.next();
-//        System.out.printf("|    %5s |  %-10s  |  %-11s  |   %-5.2f  |   %-20s   |\n",
-//                order.getOrderID(),
-//                order.getOrderTime().format(formatter_date),
-//                order.getOrderTime().format(formatter_time),
-//                order.getOrderTotalPrice(),
-//                order.getCusOrder().length
-//        );
-
-        for (int position = 1; position <= orderList.getLength(); position++) {
-            System.out.printf("| %-4d   %-18s    %-8d    %-18.2f    %-9.2f|\n",
-                    position,
-                    orderList.getEntry(position).getChosenDish().getName(),
-                    orderList.getEntry(position).getQty(),
-                    orderList.getEntry(position).getChosenDish().getPrice(),
-                    orderList.getEntry(position).getQty() * orderList.getEntry(position).getChosenDish().getPrice()
-            );
-            //sum += orderList.getEntry(position).getQty() * orderList.getEntry(position).getChosenDish().getPrice();
-        }
-        // Report Id name date
     }
 
     public void display_Weekly_Sales_Report() {
@@ -93,6 +69,19 @@ public class ReportOperation {
         System.out.println("|                                       -----------                                       |");
     }
 
+    private void display_Report_Header() {
+        System.out.print("\n");
+        System.out.println("\n+--------------------------------------------------------------------------------------------------------+");
+        System.out.println("|                                            NOODLES UNLIMITED                                           |");
+        System.out.println("|                                  TARUC KUALA LUMPUR, JLN GENTING KLANG                                 |");
+        System.out.println("|                                   Lot 5.103.00 - 5.105.00 & P5.10.00,                                  |");
+        System.out.println("|                                       53300 Kuala Lumpur, Malaysia                                     |");
+        System.out.println("|                                                                                                        |");
+        System.out.println("|                                            Daily Sales Report                                          |");
+        System.out.println("|                                                -----------                                             |");
+        System.out.printf("|%-13s  %-14s  %-15s  %-15s %-17s %-12s %s|\n", "Order ID", "Date", "Time", "Dish Name", "Price Each(RM)", "Quantity", "Price(RM)");
+    }
+    
     private void readOrderedListTextFile() {
         try {
             FileInputStream fis = new FileInputStream("src/orderedList.txt");
