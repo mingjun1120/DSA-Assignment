@@ -45,8 +45,8 @@ public class mainClass {
                             selection = doSelection(4, "Enter your choice (1-");
                             switch_func4(selection);
                         } while (selection != 4);
+                        break;
 
-                break;
                 default: if (orderOp.current_ordered.size() > 0) {
                              System.out.println("\nTHERE ARE ORDERS STILL WAITING TO BE SENT OUT!!!\nPLEASE CLEAR THOSE ORDERS!!!");
                              operation_selection = 1;
