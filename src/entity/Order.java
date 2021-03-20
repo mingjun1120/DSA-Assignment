@@ -1,4 +1,6 @@
 package entity;
+import adt.SortedLinkedList;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -7,6 +9,7 @@ public class Order implements Serializable {
     private LocalDateTime orderTime;
     private double orderTotalPrice;
     private OrderDish[] cusOrder;
+    private SortedLinkedList<OrderDish> sortQty;
 
     private static int id_no = 1;
 

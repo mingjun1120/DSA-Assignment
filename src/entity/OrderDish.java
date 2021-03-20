@@ -1,7 +1,7 @@
 package entity;
 import java.io.Serializable;
 
-public class OrderDish implements Serializable {
+public class OrderDish implements Serializable, Comparable<OrderDish> {
 
     private int qty;
     private Dish chosenDish;
@@ -30,5 +30,10 @@ public class OrderDish implements Serializable {
     @Override
     public String toString() {
         return "Chosen Dish: " + chosenDish.getName() + " Quantity: " + qty;
+    }
+
+    @Override
+    public int compareTo(OrderDish o) {
+        return this.qty - o.qty;
     }
 }

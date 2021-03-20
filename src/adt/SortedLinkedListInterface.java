@@ -1,5 +1,8 @@
 package adt;
 
+import java.util.Comparator;
+import java.util.Iterator;
+
 public interface SortedLinkedListInterface<T extends Comparable<T>>{
 
     boolean add (T newEntry);
@@ -43,5 +46,4 @@ public interface SortedLinkedListInterface<T extends Comparable<T>>{
      * Postcondition - The list remains unchanged.
      * Return        - The number of elements in the list.
      */
-
 }

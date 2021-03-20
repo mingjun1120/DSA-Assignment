@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 public class Report implements Comparable<Report> {
     private String reportID;
     private String reportName;
-    private Order orderInformation;
     private LocalDateTime reportDate;
     private static int id_no = 1;
 
@@ -12,22 +11,18 @@ public class Report implements Comparable<Report> {
         this.reportID = "RE".concat(String.valueOf(id_no++));
         this.reportName = reportName;
         this.reportDate = reportDate;
-        this.orderInformation = orderInformation;
     }
 
-    public Report(String reportID, String reportName, Order orderInformation, LocalDateTime reportDate) {
+    public Report(String reportID, String reportName, LocalDateTime reportDate) {
+        this.reportID = reportID;
+        this.reportName = reportName;
+        this.reportDate = reportDate;
+    }
+
+    public Report(int reportID, String reportName, LocalDateTime reportDate) {
         this.reportID = "RE".concat(String.valueOf(reportID));
         this.reportName = reportName;
         this.reportDate = reportDate;
-        this.orderInformation = orderInformation;
-    }
-
-    public Order getOrderInformation() {
-        return orderInformation;
-    }
-
-    public void setOrderInformation(Order orderInformation) {
-        this.orderInformation = orderInformation;
     }
 
     public String getReportID() {
@@ -56,7 +51,7 @@ public class Report implements Comparable<Report> {
 
     @Override
     public String toString() {
-        return reportID + reportDate + orderInformation + reportName;
+        return reportID + reportName + reportDate;
     }
 
     @Override

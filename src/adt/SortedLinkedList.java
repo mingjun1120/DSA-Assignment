@@ -1,8 +1,12 @@
 package adt;
 
+import java.io.Serializable;
+import java.util.Comparator;
+import java.util.Iterator;
+
 public class SortedLinkedList<T extends Comparable<T>> implements SortedLinkedListInterface<T> {
+
     private Node firstNode;
-    private Node currentNode;
     private int length;
 
     public SortedLinkedList() {
@@ -10,105 +14,87 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedLinkedLi
         length = 0;
     }
 
-    @Override
     public boolean add(T newEntry) {
-        if(firstNode == null)
-            firstNode = new Node(newEntry, null);
-        else{
-            Node lastNode = getLastNode(firstNode);
-            lastNode.next = new Node(newEntry, null);
+        Node newNode = new Node(newEntry);
+
+        Node nodeBefore = null;
+        Node currentNode = firstNode;
+        while (currentNode != null && newEntry.compareTo(currentNode.data) > 0) {
+            nodeBefore = currentNode;
+            currentNode = currentNode.next;
+        }
+
+        if (isEmpty() || (nodeBefore == null)) { // CASE 1: add at beginning
+            newNode.next = firstNode;
+            firstNode = newNode;
+        } else {	// CASE 2: add in the middle or at the end, i.e. after nodeBefore
+            newNode.next = currentNode;
+            nodeBefore.next = newNode;
         }
         length++;
         return true;
     }
 
-    private Node getLastNode(Node nextNode){
-        if(nextNode.next == null)
-            return nextNode;
-        else
-            return getLastNode(nextNode.next);
+    public boolean remove(T anEntry) {
+        throw new UnsupportedOperationException();	// Left as Practical exercise
     }
 
-    @Override
-    public boolean remove(T anEntry) {
-        Node targetNode = searchNode(anEntry, firstNode);
+    public boolean contains(T anEntry) {
+        boolean found = false;
+        Node tempNode = firstNode;
+        int pos = 1;
 
-        if(targetNode == null)
-            return false;
-        else{
-            if(targetNode.equals(firstNode)){
-                Node nextNode = targetNode.next;
-                nextNode.prev = null;
-                firstNode = nextNode;
+        while (!found && (tempNode != null)) {
+            if (anEntry.compareTo(tempNode.data) <= 0) {
+                found = true;
+            } else {
+                tempNode = tempNode.next;
+                pos++;
             }
-            else if(targetNode.next == null){
-                Node prevNode = targetNode.prev;
-                prevNode.next = null;
-            }
-            else{
-                Node prevNode = targetNode.prev;
-                Node nextNode = targetNode.next;
-                prevNode.next = nextNode;
-                nextNode.prev = prevNode;
-            }
-            length--;
-
+        }
+        if (tempNode != null && tempNode.data.equals(anEntry)) {
             return true;
+        } else {
+            return false;
         }
     }
 
-    private Node searchNode(T anEntry, Node nextNode){
-        if(nextNode.data.equals((anEntry)))
-            return nextNode;
-        else if(nextNode.next == null)
-            return null;
-        else
-            return searchNode(anEntry, nextNode.next);
-    }
-
-    @Override
-    public boolean contains(T anEntry){
-        return searchNode(anEntry, firstNode) != null;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return firstNode == null;
-    }
-
-    @Override
-    public void clear() {
+    public final void clear() {
         firstNode = null;
         length = 0;
     }
 
-    @Override
     public int getLength() {
         return length;
     }
 
-    @Override
-    public String toString() {
-        String str = "";
-        Node currentNode = firstNode;
+    public boolean isEmpty() {
+        return (length == 0);
+    }
 
-        while(currentNode != null){
-            str += currentNode.data + "\n";
+    public String toString() {
+        String outputStr = "";
+        Node currentNode = firstNode;
+        while (currentNode != null) {
+            outputStr += currentNode.data + "\n";;
             currentNode = currentNode.next;
         }
-        return str;
+        return outputStr;
     }
 
-    private class Node{
-        T data;
-        Node prev;
-        Node next;
+    private class Node {
 
-        Node(T newEntry, Node prevNode){
-            data = newEntry;
-            prev = prevNode;
+        private T data;
+        private Node next;
+
+        private Node(T data) {
+            this.data = data;
             next = null;
         }
-    }
 
+        private Node(T data, Node next) {
+            this.data = data;
+            this.next = next;
+        }
+    }
 }
