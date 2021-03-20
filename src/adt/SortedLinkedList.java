@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class SortedLinkedList<T extends Comparable<T>> implements SortedLinkedListInterface<T> {
+public class SortedLinkedList<T extends Comparable<T>> implements SortedLinkedListInterface<T>, Serializable {
 
     private Node firstNode;
     private int length;
@@ -14,6 +14,7 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedLinkedLi
         length = 0;
     }
 
+    @Override
     public boolean add(T newEntry) {
         Node newNode = new Node(newEntry);
 
@@ -35,10 +36,19 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedLinkedLi
         return true;
     }
 
+    @Override
+    public void add(T[] newEntry) {
+        for(T t : newEntry){
+            add(t);
+        }
+    }
+
+    @Override
     public boolean remove(T anEntry) {
         throw new UnsupportedOperationException();	// Left as Practical exercise
     }
 
+    @Override
     public boolean contains(T anEntry) {
         boolean found = false;
         Node tempNode = firstNode;
@@ -59,18 +69,22 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedLinkedLi
         }
     }
 
-    public final void clear() {
+    @Override
+    public void clear() {
         firstNode = null;
         length = 0;
     }
 
+    @Override
     public int getLength() {
         return length;
     }
 
-    public boolean isEmpty() {
-        return (length == 0);
-    }
+    @Override
+    public boolean isEmpty() { return (length == 0); }
+
+    @Override
+    public Iterator<T> getIterator() { return new SortedLinkedListIterator(); }
 
     public String toString() {
         String outputStr = "";
@@ -82,7 +96,27 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedLinkedLi
         return outputStr;
     }
 
-    private class Node {
+    private class SortedLinkedListIterator implements Iterator<T>, Serializable{
+
+        private Node iteratorPointer;
+
+        public SortedLinkedListIterator() { iteratorPointer = firstNode; }
+
+        @Override
+        public boolean hasNext() { return iteratorPointer != null; }
+
+        @Override
+        public T next() {
+            T returnData = null;
+            if (hasNext()) {
+                returnData = iteratorPointer.data;
+                iteratorPointer = iteratorPointer.next;
+            }
+            return returnData;
+        }
+    }
+
+    private class Node implements Serializable{
 
         private T data;
         private Node next;

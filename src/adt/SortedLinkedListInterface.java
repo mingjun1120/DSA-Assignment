@@ -12,6 +12,13 @@ public interface SortedLinkedListInterface<T extends Comparable<T>>{
      * Return        - True if given set was successfully added to the set; false otherwise.
      */
 
+    void add (T[] newEntry);
+    /*
+     * Description   - Adds the given element into the list.
+     * Postcondition - The given element has been added into the list.
+     * Return        - True if given set was successfully added to the set; false otherwise.
+     */
+
     boolean remove (T anEntry);
     /*
      * Description   - Removes the given element from the list.
@@ -46,4 +53,6 @@ public interface SortedLinkedListInterface<T extends Comparable<T>>{
      * Postcondition - The list remains unchanged.
      * Return        - The number of elements in the list.
      */
+
+    Iterator<T> getIterator();
 }

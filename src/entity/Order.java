@@ -9,7 +9,9 @@ public class Order implements Serializable {
     private LocalDateTime orderTime;
     private double orderTotalPrice;
     private OrderDish[] cusOrder;
-    private SortedLinkedList<OrderDish> sortQty;
+    private SortedLinkedList<OrderDish> cusOrderWithQtySorted = new SortedLinkedList<>();
+
+    private static final long serialVersionUID = -7551826551697071247L;
 
     private static int id_no = 1;
 
@@ -18,6 +20,9 @@ public class Order implements Serializable {
         this.orderTime = orderTime;
         this.orderTotalPrice = orderTotalPrice;
         this.cusOrder = cusOrder;
+        for(OrderDish od : cusOrder) {
+            cusOrderWithQtySorted.add(od);
+        }
     }
 
     public Order(LocalDateTime orderTime, double orderTotalPrice, OrderDish[] cusOrder) {
@@ -25,6 +30,7 @@ public class Order implements Serializable {
         this.orderTime = orderTime;
         this.orderTotalPrice = orderTotalPrice;
         this.cusOrder = cusOrder;
+        this.cusOrderWithQtySorted.add(cusOrder);
     }
 
     public Order(int orderID, LocalDateTime orderTime, double orderTotalPrice, OrderDish[] cusOrder) {
@@ -32,6 +38,7 @@ public class Order implements Serializable {
         this.orderTime = orderTime;
         this.orderTotalPrice = orderTotalPrice;
         this.cusOrder = cusOrder;
+        this.cusOrderWithQtySorted.add(cusOrder);
     }
 
     public String getOrderID() {
@@ -64,6 +71,14 @@ public class Order implements Serializable {
 
     public void setCusOrder(OrderDish[] cusOrder) {
         this.cusOrder = cusOrder;
+    }
+
+    public SortedLinkedList<OrderDish> getCusOrderWithQtySorted() {
+        return cusOrderWithQtySorted;
+    }
+
+    public void setCusOrderWithQtySorted(SortedLinkedList<OrderDish> cusOrderWithQtySorted) {
+        this.cusOrderWithQtySorted = cusOrderWithQtySorted;
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 
 public class ReportOperation {
-    SortedLinkedListInterface<DailyReport> reportList = new SortedLinkedList<>();
+    SortedLinkedListInterface<DailyReport> dailyReportList = new SortedLinkedList<>();
     ListInterface<OrderDish> orderList = new LinkedList<>();
     QueueInterface<Order> orderedList = new LinkedQueue<>();
     public static Scanner scan = new Scanner(System.in);
@@ -28,14 +28,26 @@ public class ReportOperation {
         System.out.println("|                                                                                    |");
         System.out.println("|                                  Daily Sales Report                                |");
         System.out.println("|                                      -----------                                   |");
-        System.out.printf("|%-11s  %-12s  %-10s  %-12s %-15s %-5s %s |\n", "Order ID", "Date", "Time", "Dish Name", "Price Each(RM)", "Qty", "Price(RM)");
+         System.out.printf("|%-11s  %-12s  %-10s  %-12s %-15s %-5s %s |\n", "Order ID", "Date", "Time", "Dish Name", "Price Each(RM)", "Qty", "Price(RM)");
 
         Iterator<Order> it = orderedList.getIterator();
         while(it.hasNext()) {
             Order order = it.next();
-            reportList.add(new DailyReport("RPD1", LocalDateTime.now(), order));
+            dailyReportList.add(new DailyReport(order.getOrderTime(), order));
         }
+
         //Loop reportList & print it out
+        Iterator<DailyReport> dr_it = dailyReportList.getIterator();
+        while(dr_it.hasNext()) {
+            DailyReport dr = dr_it.next();
+            System.out.println(dr.getCusOrderDateTime() + dr.getCustomerOrder().getOrderID());
+
+            Iterator<OrderDish> orderDishIt = dr.getCustomerOrder().getCusOrderWithQtySorted().getIterator();
+            while(orderDishIt.hasNext()){
+                OrderDish od = orderDishIt.next();
+                System.out.println(od.getChosenDish().getName() + " " + od.getQty() + " " + od.getChosenDish().getPrice() + od.getQty()*od.getChosenDish().getPrice());
+            }
+        }
 
 //            if(compare_Current_Date(formatter_date, now, order)){
 //                System.out.printf("|   %-4s | %-10s | %-11s |",
@@ -56,7 +68,7 @@ public class ReportOperation {
 //                    count++;
 //                }
 //            }
-        }
+    }
         //display_Report_Footer();
 
 
