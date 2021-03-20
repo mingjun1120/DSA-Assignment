@@ -40,36 +40,29 @@ public class ReportOperation {
         Iterator<DailyReport> dr_it = dailyReportList.getIterator();
         while(dr_it.hasNext()) {
             DailyReport dr = dr_it.next();
-            System.out.println(dr.getCusOrderDateTime() + dr.getCustomerOrder().getOrderID());
+            System.out.printf("|   %-4s | %-10s | %-11s |",
+                    dr.getCustomerOrder().getOrderID(),
+                    dr.getCusOrderDateTime().format(formatter_date),
+                    dr.getCusOrderDateTime().format(formatter_time));
 
             Iterator<OrderDish> orderDishIt = dr.getCustomerOrder().getCusOrderWithQtySorted().getIterator();
+            int count = 0;
             while(orderDishIt.hasNext()){
                 OrderDish od = orderDishIt.next();
-                System.out.println(od.getChosenDish().getName() + " " + od.getQty() + " " + od.getChosenDish().getPrice() + od.getQty()*od.getChosenDish().getPrice());
+                if(count > 0)
+                        System.out.printf("| %6s | %10s | %11s |", " ", " ", " ");
+                System.out.printf(" %-13s |  %7.2f     | %2d  | %9.2f |\n",
+                        od.getChosenDish().getName(),
+                        od.getChosenDish().getPrice(),
+                        od.getQty(),
+                        od.getQty()*od.getChosenDish().getPrice());
+                count++;
             }
+//            System.out.println();
+//            System.out.println(dr.getCustomerOrder().getOrderTotalPrice());
         }
-
-//            if(compare_Current_Date(formatter_date, now, order)){
-//                System.out.printf("|   %-4s | %-10s | %-11s |",
-//                        order.getOrderID(),
-//                        order.getOrderTime().format(formatter_date),
-//                        order.getOrderTime().format(formatter_time)
-//                );
-//                int count = 0;
-//                for (OrderDish od : order.getCusOrder()){
-//                    if(count > 0)
-//                        System.out.printf("| %6s | %10s | %11s |", " ", " ", " ");
-//                    System.out.printf(" %-13s |  %7.2f     | %2d  | %9.2f |\n",
-//                            od.getChosenDish().getName(),
-//                            od.getChosenDish().getPrice(),
-//                            od.getQty(),
-//                            od.getChosenDish().getPrice() * od.getQty()
-//                    );
-//                    count++;
-//                }
-//            }
+        display_Report_Footer();
     }
-        //display_Report_Footer();
 
 
     private boolean compare_Current_Date(DateTimeFormatter formatter_date, LocalDateTime now, Order order) {
