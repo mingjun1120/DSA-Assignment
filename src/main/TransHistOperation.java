@@ -1,6 +1,6 @@
 package main;
 
-import java.io.*;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import adt.*;
@@ -9,13 +9,14 @@ import entity.*;
 public class TransHistOperation {
     public static Scanner scan = new Scanner(System.in);
     public static StackInterface<TransHist> tran_history = new LinkedStack<>();
+    DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss a");
 
     public void print_Tran_History() {
-        DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss a");
         OrderDishOperation.read_tran_history_from_File();
 
-        System.out.println("\n+----------------------------------------------------------------+");
+        System.out.println("\n                   ^^ALL TRANSACTION HISTORY^^                  ");
+        System.out.println("+----------------------------------------------------------------+");
         System.out.println("|                      TRANSACTION HISTORY                       |");
         System.out.println("+----------------------------------------------------------------+");
          System.out.printf("| %-7s  |  %-10s  |  %-11s  | %-8s | %-9s |\n", "TRAN ID", "DATE", "TIME", "ORDER ID", "TOTAL(RM)");
@@ -34,12 +35,11 @@ public class TransHistOperation {
     }
 
     public void print_filtered_Tran_History() {
-        DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss a");
         OrderDishOperation.read_tran_history_from_File();
 
         System.out.println("\n********* STARTING DATE *********");
         System.out.println("---------------------------------");
+
         //Input start month
         int month = -1;
         do{
@@ -74,11 +74,11 @@ public class TransHistOperation {
         } else {
             startMonth_input = String.valueOf(month);
         }
-        String start_date = startDay_input + "/" + startMonth_input + "/" + year;
-
+        String start_date_str = startDay_input + "/" + startMonth_input + "/" + year;
 
         System.out.println("\n********** ENDING DATE **********");
         System.out.println("---------------------------------");
+
         //Input end month
         int end_month = -1;
         do{
@@ -113,10 +113,9 @@ public class TransHistOperation {
         } else {
             endMonth_input = String.valueOf(end_month);
         }
-        String end_date = endDay_input + "/" + endMonth_input + "/" + end_year;
+        String end_date_str = endDay_input + "/" + endMonth_input + "/" + end_year;
 
-
-        System.out.println("\n     ^^TRANSACTION HISTORY FROM " + start_date + " to " + end_date + "^^");
+        System.out.println("\n     ^^TRANSACTION HISTORY FROM " + start_date_str + " to " + end_date_str + "^^");
         System.out.println("+----------------------------------------------------------------+");
         System.out.println("|                      TRANSACTION HISTORY                       |");
         System.out.println("+----------------------------------------------------------------+");
@@ -125,7 +124,8 @@ public class TransHistOperation {
         Iterator<TransHist> it = tran_history.getIterator();
         while(it.hasNext()) {
             TransHist th = it.next();
-            if (th.getTranTime().format(formatter_date).equals(start_date)){
+            if (LocalDate.parse(start_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)) ||
+                LocalDate.parse(start_date_str, formatter_date).isBefore(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))) {
                 System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
                         th.getTranTime().format(formatter_date),
                         th.getTranTime().format(formatter_time),
@@ -133,8 +133,11 @@ public class TransHistOperation {
                         th.getTranDetail().getOrderTotalPrice()
                 );
             }
-            if(th.getTranTime().format(formatter_date).equals(end_date)) {
-                break;
+            if(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isEqual(LocalDate.parse(end_date_str, formatter_date)))
+            {
+                if (LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isAfter(LocalDate.parse(end_date_str, formatter_date))) {
+                    break;
+                }
             }
         }
         System.out.println("+----------------------------------------------------------------+");
