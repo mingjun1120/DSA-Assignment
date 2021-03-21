@@ -28,7 +28,7 @@ public class ReportOperation {
         System.out.println("|                                                                                    |");
         System.out.println("|                                  Daily Sales Report                                |");
         System.out.println("|                                      -----------                                   |");
-         System.out.printf("|%-11s  %-12s  %-10s  %-12s %-15s %-5s %s |\n", "Order ID", "Date", "Time", "Dish Name", "Price Each(RM)", "Qty", "Price(RM)");
+        System.out.printf("|%-11s  %-12s  %-10s  %-12s %-15s %-5s %s |\n", "Order ID", "Date", "Time", "Dish Name", "Price Each(RM)", "Qty", "Price(RM)");
 
         Iterator<Order> it = orderedList.getIterator();
         while(it.hasNext()) {
@@ -64,14 +64,25 @@ public class ReportOperation {
         display_Report_Footer();
     }
 
-
-    private boolean compare_Current_Date(DateTimeFormatter formatter_date, LocalDateTime now, Order order) {
-        return formatter_date.format(now).equals(order.getOrderTime().format(formatter_date));
-    }
-
     public void display_Weekly_Sales_Report() {
         readOrderedListTextFile();
-        display_Report_Footer();
+        readOrderedListTextFile();
+        System.out.print("\n");
+        System.out.println("\n+------------------------------------------------------------------------------------+");
+        System.out.println("|                                  NOODLES UNLIMITED                                 |");
+        System.out.println("|                        TARUC KUALA LUMPUR, JLN GENTING KLANG                       |");
+        System.out.println("|                         Lot 5.103.00 - 5.105.00 & P5.10.00,                        |");
+        System.out.println("|                             53300 Kuala Lumpur, Malaysia                           |");
+        System.out.println("|                                                                                    |");
+        System.out.println("|                                 Weekly Sales Report                                |");
+        System.out.println("|                                     -----------                                    |");
+        System.out.printf("| %13s | %5s   | %5s   | %5s   | %5s   | %5s   | %5s   | %5s  | %5s  \n", " ", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun", "Total");
+        System.out.printf("| Chili Pan Mee\n");
+        System.out.printf("| Wantan Mee\n");
+        System.out.printf("| Maggie Goreng\n");
+        System.out.printf("| Hokkien Mee\n");
+        //System.out.printf("|%-11s  %-12s  %-10s  %-12s %-15s %-5s %s |\n", "Order ID", "Date", "Time", "Dish Name", "Price Each(RM)", "Qty", "Price(RM)");
+
     }
 
     public void display_Dish_Rankings_Report() {
@@ -105,6 +116,7 @@ public class ReportOperation {
         ReportOperation reportOp = new ReportOperation();
 
         reportOp.display_Daily_Sales_Report();
+        reportOp.display_Weekly_Sales_Report();
         
     }
 
