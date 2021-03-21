@@ -10,9 +10,7 @@ public class Order implements Serializable {
     private double orderTotalPrice;
     private OrderDish[] cusOrder;
     private SortedLinkedList<OrderDish> cusOrderWithQtySorted = new SortedLinkedList<>();
-
     private static final long serialVersionUID = -7551826551697071247L;
-
     private static int id_no = 1;
 
     public Order(String orderID, LocalDateTime orderTime, double orderTotalPrice, OrderDish[] cusOrder) {
