@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 public class ReportOperation {
     SortedLinkedListInterface<DailyReport> dailyReportList = new SortedLinkedList<>();
-    StackInterface<DailyReport> dailyRankingList = new LinkedStack<>();
+    StackInterface<DailyDishRankings> dailyDishRankingStacked = new LinkedStack<>();
     SortedLinkedListInterface<DailyDishRankings> dailyDishRanking = new SortedLinkedList<>();
     ListInterface<OrderDish> orderList = new LinkedList<>();
     QueueInterface<Order> orderedList = new LinkedQueue<>();
@@ -96,21 +96,6 @@ public class ReportOperation {
         System.out.println("|                                 Daily Dish Rankings                                |");
         System.out.println("|                                     -----------                                    |");
 
-//        Iterator<Order> it = orderList.getEntry();
-//        while(it.hasNext()) {
-//            Order order = it.next();
-//            dailyReportList.add(new DailyReport(order.getOrderTime(), order));
-//        }
-
-//        Iterator<DailyReport> it = dailyRankingList.getIterator();
-//        while(it.hasNext()) {
-//            DailyReport dr = it.next();
-//            System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n",
-//                    "No.",
-//                    dr.
-//            );
-//        }
-
         int chiliQty = 0, wantanQty = 0, mincedQty = 0, sichuanQty = 0, sarawakQty = 0, curryQty = 0, laksaQty = 0, braisedQty = 0;
         double chiliPrice = 0, wantanPrice = 0, mincedPrice = 0, sichuanPrice = 0, sarawakPrice = 0, curryPrice = 0, laksaPrice = 0, braisedPrice = 0;
 
@@ -120,9 +105,8 @@ public class ReportOperation {
             if (formatter_date.format(LocalDateTime.now()).equals(dr.getCusOrderDateTime().format(formatter_date))) {
                 Iterator<OrderDish> orderDishIt = dr.getCustomerOrder().getCusOrderWithQtySorted().getIterator();
 
-                OrderDish orderDish = orderDishIt.next();
                 while (orderDishIt.hasNext()) {
-
+                    OrderDish orderDish = orderDishIt.next();
                     if ("Chili Pan Mee".equals(orderDish.getChosenDish().getName())){
                         chiliQty += orderDish.getQty();
                         chiliPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
@@ -143,22 +127,18 @@ public class ReportOperation {
                         sarawakQty += orderDish.getQty();
                         sarawakPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
                     }
-
                     else if ("Curry Chicken Pan Mee".equals(orderDish.getChosenDish().getName())){
                         curryQty += orderDish.getQty();
                         curryPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
                     }
-
                     else if ("Penang Laksa".equals(orderDish.getChosenDish().getName())){
                         laksaQty += orderDish.getQty();
                         laksaPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
                     }
-
-                    else if ("Braised Pork Ramen".equals(orderDish.getChosenDish().getName())){
+                    else {
                         braisedQty += orderDish.getQty();
                         braisedPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
                     }
-
                 }
             }
         }
@@ -171,15 +151,23 @@ public class ReportOperation {
         dailyDishRanking.add(new DailyDishRankings("Penang Laksa", laksaQty, laksaPrice));
         dailyDishRanking.add(new DailyDishRankings("Braised Pork Ramen", braisedQty, braisedPrice));
 
-        int i = 0;
         Iterator<DailyDishRankings> ddr_it = dailyDishRanking.getIterator();
-        while(dr_it.hasNext()) {
+        while(ddr_it.hasNext()) {
             DailyDishRankings ddr = ddr_it.next();
-            System.out.println(i + ". " + ddr.getDishName() + ddr.getOrderQty() + ddr.getTotalPrice());
+            dailyDishRankingStacked.push(ddr);
+        }
+
+        int i = 1;
+        Iterator<DailyDishRankings> ddrs_it = dailyDishRankingStacked.getIterator();
+        while(ddrs_it.hasNext()){
+            DailyDishRankings ddrs = ddrs_it.next();
+            System.out.println(i + ". " + ddrs.getDishName() + " | " + ddrs.getOrderQty() + " | " + ddrs.getTotalPrice());
             i++;
         }
-        //System.out.printf("| \t %-20s %d", "Chili Pan Mee", chiliQty);
-//        System.out.printf(wantanQty);
+
+
+//        System.out.printf("| \t %-20s %d %.2f", "Chili Pan Mee", chiliQty, chiliPrice);
+//        System.out.printf("%s\n", wantanQty);
 //        System.out.printf(mincedQty);
 //        System.out.printf(sichuanQty);
 //        System.out.printf(sarawakQty);
