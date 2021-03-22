@@ -37,110 +37,210 @@ public class TransHistOperation {
     public void print_filtered_Tran_History() {
         OrderDishOperation.read_tran_history_from_File();
 
-        System.out.println("\n********* STARTING DATE *********");
-        System.out.println("---------------------------------");
+        String start_date_str;
+        String end_date_str;
+        do {
+            System.out.println("\n********* STARTING DATE *********");
+            System.out.println("---------------------------------");
 
-        //Input start month
-        int month = -1;
-        do{
-            System.out.print("Enter the month: ");
-            month = input_month(month);
-        } while(month == -1);
+            int month = -1;
+            int day = -1;
+            int year = -1;
+            String startDay_input;
+            String startMonth_input;
 
-        //Input start date
-        int day = -1;
-        do{
-            System.out.print("Enter the day: ");
-            day = input_day(day, month);
-        } while(day == -1);
+            //Input start month
+            do{
+                System.out.print("Enter the month: ");
+                month = input_month(month);
+            } while(month == -1);
 
-        //Input start year
-        int year = -1;
-        do{
-            System.out.print("Enter the year (>= 2021): ");
-            year = input_year(year);
-        } while(year == -1);
+            //Input start date
+            do{
+                System.out.print("Enter the day: ");
+                day = input_day(day, month);
+            } while(day == -1);
 
-        String startDay_input;
-        if(String.valueOf(day).length() == 1){
-            startDay_input = "0".concat(String.valueOf(day));
-        } else {
-            startDay_input = String.valueOf(day);
-        }
+            //Input start year
+            do{
+                System.out.print("Enter the year (>= 2021): ");
+                year = input_year(year);
+            } while(year == -1);
 
-        String startMonth_input;
-        if(String.valueOf(month).length() == 1){
-            startMonth_input = "0".concat(String.valueOf(month));
-        } else {
-            startMonth_input = String.valueOf(month);
-        }
-        String start_date_str = startDay_input + "/" + startMonth_input + "/" + year;
+            //Validate day
+            if(String.valueOf(day).length() == 1){
+                startDay_input = "0".concat(String.valueOf(day));
+            } else {
+                startDay_input = String.valueOf(day);
+            }
 
-        System.out.println("\n********** ENDING DATE **********");
-        System.out.println("---------------------------------");
+            //Validate month
+            if(String.valueOf(month).length() == 1){
+                startMonth_input = "0".concat(String.valueOf(month));
+            } else {
+                startMonth_input = String.valueOf(month);
+            }
+            start_date_str = startDay_input + "/" + startMonth_input + "/" + year;
 
-        //Input end month
-        int end_month = -1;
-        do{
-            System.out.print("Enter the month: ");
-            end_month = input_month(end_month);
-        } while(end_month == -1);
+            System.out.println("\n********** ENDING DATE **********");
+            System.out.println("---------------------------------");
 
-        //Input end date
-        int end_day = -1;
-        do{
-            System.out.print("Enter the day: ");
-            end_day = input_day(day, end_day);
-        } while(end_day == -1);
+            int end_month = -1;
+            int end_day = -1;
+            int end_year = -1;
+            String endDay_input;
+            String endMonth_input;
 
-        //Input end year
-        int end_year = -1;
-        do{
-            System.out.print("Enter the year (>= 2021): ");
-            end_year = input_year(end_year);
-        } while(end_year == -1);
+            //Input end month
+            do{
+                System.out.print("Enter the month: ");
+                end_month = input_month(end_month);
+            } while(end_month == -1);
 
-        String endDay_input;
-        if(String.valueOf(end_day).length() == 1){
-            endDay_input = "0".concat(String.valueOf(end_day));
-        } else {
-            endDay_input = String.valueOf(end_day);
-        }
+            //Input end date
+            do{
+                System.out.print("Enter the day: ");
+                end_day = input_day(end_day, end_month);
+            } while(end_day == -1);
 
-        String endMonth_input;
-        if(String.valueOf(end_month).length() == 1){
-            endMonth_input = "0".concat(String.valueOf(end_month));
-        } else {
-            endMonth_input = String.valueOf(end_month);
-        }
-        String end_date_str = endDay_input + "/" + endMonth_input + "/" + end_year;
+            //Input end year
+            do{
+                System.out.print("Enter the year (>= 2021): ");
+                end_year = input_year(end_year);
+            } while(end_year == -1);
 
+            //Validate day
+            if(String.valueOf(end_day).length() == 1){
+                endDay_input = "0".concat(String.valueOf(end_day));
+            } else {
+                endDay_input = String.valueOf(end_day);
+            }
+
+            //Validate month
+            if(String.valueOf(end_month).length() == 1){
+                endMonth_input = "0".concat(String.valueOf(end_month));
+            } else {
+                endMonth_input = String.valueOf(end_month);
+            }
+            end_date_str = endDay_input + "/" + endMonth_input + "/" + end_year;
+
+            if(LocalDate.parse(end_date_str, formatter_date).isBefore(LocalDate.parse(start_date_str, formatter_date)))
+            {
+                System.out.println("\nEnd date cannot be earlier than start date!!!\nPlease input the date again!");
+            }
+        } while (LocalDate.parse(end_date_str, formatter_date).isBefore(LocalDate.parse(start_date_str, formatter_date)));
+
+//        int found = 0;
+//        LocalDate earliestDate = null;
+//        Iterator<TransHist> it = tran_history.getIterator();
+//        while(it.hasNext()) {
+//            TransHist th = it.next();
+//            if (LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
+//            {
+//                found = 1;
+//            }
+//            earliestDate = LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date);
+//        }
+
+        Iterator<TransHist> it2 = tran_history.getIterator();
+        display_tranHis_header(start_date_str, end_date_str);
+//        if (found == 1) {
+            while(it2.hasNext()) {
+                TransHist th = it2.next();
+                // || LocalDate.parse(start_date_str, formatter_date).isBefore(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))
+                // && LocalDate.parse(end_date_str, formatter_date).isAfter(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))
+                if (LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
+                {
+                    System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
+                            th.getTranTime().format(formatter_date),
+                            th.getTranTime().format(formatter_time),
+                            th.getTranDetail().getOrderID(),
+                            th.getTranDetail().getOrderTotalPrice()
+                    );
+                }
+                if(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isEqual(LocalDate.parse(start_date_str, formatter_date)))
+                {
+                    if (LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isBefore(LocalDate.parse(end_date_str, formatter_date))) {
+                        break;
+                    }
+                }
+            }
+//        } else {
+//            assert earliestDate != null;
+//            if (LocalDate.parse(start_date_str, formatter_date).isBefore(earliestDate))
+//            {
+//                check = 1;
+//                while(it2.hasNext()) {
+//                    TransHist th = it2.next();
+//                    if (LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
+//                    {
+//                        System.out.println(th.getTranTime().format(formatter_date));
+//                        System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
+//                                th.getTranTime().format(formatter_date),
+//                                th.getTranTime().format(formatter_time),
+//                                th.getTranDetail().getOrderID(),
+//                                th.getTranDetail().getOrderTotalPrice()
+//                        );
+//                    }
+//                    if(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isEqual(LocalDate.parse(start_date_str, formatter_date)))
+//                    {
+//                        if (LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isBefore(LocalDate.parse(end_date_str, formatter_date))) {
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        System.out.println("+----------------------------------------------------------------+");
+    }
+
+    private void display_tranHis_header(String start_date_str, String end_date_str) {
         System.out.println("\n     ^^TRANSACTION HISTORY FROM " + start_date_str + " to " + end_date_str + "^^");
         System.out.println("+----------------------------------------------------------------+");
         System.out.println("|                      TRANSACTION HISTORY                       |");
         System.out.println("+----------------------------------------------------------------+");
         System.out.printf("| %-7s  |  %-10s  |  %-11s  | %-8s | %-9s |\n", "TRAN ID", "DATE", "TIME", "ORDER ID", "TOTAL(RM)");
         System.out.println("+----------|--------------|---------------|----------|-----------+");
-        Iterator<TransHist> it = tran_history.getIterator();
-        while(it.hasNext()) {
-            TransHist th = it.next();
-            if (LocalDate.parse(start_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)) ||
-                LocalDate.parse(start_date_str, formatter_date).isBefore(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))) {
-                System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
-                        th.getTranTime().format(formatter_date),
-                        th.getTranTime().format(formatter_time),
-                        th.getTranDetail().getOrderID(),
-                        th.getTranDetail().getOrderTotalPrice()
-                );
-            }
-            if(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isEqual(LocalDate.parse(end_date_str, formatter_date)))
-            {
-                if (LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isAfter(LocalDate.parse(end_date_str, formatter_date))) {
-                    break;
-                }
-            }
-        }
-        System.out.println("+----------------------------------------------------------------+");
+    }
+
+    private void input_end_date(int end_month, int end_day, int end_year) {
+        //Input end month
+        do{
+            System.out.print("Enter the month: ");
+            end_month = input_month(end_month);
+        } while(end_month == -1);
+
+        //Input end date
+        do{
+            System.out.print("Enter the day: ");
+            end_day = input_day(end_day, end_month);
+        } while(end_day == -1);
+
+        //Input end year
+        do{
+            System.out.print("Enter the year (>= 2021): ");
+            end_year = input_year(end_year);
+        } while(end_year == -1);
+    }
+
+    private void input_start_date(int month, int day, int year) {
+        //Input start month
+        do{
+            System.out.print("Enter the month: ");
+            month = input_month(month);
+        } while(month == -1);
+
+        //Input start date
+        do{
+            System.out.print("Enter the day: ");
+            day = input_day(day, month);
+        } while(day == -1);
+
+        //Input start year
+        do{
+            System.out.print("Enter the year (>= 2021): ");
+            year = input_year(year);
+        } while(year == -1);
     }
 
     private int input_day(int error, int month) {
@@ -217,11 +317,9 @@ public class TransHistOperation {
             }
         }
         scan.nextLine();
-
         if (error == -1) {
             System.out.println("Invalid input! Please enter again!\n");
         }
-
         return error;
     }
 
