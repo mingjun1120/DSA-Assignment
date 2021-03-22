@@ -95,7 +95,10 @@ public class ReportOperation {
         System.out.println("|                                                                                    |");
         System.out.println("|                                 Daily Dish Rankings                                |");
         System.out.println("|                                     -----------                                    |");
-
+        System.out.println("|                                                                                    |");
+        System.out.printf("|  %6s +---------------------------------------------------------------+  %7s |\n", " ", " ");
+        System.out.printf("|  %14s  |  %-21s  |  %s  |  %-14s  |  %7s |\n", "|  Rank", "Dish Name", "Qty", "Total Sales (RM)", " ");
+        System.out.printf("|  %6s +---------------------------------------------------------------+  %7s |\n", " ", " ");
         int chiliQty = 0, wantanQty = 0, mincedQty = 0, sichuanQty = 0, sarawakQty = 0, curryQty = 0, laksaQty = 0, braisedQty = 0;
         double chiliPrice = 0, wantanPrice = 0, mincedPrice = 0, sichuanPrice = 0, sarawakPrice = 0, curryPrice = 0, laksaPrice = 0, braisedPrice = 0;
 
@@ -161,19 +164,14 @@ public class ReportOperation {
         Iterator<DailyDishRankings> ddrs_it = dailyDishRankingStacked.getIterator();
         while(ddrs_it.hasNext()){
             DailyDishRankings ddrs = ddrs_it.next();
-            System.out.println(i + ". " + ddrs.getDishName() + " | " + ddrs.getOrderQty() + " | " + ddrs.getTotalPrice());
+            System.out.printf("| %7s |  %3d   |  %-21s  |  %2d   |  %11.2f       | %10s\n",
+                    " ", i, ddrs.getDishName(), ddrs.getOrderQty(), ddrs.getTotalPrice(), "|");
             i++;
         }
-
-
-//        System.out.printf("| \t %-20s %d %.2f", "Chili Pan Mee", chiliQty, chiliPrice);
-//        System.out.printf("%s\n", wantanQty);
-//        System.out.printf(mincedQty);
-//        System.out.printf(sichuanQty);
-//        System.out.printf(sarawakQty);
-//        System.out.printf(curryQty);
-//        System.out.printf(laksaQty);
-//        System.out.printf(braisedQty);
+        System.out.printf("|  %6s +---------------------------------------------------------------+  %7s |\n", " ", " ");
+        System.out.println("|                                                                                    |");
+        System.out.println("|                                                                                    |");
+        System.out.println("+------------------------------------------------------------------------------------+");
     }
 
     public void display_Weekly_Sales_Report() {
