@@ -15,15 +15,15 @@ public class DishOperation {
     public void display() {
         read_data_from_File();
         System.out.print("\n");
-        System.out.println("+----------------------------------------------------+");
-        System.out.println("|                    DISH DETAILS                    |");
-        System.out.println("+----------------------------------------------------+");
-        System.out.printf("| %-4s    %-4s    %-18s    %-8s    |\n", "Dish", "ID", "Name", "Price(RM)");
-        System.out.println("|----------------------------------------------------|");
+        System.out.println("+-------------------------------------------------------+");
+        System.out.println("|                     DISH DETAILS                      |");
+        System.out.println("+-------------------------------------------------------+");
+        System.out.printf("| %-4s    %-4s    %-21s    %-8s    |\n", "Dish", "ID", "Name", "Price(RM)");
+        System.out.println("|-------------------------------------------------------|");
         for (int position = 1; position <= menuList.getLength(); position++) {
-            System.out.printf("| %-4d    %-4s    %-18s    %-9.2f    |\n", position, menuList.getEntry(position).getId(), menuList.getEntry(position).getName(), menuList.getEntry(position).getPrice());
+            System.out.printf("| %-4d    %-4s    %-21s    %-9.2f    |\n", position, menuList.getEntry(position).getId(), menuList.getEntry(position).getName(), menuList.getEntry(position).getPrice());
         }
-        System.out.println("+----------------------------------------------------+");
+        System.out.println("+-------------------------------------------------------+");
     }
 
     private Dish inputDishDetails(Dish d) {
