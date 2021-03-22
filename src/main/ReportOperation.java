@@ -1,5 +1,6 @@
 package main;
 import adt.*;
+import adt.ArrayList;
 import adt.LinkedList;
 import entity.*;
 import java.time.format.DateTimeFormatter;
@@ -10,13 +11,14 @@ import java.time.LocalDateTime;
 public class ReportOperation {
     SortedLinkedListInterface<DailyReport> dailyReportList = new SortedLinkedList<>();
     StackInterface<DailyReport> dailyRankingList = new LinkedStack<>();
+    SortedLinkedListInterface<DailyDishRankings> dailyDishRanking = new SortedLinkedList<>();
     ListInterface<OrderDish> orderList = new LinkedList<>();
     QueueInterface<Order> orderedList = new LinkedQueue<>();
+    ArrayListInterface<Dish> dishList = new ArrayList<>();
     public static Scanner scan = new Scanner(System.in);
 
     DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss a");
-    LocalDateTime now = LocalDateTime.now();
 
     public void display_Daily_Sales_Report() {
         readOrderedListTextFile();
@@ -46,7 +48,7 @@ public class ReportOperation {
         Iterator<DailyReport> dr_it = dailyReportList.getIterator();
         while(dr_it.hasNext()) {
             DailyReport dr = dr_it.next();
-            if(formatter_date.format(now).equals(dr.getCusOrderDateTime().format(formatter_date))) {
+            if(formatter_date.format(LocalDateTime.now()).equals(dr.getCusOrderDateTime().format(formatter_date))) {
                 System.out.printf("|  |   %-6s | %-10s | %-11s |",
                         dr.getCustomerOrder().getOrderID(),
                         dr.getCusOrderDateTime().format(formatter_date),
@@ -109,49 +111,81 @@ public class ReportOperation {
 //            );
 //        }
 
-        Iterator<Order> it = orderedList.getIterator();
-        while(it.hasNext()) {
-            Order order = it.next();
-            dailyReportList.add(new DailyReport(order.getOrderTime(), order));
-        }
-
         int chiliQty = 0, wantanQty = 0, mincedQty = 0, sichuanQty = 0, sarawakQty = 0, curryQty = 0, laksaQty = 0, braisedQty = 0;
         double chiliPrice = 0, wantanPrice = 0, mincedPrice = 0, sichuanPrice = 0, sarawakPrice = 0, curryPrice = 0, laksaPrice = 0, braisedPrice = 0;
 
         Iterator<DailyReport> dr_it = dailyReportList.getIterator();
         while(dr_it.hasNext()) {
             DailyReport dr = dr_it.next();
-            if(formatter_date.format(now).equals(dr.getCusOrderDateTime().format(formatter_date))) {
+            if (formatter_date.format(LocalDateTime.now()).equals(dr.getCusOrderDateTime().format(formatter_date))) {
                 Iterator<OrderDish> orderDishIt = dr.getCustomerOrder().getCusOrderWithQtySorted().getIterator();
-                while(orderDishIt.hasNext()){
-                    OrderDish od = orderDishIt.next();
-                    if ("Chili Pan Mee".equals(od.getChosenDish().getName()))
-                        chiliQty += od.getQty();
-                    else if ("Dry Wantan Noodle".equals(od.getChosenDish().getName()))
-                        wantanQty += od.getQty();
-                    else if ("Minced Pork Mee".equals(od.getChosenDish().getName()))
-                        mincedQty += od.getQty();
-                    else if ("Sichuan Hot Soup Mee".equals(od.getChosenDish().getName()))
-                        sichuanQty += od.getQty();
-                    else if ("Special Sarawak Mee".equals(od.getChosenDish().getName()))
-                        sarawakQty += od.getQty();
-                    else if ("Curry Chicken Pan Mee".equals(od.getChosenDish().getName()))
-                        curryQty += od.getQty();
-                    else if ("Penang Laksa".equals(od.getChosenDish().getName()))
-                        laksaQty += od.getQty();
-                    else
-                        braisedQty += od.getQty();
+
+                OrderDish orderDish = orderDishIt.next();
+                while (orderDishIt.hasNext()) {
+
+                    if ("Chili Pan Mee".equals(orderDish.getChosenDish().getName())){
+                        chiliQty += orderDish.getQty();
+                        chiliPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
+                    }
+                    else if ("Dry Wantan Noodle".equals(orderDish.getChosenDish().getName())){
+                        wantanQty += orderDish.getQty();
+                        wantanPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
+                    }
+                    else if ("Minced Pork Mee".equals(orderDish.getChosenDish().getName())){
+                        mincedQty += orderDish.getQty();
+                        mincedPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
+                    }
+                    else if ("Sichuan Hot Soup Mee".equals(orderDish.getChosenDish().getName())){
+                        sichuanQty += orderDish.getQty();
+                        sichuanPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
+                    }
+                    else if ("Special Sarawak Mee".equals(orderDish.getChosenDish().getName())){
+                        sarawakQty += orderDish.getQty();
+                        sarawakPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
+                    }
+
+                    else if ("Curry Chicken Pan Mee".equals(orderDish.getChosenDish().getName())){
+                        curryQty += orderDish.getQty();
+                        curryPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
+                    }
+
+                    else if ("Penang Laksa".equals(orderDish.getChosenDish().getName())){
+                        laksaQty += orderDish.getQty();
+                        laksaPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
+                    }
+
+                    else if ("Braised Pork Ramen".equals(orderDish.getChosenDish().getName())){
+                        braisedQty += orderDish.getQty();
+                        braisedPrice += orderDish.getQty() * orderDish.getChosenDish().getPrice();
+                    }
+
                 }
             }
         }
-        System.out.println(chiliQty);
-        System.out.println(wantanQty);
-        System.out.println(mincedQty);
-        System.out.println(sichuanQty);
-        System.out.println(sarawakQty);
-        System.out.println(curryQty);
-        System.out.println(laksaQty);
-        System.out.println(braisedQty);
+        dailyDishRanking.add(new DailyDishRankings("Chili Pan Mee", chiliQty, chiliPrice));
+        dailyDishRanking.add(new DailyDishRankings("Dry Wantan Noddles", wantanQty, wantanPrice));
+        dailyDishRanking.add(new DailyDishRankings("Minced Pork Mee", mincedQty, mincedPrice));
+        dailyDishRanking.add(new DailyDishRankings("Sichuan Hot Soup Mee", sichuanQty, sichuanPrice));
+        dailyDishRanking.add(new DailyDishRankings("Special Sarawak Mee", sarawakQty, sarawakPrice));
+        dailyDishRanking.add(new DailyDishRankings("Curry Chicken Pan Mee", curryQty, curryPrice));
+        dailyDishRanking.add(new DailyDishRankings("Penang Laksa", laksaQty, laksaPrice));
+        dailyDishRanking.add(new DailyDishRankings("Braised Pork Ramen", braisedQty, braisedPrice));
+
+        int i = 0;
+        Iterator<DailyDishRankings> ddr_it = dailyDishRanking.getIterator();
+        while(dr_it.hasNext()) {
+            DailyDishRankings ddr = ddr_it.next();
+            System.out.println(i + ". " + ddr.getDishName() + ddr.getOrderQty() + ddr.getTotalPrice());
+            i++;
+        }
+        //System.out.printf("| \t %-20s %d", "Chili Pan Mee", chiliQty);
+//        System.out.printf(wantanQty);
+//        System.out.printf(mincedQty);
+//        System.out.printf(sichuanQty);
+//        System.out.printf(sarawakQty);
+//        System.out.printf(curryQty);
+//        System.out.printf(laksaQty);
+//        System.out.printf(braisedQty);
     }
 
     public void display_Weekly_Sales_Report() {

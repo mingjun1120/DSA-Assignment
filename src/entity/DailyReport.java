@@ -37,7 +37,6 @@ public class DailyReport implements Comparable<DailyReport>{
 
     @Override
     public int compareTo(DailyReport o) {
-
         if (customerOrder.getOrderTime().isEqual(o.customerOrder.getOrderTime())) {
             return 0;
         } else if (customerOrder.getOrderTime().isBefore(o.customerOrder.getOrderTime())) {
