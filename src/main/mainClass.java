@@ -8,8 +8,8 @@ public class mainClass {
     private static final OrderDishOperation orderOp = new OrderDishOperation();
     private static final TransHistOperation tranHis = new TransHistOperation();
     private static final ReportOperation reportOp = new ReportOperation();
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         int operation_selection;
 
         do {
@@ -28,9 +28,9 @@ public class mainClass {
 
                 case 2: do {
                             modifyMenuTable();
-                            selection = doSelection(5, "Enter your choice (1-");
+                            selection = doSelection(6, "Enter your choice (1-");
                             switch_func2(selection);
-                        } while (selection != 5);
+                        } while (selection != 6);
                         break;
 
                 case 3: do {
@@ -76,6 +76,7 @@ public class mainClass {
             case 2: editDishName(); break;
             case 3: editDishPrice(); break;
             case 4: removeDish(); break;
+            case 5: dishOp.display(); break;
             default:
         }
     }
@@ -129,7 +130,8 @@ public class mainClass {
         System.out.println("|         2. Edit dish's name        |");
         System.out.println("|         3. Edit dish's price       |");
         System.out.println("|         4. Remove dish             |");
-        System.out.println("|         5. Exit                    |");
+        System.out.println("|         5. Display dish            |");
+        System.out.println("|         6. Exit                    |");
         System.out.println("+------------------------------------+");
     }
 

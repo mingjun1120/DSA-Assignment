@@ -56,13 +56,13 @@ public class OrderDishOperation {
     public double displayOrder() {
         double sum = 0;
         System.out.print("\n");
-        System.out.println("+----------------------------------------------------------------------------------+");
-        System.out.println("|                                    ORDER LIST                                    |");
-        System.out.println("+----------------------------------------------------------------------------------+");
-        System.out.printf("| %-4s    %-4s    %-18s    %-8s    %-18s    %-9s|\n", "No.", "ID", "Name", "Quantity", "Price Per Unit(RM)", "Total(RM)");
-        System.out.println("|----------------------------------------------------------------------------------|");
+        System.out.println("+-------------------------------------------------------------------------------------+");
+        System.out.println("|                                     ORDER LIST                                      |");
+        System.out.println("+-------------------------------------------------------------------------------------+");
+        System.out.printf("| %-4s    %-4s    %-21s    %-8s    %-18s    %-9s|\n", "No.", "ID", "Name", "Quantity", "Price Per Unit(RM)", "Total(RM)");
+        System.out.println("|-------------------------------------------------------------------------------------|");
         for (int position = 1; position <= orderList.getLength(); position++) {
-            System.out.printf("| %-4d    %-4s    %-18s    %-8d    %-18.2f    %-9.2f|\n",
+            System.out.printf("| %-4d    %-4s    %-24s    %-8d    %-18.2f    %-6.2f|\n",
                     position,
                     orderList.getEntry(position).getChosenDish().getId(),
                     orderList.getEntry(position).getChosenDish().getName(),
@@ -72,9 +72,9 @@ public class OrderDishOperation {
             );
             sum += orderList.getEntry(position).getQty() * orderList.getEntry(position).getChosenDish().getPrice();
         }
-        System.out.println("+----------------------------------------------------------------------------------+");
-        System.out.printf("|%74s%-8.2f|\n","TOTAL PRICE NEED TO PAY:   RM", sum);
-        System.out.println("+----------------------------------------------------------------------------------+");
+        System.out.println("+-------------------------------------------------------------------------------------+");
+        System.out.printf("|%79s%-6.2f|\n","TOTAL PRICE NEED TO PAY:   RM", sum);
+        System.out.println("+-------------------------------------------------------------------------------------+");
 
         //Object[] cus_order = orderList.getAllEntries();
         //for (Object ob : cus_order) {

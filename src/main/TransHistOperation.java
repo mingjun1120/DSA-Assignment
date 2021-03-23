@@ -130,21 +130,23 @@ public class TransHistOperation {
             }
         } while (LocalDate.parse(end_date_str, formatter_date).isBefore(LocalDate.parse(start_date_str, formatter_date)));
 
-//        int found = 0;
-//        LocalDate earliestDate = null;
-//        Iterator<TransHist> it = tran_history.getIterator();
-//        while(it.hasNext()) {
-//            TransHist th = it.next();
-//            if (LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
-//            {
-//                found = 1;
-//            }
-//            earliestDate = LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date);
-//        }
+        int found = 0;
+        //LocalDate earliestDate = null;
+        Iterator<TransHist> it = tran_history.getIterator();
+        while(it.hasNext()) {
+            TransHist th = it.next();
+            if (LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
+            {
+                found = 1;
+                break;
+            }
+            //earliestDate = LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date);
+        }
 
+        int cont = 0;
         Iterator<TransHist> it2 = tran_history.getIterator();
         display_tranHis_header(start_date_str, end_date_str);
-//        if (found == 1) {
+        if (found == 1) {
             while(it2.hasNext()) {
                 TransHist th = it2.next();
                 // || LocalDate.parse(start_date_str, formatter_date).isBefore(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))
@@ -157,40 +159,57 @@ public class TransHistOperation {
                             th.getTranDetail().getOrderID(),
                             th.getTranDetail().getOrderTotalPrice()
                     );
+                    cont = 1;
                 }
-                if(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isEqual(LocalDate.parse(start_date_str, formatter_date)))
+                if (!(LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))) && cont == 1)
                 {
-                    if (LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isBefore(LocalDate.parse(end_date_str, formatter_date))) {
-                        break;
+                    if(!(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isEqual(LocalDate.parse(start_date_str, formatter_date))))
+                    {
+                        System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
+                                th.getTranTime().format(formatter_date),
+                                th.getTranTime().format(formatter_time),
+                                th.getTranDetail().getOrderID(),
+                                th.getTranDetail().getOrderTotalPrice()
+                        );
+                    } else {
+                        if (LocalDate.parse(start_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
+                        {
+                            System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
+                                    th.getTranTime().format(formatter_date),
+                                    th.getTranTime().format(formatter_time),
+                                    th.getTranDetail().getOrderID(),
+                                    th.getTranDetail().getOrderTotalPrice()
+                            );
+                        }
                     }
                 }
             }
-//        } else {
-//            assert earliestDate != null;
-//            if (LocalDate.parse(start_date_str, formatter_date).isBefore(earliestDate))
-//            {
-//                check = 1;
-//                while(it2.hasNext()) {
-//                    TransHist th = it2.next();
-//                    if (LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
-//                    {
-//                        System.out.println(th.getTranTime().format(formatter_date));
-//                        System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
-//                                th.getTranTime().format(formatter_date),
-//                                th.getTranTime().format(formatter_time),
-//                                th.getTranDetail().getOrderID(),
-//                                th.getTranDetail().getOrderTotalPrice()
-//                        );
-//                    }
-//                    if(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isEqual(LocalDate.parse(start_date_str, formatter_date)))
-//                    {
-//                        if (LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isBefore(LocalDate.parse(end_date_str, formatter_date))) {
-//                            break;
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        } else {
+                int check = 0;
+                while(it2.hasNext()) {
+                    TransHist th = it2.next();
+                    if (!(LocalDate.parse(start_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))) && check == 0)
+                    {
+                        System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
+                                th.getTranTime().format(formatter_date),
+                                th.getTranTime().format(formatter_time),
+                                th.getTranDetail().getOrderID(),
+                                th.getTranDetail().getOrderTotalPrice()
+                        );
+                    } else {
+                        if (LocalDate.parse(start_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
+                        {
+                            System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
+                                    th.getTranTime().format(formatter_date),
+                                    th.getTranTime().format(formatter_time),
+                                    th.getTranDetail().getOrderID(),
+                                    th.getTranDetail().getOrderTotalPrice()
+                            );
+                            check = 1;
+                        }
+                    }
+                }
+        }
         System.out.println("+----------------------------------------------------------------+");
     }
 
