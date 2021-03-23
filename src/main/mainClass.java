@@ -92,8 +92,8 @@ public class mainClass {
     private static void switch_func4(int selection) {
         switch (selection) {
             case 1: reportOp.display_Daily_Sales_Report(); break;
-            case 2: reportOp.display_Weekly_Sales_Report(); break;
-            case 3: reportOp.display_Dish_Rankings_Report(); break;
+            case 2: reportOp.display_Daily_Dish_Rankings(); break;
+            case 3: reportOp.display_Weekly_Sales_Report(); break;
             default:
         }
     }
@@ -151,8 +151,8 @@ public class mainClass {
         System.out.println("|            Report Type             |");
         System.out.println("+------------------------------------+");
         System.out.println("|         1. Daily Sales Report      |");
-        System.out.println("|         2. Weekly Sales Report     |");
-        System.out.println("|         3. Dish Rankings Report    |");
+        System.out.println("|         2. Daily Dish Rankings     |");
+        System.out.println("|         3. Weekly Sales Report     |");
         System.out.println("|         4. Exit                    |");
         System.out.println("+------------------------------------+");
     }
