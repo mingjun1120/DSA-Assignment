@@ -106,6 +106,7 @@ public class ReportOperation {
         System.out.printf("|  %6s +---------------------------------------------------------------+  %7s |\n", " ", " ");
         System.out.printf("|  %14s  |  %-21s  |  %s  |  %-14s  |  %7s |\n", "|  Rank", "Dish Name", "Qty", "Total Sales (RM)", " ");
         System.out.printf("|  %6s +---------------------------------------------------------------+  %7s |\n", " ", " ");
+
         int chiliQty = 0, wantanQty = 0, mincedQty = 0, sichuanQty = 0, sarawakQty = 0, curryQty = 0, laksaQty = 0, braisedQty = 0;
         double chiliPrice = 0, wantanPrice = 0, mincedPrice = 0, sichuanPrice = 0, sarawakPrice = 0, curryPrice = 0, laksaPrice = 0, braisedPrice = 0;
 
@@ -178,7 +179,7 @@ public class ReportOperation {
         while(ddrs_it.hasNext()){
             DailyDishRankingsReport ddrs = ddrs_it.next();
             System.out.printf("| %7s |  %3d   |  %-21s  |  %2d   |  %11.2f       | %10s\n",
-                    " ", i, ddrs.getDishName(), ddrs.getOrderQty(), ddrs.getTotalPrice(), "|");
+                    " ", i, ddrs.getDishName(), ddrs.getOrderedQty(), ddrs.getTotalPrice(), "|");
             i++;
         }
         System.out.printf("|  %6s +---------------------------------------------------------------+  %7s |\n", " ", " ");

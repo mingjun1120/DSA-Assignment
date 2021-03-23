@@ -3,15 +3,15 @@ package main;
 public class DailyDishRankingsReport implements Comparable<DailyDishRankingsReport> {
     private static final String reportName = "Daily Dish Rankings";
     private String dishName;
-    private int orderQty;
+    private int orderedQty;
     private double totalPrice;
 
     public DailyDishRankingsReport() {
     }
 
-    public DailyDishRankingsReport(String dishName, int orderQty, double totalPrice) {
+    public DailyDishRankingsReport(String dishName, int orderedQty, double totalPrice) {
         this.dishName = dishName;
-        this.orderQty = orderQty;
+        this.orderedQty = orderedQty;
         this.totalPrice = totalPrice;
     }
 
@@ -19,12 +19,12 @@ public class DailyDishRankingsReport implements Comparable<DailyDishRankingsRepo
         return reportName;
     }
 
-    public int getOrderQty() {
-        return orderQty;
+    public int getOrderedQty() {
+        return orderedQty;
     }
 
-    public void setOrderQty(int orderQty) {
-        this.orderQty = orderQty;
+    public void setOrderedQty(int orderedQty) {
+        this.orderedQty = orderedQty;
     }
 
     public double getTotalPrice() {
@@ -47,13 +47,13 @@ public class DailyDishRankingsReport implements Comparable<DailyDishRankingsRepo
     public String toString() {
         return "DailyDishRankingsReport{" +
                 "dishName='" + dishName + '\'' +
-                ", orderQty=" + orderQty +
+                ", orderQty=" + orderedQty +
                 ", totalPrice=" + totalPrice +
                 '}';
     }
 
     @Override
     public int compareTo(DailyDishRankingsReport o) {
-        return this.orderQty - o.orderQty;
+        return this.orderedQty - o.orderedQty;
     }
 }
