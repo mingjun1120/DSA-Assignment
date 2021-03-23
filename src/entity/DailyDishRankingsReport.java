@@ -1,4 +1,4 @@
-package main;
+package entity;
 
 public class DailyDishRankingsReport implements Comparable<DailyDishRankingsReport> {
     private static final String reportName = "Daily Dish Rankings";

@@ -36,9 +36,9 @@ public class ReportOperation {
         System.out.printf("|  | %s |    %-7s |     %-7s |       %-15s | %s |  %s  |  %s  |  |\n", "Order ID", "Date", "Time", "Dish Name", "Price Each(RM)", "Qty", "Price(RM)");
         System.out.println("|  +----------------------------------------------------------------------------------------------------+  |");
 
-        Iterator<Order> it = orderedList.getIterator();
-        while(it.hasNext()) {
-            Order order = it.next();
+        Iterator<Order> it_order = orderedList.getIterator();
+        while(it_order.hasNext()) {
+            Order order = it_order.next();
             dailyReportList.add(new DailySalesReport(order.getOrderTime(), order));
         }
 
@@ -46,19 +46,19 @@ public class ReportOperation {
         int daily_sold_qty = 0, daily_made_order = 0;
 
         //Loop reportList & print it out
-        Iterator<DailySalesReport> dr_it = dailyReportList.getIterator();
-        while(dr_it.hasNext()) {
-            DailySalesReport dr = dr_it.next();
+        Iterator<DailySalesReport> dsr_it = dailyReportList.getIterator();
+        while(dsr_it.hasNext()) {
+            DailySalesReport dr = dsr_it.next();
             if(formatter_date.format(LocalDateTime.now()).equals(dr.getCusOrderDateTime().format(formatter_date))) {
                 System.out.printf("|  |   %-6s | %-10s | %-11s |",
                         dr.getCustomerOrder().getOrderID(),
                         dr.getCusOrderDateTime().format(formatter_date),
                         dr.getCusOrderDateTime().format(formatter_time));
 
-                Iterator<OrderDish> orderDishIt = dr.getCustomerOrder().getCusOrderWithQtySorted().getIterator();
+                Iterator<OrderDish> od_it = dr.getCustomerOrder().getCusOrderWithQtySorted().getIterator();
                 int count = 0;
-                while(orderDishIt.hasNext()){
-                    OrderDish od = orderDishIt.next();
+                while(od_it.hasNext()){
+                    OrderDish od = od_it.next();
                     if(count > 0)
                         System.out.printf("|  | %8s | %10s | %11s |", " ", " ", " ");
                     System.out.printf(" %-21s |    %7.2f     |  %2d   | %10.2f  |  |\n",
@@ -110,15 +110,15 @@ public class ReportOperation {
         int chiliQty = 0, wantanQty = 0, mincedQty = 0, sichuanQty = 0, sarawakQty = 0, curryQty = 0, laksaQty = 0, braisedQty = 0;
         double chiliPrice = 0, wantanPrice = 0, mincedPrice = 0, sichuanPrice = 0, sarawakPrice = 0, curryPrice = 0, laksaPrice = 0, braisedPrice = 0;
 
-        Iterator<Order> it = orderedList.getIterator();
-        while(it.hasNext()) {
-            Order order = it.next();
+        Iterator<Order> od_it = orderedList.getIterator();
+        while(od_it.hasNext()) {
+            Order order = od_it.next();
             dailyReportList.add(new DailySalesReport(order.getOrderTime(), order));
         }
 
-        Iterator<DailySalesReport> dr_it = dailyReportList.getIterator();
-        while(dr_it.hasNext()) {
-            DailySalesReport dr = dr_it.next();
+        Iterator<DailySalesReport> dsr_it = dailyReportList.getIterator();
+        while(dsr_it.hasNext()) {
+            DailySalesReport dr = dsr_it.next();
             if (formatter_date.format(LocalDateTime.now()).equals(dr.getCusOrderDateTime().format(formatter_date))) {
                 Iterator<OrderDish> orderDishIt = dr.getCustomerOrder().getCusOrderWithQtySorted().getIterator();
 
