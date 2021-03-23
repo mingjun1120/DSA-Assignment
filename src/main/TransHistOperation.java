@@ -130,24 +130,34 @@ public class TransHistOperation {
             }
         } while (LocalDate.parse(end_date_str, formatter_date).isBefore(LocalDate.parse(start_date_str, formatter_date)));
 
-        int found = 0;
+        int found_end = 0;
+        int found_start = 0;
         //LocalDate earliestDate = null;
         Iterator<TransHist> it = tran_history.getIterator();
         while(it.hasNext()) {
             TransHist th = it.next();
             if (LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
             {
-                found = 1;
+                found_end = 1;
                 break;
             }
             //earliestDate = LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date);
+        }
+        Iterator<TransHist> itHis = tran_history.getIterator();
+        while(it.hasNext()) {
+            TransHist th = itHis.next();
+            if (LocalDate.parse(start_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
+            {
+                found_start = 1;
+                break;
+            }
         }
 
         int cont = 0;
         int cont2 = 0;
         Iterator<TransHist> it2 = tran_history.getIterator();
         display_tranHis_header(start_date_str, end_date_str);
-        if (found == 1) {
+        if (found_end == 1) {
             while(it2.hasNext()) {
                 TransHist th = it2.next();
                 // || LocalDate.parse(start_date_str, formatter_date).isBefore(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))
@@ -160,7 +170,8 @@ public class TransHistOperation {
                             th.getTranDetail().getOrderID(),
                             th.getTranDetail().getOrderTotalPrice()
                     );
-                    cont = 1;
+                    if (!(LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(start_date_str, formatter_date))))
+                        cont = 1;
                 }
                 if (!(LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))) && cont == 1)
                 {
@@ -187,6 +198,7 @@ public class TransHistOperation {
                 }
             }
         } else {
+            if (found_start == 1) {
                 int check = 0;
                 while(it2.hasNext()) {
                     TransHist th = it2.next();
@@ -211,6 +223,8 @@ public class TransHistOperation {
                         }
                     }
                 }
+            }
+
         }
         System.out.println("+----------------------------------------------------------------+");
     }
