@@ -2,14 +2,14 @@ package entity;
 
 import java.time.LocalDateTime;
 
-public class DailyReport implements Comparable<DailyReport>{
+public class DailySalesReport implements Comparable<DailySalesReport>{
 
     private static final String reportName = "Daily Report";
     private LocalDateTime cusOrderDateTime;
     private Order customerOrder;
     //private static int id_no = 1;
 
-    public DailyReport(LocalDateTime cusOrderDateTime, Order customerOrder) {
+    public DailySalesReport(LocalDateTime cusOrderDateTime, Order customerOrder) {
         //this.reportID = "RPD".concat(String.valueOf(id_no++));
         this.cusOrderDateTime = cusOrderDateTime;
         this.customerOrder = customerOrder;
@@ -36,7 +36,7 @@ public class DailyReport implements Comparable<DailyReport>{
     }
 
     @Override
-    public int compareTo(DailyReport o) {
+    public int compareTo(DailySalesReport o) {
         if (customerOrder.getOrderTime().isEqual(o.customerOrder.getOrderTime())) {
             return 0;
         } else if (customerOrder.getOrderTime().isBefore(o.customerOrder.getOrderTime())) {

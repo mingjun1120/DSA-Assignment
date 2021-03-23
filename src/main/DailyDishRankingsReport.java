@@ -1,20 +1,15 @@
 package main;
 
-import entity.DailyReport;
-import entity.Order;
-
-import java.time.LocalDateTime;
-
-public class DailyDishRankings implements Comparable<DailyDishRankings> {
+public class DailyDishRankingsReport implements Comparable<DailyDishRankingsReport> {
     private static final String reportName = "Daily Dish Rankings";
     private String dishName;
     private int orderQty;
     private double totalPrice;
 
-    public DailyDishRankings() {
+    public DailyDishRankingsReport() {
     }
 
-    public DailyDishRankings(String dishName, int orderQty, double totalPrice) {
+    public DailyDishRankingsReport(String dishName, int orderQty, double totalPrice) {
         this.dishName = dishName;
         this.orderQty = orderQty;
         this.totalPrice = totalPrice;
@@ -50,7 +45,7 @@ public class DailyDishRankings implements Comparable<DailyDishRankings> {
 
     @Override
     public String toString() {
-        return "DailyDishRankings{" +
+        return "DailyDishRankingsReport{" +
                 "dishName='" + dishName + '\'' +
                 ", orderQty=" + orderQty +
                 ", totalPrice=" + totalPrice +
@@ -58,7 +53,7 @@ public class DailyDishRankings implements Comparable<DailyDishRankings> {
     }
 
     @Override
-    public int compareTo(DailyDishRankings o) {
+    public int compareTo(DailyDishRankingsReport o) {
         return this.orderQty - o.orderQty;
     }
 }
