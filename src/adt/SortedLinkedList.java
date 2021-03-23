@@ -45,7 +45,24 @@ public class SortedLinkedList<T extends Comparable<T>> implements SortedLinkedLi
 
     @Override
     public boolean remove(T anEntry) {
-        throw new UnsupportedOperationException();	// Left as Practical exercise
+        if (!isEmpty()) {
+            Node previousNode = null;
+            Node currentNode = firstNode;
+            while (currentNode != null && currentNode.data.compareTo(anEntry) < 0) {
+                previousNode = currentNode;
+                currentNode = currentNode.next;
+            }
+            if (currentNode != null && currentNode.data.equals(anEntry)) {
+                if (currentNode == firstNode) {
+                    firstNode = firstNode.next;
+                } else {
+                    previousNode.next = currentNode.next;
+                }
+                length--;
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
