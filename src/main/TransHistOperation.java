@@ -144,6 +144,7 @@ public class TransHistOperation {
         }
 
         int cont = 0;
+        int cont2 = 0;
         Iterator<TransHist> it2 = tran_history.getIterator();
         display_tranHis_header(start_date_str, end_date_str);
         if (found == 1) {
@@ -163,7 +164,7 @@ public class TransHistOperation {
                 }
                 if (!(LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))) && cont == 1)
                 {
-                    if(!(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isEqual(LocalDate.parse(start_date_str, formatter_date))))
+                    if(!(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date).isEqual(LocalDate.parse(start_date_str, formatter_date))) && cont2 == 0)
                     {
                         System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
                                 th.getTranTime().format(formatter_date),
@@ -180,6 +181,7 @@ public class TransHistOperation {
                                     th.getTranDetail().getOrderID(),
                                     th.getTranDetail().getOrderTotalPrice()
                             );
+                            cont2 = 1;
                         }
                     }
                 }
