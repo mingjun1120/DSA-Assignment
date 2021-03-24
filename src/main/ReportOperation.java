@@ -9,9 +9,9 @@ import java.io.*;
 import java.time.LocalDateTime;
 
 public class ReportOperation {
-    SortedLinkedListInterface<DailyReport> dailyReportList = new SortedLinkedList<>();
-    StackInterface<DailyDishRankings> dailyDishRankingStacked = new LinkedStack<>();
-    SortedLinkedListInterface<DailyDishRankings> dailyDishRanking = new SortedLinkedList<>();
+    SortedLinkedListInterface<DailySalesReport> dailyReportList = new SortedLinkedList<>();
+    StackInterface<DailyDishRankingsReport> dailyDishRankingStacked = new LinkedStack<>();
+    SortedLinkedListInterface<DailyDishRankingsReport> dailyDishRanking = new SortedLinkedList<>();
     ListInterface<OrderDish> orderList = new LinkedList<>();
     QueueInterface<Order> orderedList = new LinkedQueue<>();
     ArrayListInterface<Dish> dishList = new ArrayList<>();
@@ -21,6 +21,7 @@ public class ReportOperation {
     DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss a");
 
     public void display_Daily_Sales_Report() {
+        dailyReportList.clear();
         readOrderedListTextFile();
         System.out.print("\n");
         System.out.println("\n+----------------------------------------------------------------------------------------------------------+");
@@ -35,29 +36,29 @@ public class ReportOperation {
         System.out.printf("|  | %s |    %-7s |     %-7s |       %-15s | %s |  %s  |  %s  |  |\n", "Order ID", "Date", "Time", "Dish Name", "Price Each(RM)", "Qty", "Price(RM)");
         System.out.println("|  +----------------------------------------------------------------------------------------------------+  |");
 
-        Iterator<Order> it = orderedList.getIterator();
-        while(it.hasNext()) {
-            Order order = it.next();
-            dailyReportList.add(new DailyReport(order.getOrderTime(), order));
+        Iterator<Order> it_order = orderedList.getIterator();
+        while(it_order.hasNext()) {
+            Order order = it_order.next();
+            dailyReportList.add(new DailySalesReport(order.getOrderTime(), order));
         }
 
         double daily_sales = 0;
         int daily_sold_qty = 0, daily_made_order = 0;
 
         //Loop reportList & print it out
-        Iterator<DailyReport> dr_it = dailyReportList.getIterator();
-        while(dr_it.hasNext()) {
-            DailyReport dr = dr_it.next();
+        Iterator<DailySalesReport> dsr_it = dailyReportList.getIterator();
+        while(dsr_it.hasNext()) {
+            DailySalesReport dr = dsr_it.next();
             if(formatter_date.format(LocalDateTime.now()).equals(dr.getCusOrderDateTime().format(formatter_date))) {
                 System.out.printf("|  |   %-6s | %-10s | %-11s |",
                         dr.getCustomerOrder().getOrderID(),
                         dr.getCusOrderDateTime().format(formatter_date),
                         dr.getCusOrderDateTime().format(formatter_time));
 
-                Iterator<OrderDish> orderDishIt = dr.getCustomerOrder().getCusOrderWithQtySorted().getIterator();
+                Iterator<OrderDish> od_it = dr.getCustomerOrder().getCusOrderWithQtySorted().getIterator();
                 int count = 0;
-                while(orderDishIt.hasNext()){
-                    OrderDish od = orderDishIt.next();
+                while(od_it.hasNext()){
+                    OrderDish od = od_it.next();
                     if(count > 0)
                         System.out.printf("|  | %8s | %10s | %11s |", " ", " ", " ");
                     System.out.printf(" %-21s |    %7.2f     |  %2d   | %10.2f  |  |\n",
@@ -82,9 +83,15 @@ public class ReportOperation {
         System.out.printf("|  Total Orders Have Made: %-79d |\n", daily_made_order);
         System.out.printf("|  %103s |\n",' ');
         System.out.println("+----------------------------------------------------------------------------------------------------------+");
+
+
     }
 
     public void display_Daily_Dish_Rankings() {
+        dailyDishRanking.clear();
+        dailyReportList.clear();
+        dailyDishRankingStacked.clear();
+
         readOrderedListTextFile();
         System.out.print("\n");
         System.out.println("\n+------------------------------------------------------------------------------------+");
@@ -99,12 +106,19 @@ public class ReportOperation {
         System.out.printf("|  %6s +---------------------------------------------------------------+  %7s |\n", " ", " ");
         System.out.printf("|  %14s  |  %-21s  |  %s  |  %-14s  |  %7s |\n", "|  Rank", "Dish Name", "Qty", "Total Sales (RM)", " ");
         System.out.printf("|  %6s +---------------------------------------------------------------+  %7s |\n", " ", " ");
+
         int chiliQty = 0, wantanQty = 0, mincedQty = 0, sichuanQty = 0, sarawakQty = 0, curryQty = 0, laksaQty = 0, braisedQty = 0;
         double chiliPrice = 0, wantanPrice = 0, mincedPrice = 0, sichuanPrice = 0, sarawakPrice = 0, curryPrice = 0, laksaPrice = 0, braisedPrice = 0;
 
-        Iterator<DailyReport> dr_it = dailyReportList.getIterator();
-        while(dr_it.hasNext()) {
-            DailyReport dr = dr_it.next();
+        Iterator<Order> od_it = orderedList.getIterator();
+        while(od_it.hasNext()) {
+            Order order = od_it.next();
+            dailyReportList.add(new DailySalesReport(order.getOrderTime(), order));
+        }
+
+        Iterator<DailySalesReport> dsr_it = dailyReportList.getIterator();
+        while(dsr_it.hasNext()) {
+            DailySalesReport dr = dsr_it.next();
             if (formatter_date.format(LocalDateTime.now()).equals(dr.getCusOrderDateTime().format(formatter_date))) {
                 Iterator<OrderDish> orderDishIt = dr.getCustomerOrder().getCusOrderWithQtySorted().getIterator();
 
@@ -145,27 +159,27 @@ public class ReportOperation {
                 }
             }
         }
-        dailyDishRanking.add(new DailyDishRankings("Chili Pan Mee", chiliQty, chiliPrice));
-        dailyDishRanking.add(new DailyDishRankings("Dry Wantan Noddles", wantanQty, wantanPrice));
-        dailyDishRanking.add(new DailyDishRankings("Minced Pork Mee", mincedQty, mincedPrice));
-        dailyDishRanking.add(new DailyDishRankings("Sichuan Hot Soup Mee", sichuanQty, sichuanPrice));
-        dailyDishRanking.add(new DailyDishRankings("Special Sarawak Mee", sarawakQty, sarawakPrice));
-        dailyDishRanking.add(new DailyDishRankings("Curry Chicken Pan Mee", curryQty, curryPrice));
-        dailyDishRanking.add(new DailyDishRankings("Penang Laksa", laksaQty, laksaPrice));
-        dailyDishRanking.add(new DailyDishRankings("Braised Pork Ramen", braisedQty, braisedPrice));
+        dailyDishRanking.add(new DailyDishRankingsReport("Chili Pan Mee", chiliQty, chiliPrice));
+        dailyDishRanking.add(new DailyDishRankingsReport("Dry Wantan Noddles", wantanQty, wantanPrice));
+        dailyDishRanking.add(new DailyDishRankingsReport("Minced Pork Mee", mincedQty, mincedPrice));
+        dailyDishRanking.add(new DailyDishRankingsReport("Sichuan Hot Soup Mee", sichuanQty, sichuanPrice));
+        dailyDishRanking.add(new DailyDishRankingsReport("Special Sarawak Mee", sarawakQty, sarawakPrice));
+        dailyDishRanking.add(new DailyDishRankingsReport("Curry Chicken Pan Mee", curryQty, curryPrice));
+        dailyDishRanking.add(new DailyDishRankingsReport("Penang Laksa", laksaQty, laksaPrice));
+        dailyDishRanking.add(new DailyDishRankingsReport("Braised Pork Ramen", braisedQty, braisedPrice));
 
-        Iterator<DailyDishRankings> ddr_it = dailyDishRanking.getIterator();
+        Iterator<DailyDishRankingsReport> ddr_it = dailyDishRanking.getIterator();
         while(ddr_it.hasNext()) {
-            DailyDishRankings ddr = ddr_it.next();
+            DailyDishRankingsReport ddr = ddr_it.next();
             dailyDishRankingStacked.push(ddr);
         }
 
         int i = 1;
-        Iterator<DailyDishRankings> ddrs_it = dailyDishRankingStacked.getIterator();
+        Iterator<DailyDishRankingsReport> ddrs_it = dailyDishRankingStacked.getIterator();
         while(ddrs_it.hasNext()){
-            DailyDishRankings ddrs = ddrs_it.next();
+            DailyDishRankingsReport ddrs = ddrs_it.next();
             System.out.printf("| %7s |  %3d   |  %-21s  |  %2d   |  %11.2f       | %10s\n",
-                    " ", i, ddrs.getDishName(), ddrs.getOrderQty(), ddrs.getTotalPrice(), "|");
+                    " ", i, ddrs.getDishName(), ddrs.getOrderedQty(), ddrs.getTotalPrice(), "|");
             i++;
         }
         System.out.printf("|  %6s +---------------------------------------------------------------+  %7s |\n", " ", " ");
