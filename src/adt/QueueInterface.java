@@ -69,10 +69,10 @@ public interface QueueInterface<T> {
 
     T[] getAllEntries();
     /*
-     * Description   - Retrieves all entries from the queue.
+     * Description   - Retrieves all entries from the queue into an array.
      * Precondition  - The queue is not empty
-     * Postcondition - The queue become empty
-     * Return        - None
+     * Postcondition - None
+     * Return        - An array of all T object in the queue
      */
 
     Iterator<T> getIterator();

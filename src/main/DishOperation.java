@@ -78,8 +78,11 @@ public class DishOperation {
         write_data_into_file();
     }
 
-    public void editDishName() {
-        int dish_to_be_edited = getDish_to_be_edited("Enter which dish you want to edit its name (1-");
+    public void editDishName(int dish_to_be_edited) {
+
+        if (dish_to_be_edited == 0) {
+            dish_to_be_edited = getDish_to_be_edited("Enter which dish you want to edit its name (1-");
+        }
 
         if (dish_to_be_edited != menuList.getLength() + 1) {
             String name = menuList.getEntry(dish_to_be_edited).getName();
@@ -95,8 +98,11 @@ public class DishOperation {
         }
     }
 
-    public void editDishPrice() {
-        int dish_to_be_edited = getDish_to_be_edited("Enter which dish you want to edit its price (1-");
+    public void editDishPrice(int dish_to_be_edited) {
+
+        if (dish_to_be_edited == 0) {
+            dish_to_be_edited = getDish_to_be_edited("Enter which dish you want to edit its name (1-");
+        }
 
         if (dish_to_be_edited != menuList.getLength() + 1) {
             double price = menuList.getEntry(dish_to_be_edited).getPrice();
@@ -158,22 +164,52 @@ public class DishOperation {
         id = scan.nextLine();
 
         for (int position = 1; position <= menuList.getLength(); position++) {
-            if (id.equalsIgnoreCase(menuList.getEntry(position).getId())){
+            if (id.equalsIgnoreCase(menuList.getEntry(position).getId())) {
                 found = 1;
             }
         }
 
         System.out.print("\n");
         if(found == 1) {
+            int position_located = 0;
             dish_Details_Header();
             for (int position = 1; position <= menuList.getLength(); position++) {
-                if (id.equalsIgnoreCase(menuList.getEntry(position).getId())){
+                if (id.equalsIgnoreCase(menuList.getEntry(position).getId())) {
                     System.out.printf("| %-4d    %-4s    %-21s    %-9.2f    |\n", position, menuList.getEntry(position).getId(), menuList.getEntry(position).getName(), menuList.getEntry(position).getPrice());
+                    position_located = position;
                 }
             }
             System.out.println("+-------------------------------------------------------+");
+            request_whether_to_edit(position_located);
         } else {
             System.out.println("There is no dish with " + id + " found!");
+        }
+    }
+
+    private void request_whether_to_edit(int position_located) {
+        char ans;
+        do {
+            System.out.print("Do you want to edit this dish? (Y/N): ");
+            ans = isChar(scan);
+            is_Yes_and_No(ans);
+        } while (ans != 'Y' && ans != 'N');
+        if (ans == 'Y') {
+            int selection;
+            do {
+                edit_dish_Table();
+                selection = doSelection(3, "Enter your choice (1-");
+                switch (selection) {
+                    case 1:
+                        editDishName(position_located);
+                        display();
+                        break;
+                    case 2:
+                        editDishPrice(position_located);
+                        display();
+                        break;
+                    default:
+                }
+            } while (selection != 3);
         }
     }
 
@@ -198,16 +234,19 @@ public class DishOperation {
                 break;
             }
         }
-
+        
         System.out.print("\n");
         if(found == 1) {
+            int position_located = 0;
             dish_Details_Header();
             for (int position = 1; position <= menuList.getLength(); position++) {
                 if (name.equalsIgnoreCase(menuList.getEntry(position).getName())){
                     System.out.printf("| %-4d    %-4s    %-21s    %-9.2f    |\n", position, menuList.getEntry(position).getId(), menuList.getEntry(position).getName(), menuList.getEntry(position).getPrice());
+                    position_located = position;
                 }
             }
             System.out.println("+-------------------------------------------------------+");
+            request_whether_to_edit(position_located);
         } else {
             System.out.println("There is no dish called " + name + " found!");
         }
@@ -298,6 +337,16 @@ public class DishOperation {
         } else {
             return false;
         }
+    }
+
+    private void edit_dish_Table() {
+        System.out.println("\n+-------------------------------------+");
+        System.out.println("|                 EDIT                |");
+        System.out.println("+-------------------------------------+");
+        System.out.println("|            1. Dish name             |");
+        System.out.println("|            2. Dish price            |");
+        System.out.println("|            3. Exit                  |");
+        System.out.println("+-------------------------------------+");
     }
 
     private void dish_Details_Header() {

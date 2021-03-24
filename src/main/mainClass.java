@@ -208,12 +208,12 @@ public class mainClass {
     }
 
     private static void editDishName() {
-        dishOp.editDishName();
+        dishOp.editDishName(0);
         dishOp.display();
     }
 
     private static void editDishPrice() {
-        dishOp.editDishPrice();
+        dishOp.editDishPrice(0);
         dishOp.display();
     }
 
