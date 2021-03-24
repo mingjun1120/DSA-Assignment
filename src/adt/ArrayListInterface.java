@@ -4,9 +4,9 @@ public interface ArrayListInterface<T> extends ListInterface<T>{
 
     void doubleSize();
     /*
-     * Description   - double the size of dish list
-     * Precondition  - dish list remain unchanged
-     * Postcondition - size of dish list become double
+     * Description   - double the size of array list
+     * Precondition  - array list remain unchanged
+     * Postcondition - size of array list become double
      */
 
     boolean isFull();
