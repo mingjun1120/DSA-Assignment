@@ -1,7 +1,5 @@
 package main;
 import adt.*;
-import adt.ArrayList;
-import adt.LinkedList;
 import entity.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -12,11 +10,7 @@ public class ReportOperation {
     SortedLinkedListInterface<DailySalesReport> dailyReportList = new SortedLinkedList<>();
     StackInterface<DailyDishRankingsReport> dailyDishRankingStacked = new LinkedStack<>();
     SortedLinkedListInterface<DailyDishRankingsReport> dailyDishRanking = new SortedLinkedList<>();
-    ListInterface<OrderDish> orderList = new LinkedList<>();
     QueueInterface<Order> orderedList = new LinkedQueue<>();
-    ArrayListInterface<Dish> dishList = new ArrayList<>();
-    public static Scanner scan = new Scanner(System.in);
-
     DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss a");
 
@@ -242,14 +236,4 @@ public class ReportOperation {
             c.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        ReportOperation reportOp = new ReportOperation();
-
-        reportOp.display_Daily_Sales_Report();
-        //reportOp.display_Weekly_Sales_Report();
-        reportOp.display_Daily_Dish_Rankings();
-        
-    }
-
 }
