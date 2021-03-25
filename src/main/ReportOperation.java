@@ -17,6 +17,7 @@ public class ReportOperation {
     public void display_Daily_Sales_Report() {
         dailyReportList.clear();
         readOrderedListTextFile();
+
         System.out.print("\n");
         System.out.println("\n+----------------------------------------------------------------------------------------------------------+");
         System.out.println("|                                             NOODLES UNLIMITED                                            |");
@@ -77,8 +78,6 @@ public class ReportOperation {
         System.out.printf("|  Total Orders Have Made: %-79d |\n", daily_made_order);
         System.out.printf("|  %103s |\n",' ');
         System.out.println("+----------------------------------------------------------------------------------------------------------+");
-
-
     }
 
     public void display_Daily_Dish_Rankings() {
@@ -180,46 +179,6 @@ public class ReportOperation {
         System.out.println("|                                                                                    |");
         System.out.println("|                                                                                    |");
         System.out.println("+------------------------------------------------------------------------------------+");
-    }
-
-    public void display_Weekly_Sales_Report() {
-        readOrderedListTextFile();
-        System.out.print("\n");
-        System.out.println("\n+------------------------------------------------------------------------------------+");
-        System.out.println("|                                  NOODLES UNLIMITED                                 |");
-        System.out.println("|                        TARUC KUALA LUMPUR, JLN GENTING KLANG                       |");
-        System.out.println("|                         Lot 5.103.00 - 5.105.00 & P5.10.00,                        |");
-        System.out.println("|                             53300 Kuala Lumpur, Malaysia                           |");
-        System.out.println("|                                                                                    |");
-        System.out.println("|                                 Weekly Sales Report                                |");
-        System.out.println("|                                     -----------                                    |");
-        System.out.printf("| %3s | %s | %s | %s | %s | %s | %s | %s | %s | %s \n",
-                " ", "Chili Pan Mee", "Dry Wantan Noodle", "Minced Pork Mee", "Sichuan Hot Soup Mee",
-                "Special Sarawak Mee", "Curry Chicken Pan Mee", "Penang Laksa", "Braised Pork Ramen", "Total");
-
-//        System.out.printf("| Mon\n");
-//        System.out.printf("| Tue\n");
-//        System.out.printf("| Wed\n");
-//        System.out.printf("| Thu\n");
-//        System.out.printf("| Fri\n");
-//        System.out.printf("| Sat\n");
-//        System.out.printf("| Sun\n");
-
-//        Calendar calendar = Calendar.getInstance();
-//
-//        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-//
-//        DateFormat df = new SimpleDateFormat("EEE dd/MM/yyyy");
-//        System.out.println(df.format(calendar.getTime()));
-//        for (int i = 0; i < 7; i++) {
-//            calendar.add(Calendar.DATE, 1);
-//            System.out.println(df.format(calendar.getTime()));
-//        }
-//        System.out.println();
-    }
-
-    public void display_Dish_Rankings_Report() {
-        //read_data_from_File();
     }
 
     private void readOrderedListTextFile() {
