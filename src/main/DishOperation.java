@@ -65,7 +65,6 @@ public class DishOperation {
         char anymore;
         do {
             Dish d = menuList.getEntry(menuList.getLength()); // Use to check ID. Return null if there is no any dishes
-            //String[] all_dish_name = getAllDishNames();
             Dish dish = inputDishDetails(d);
             menuList.add(dish);
             do {
@@ -150,7 +149,8 @@ public class DishOperation {
         System.out.print("\n");
         dish_Details_Header();
         for (int position = 1; position <= menuList.getLength(); position++) {
-            System.out.printf("| %-4d    %-4s    %-21s    %-9.2f    |\n", position, menuList.getEntry(position).getId(), menuList.getEntry(position).getName(), menuList.getEntry(position).getPrice());
+            System.out.printf("| %-4d    %-4s    %-21s    %-9.2f    |\n", position, menuList.getEntry(position).getId(),
+                                menuList.getEntry(position).getName(), menuList.getEntry(position).getPrice());
         }
         System.out.println("+-------------------------------------------------------+");
     }
@@ -168,14 +168,14 @@ public class DishOperation {
                 found = 1;
             }
         }
-
         System.out.print("\n");
         if(found == 1) {
             int position_located = 0;
             dish_Details_Header();
             for (int position = 1; position <= menuList.getLength(); position++) {
                 if (id.equalsIgnoreCase(menuList.getEntry(position).getId())) {
-                    System.out.printf("| %-4d    %-4s    %-21s    %-9.2f    |\n", position, menuList.getEntry(position).getId(), menuList.getEntry(position).getName(), menuList.getEntry(position).getPrice());
+                    System.out.printf("| %-4d    %-4s    %-21s    %-9.2f    |\n", position, menuList.getEntry(position).getId(),
+                                       menuList.getEntry(position).getName(), menuList.getEntry(position).getPrice());
                     position_located = position;
                 }
             }
@@ -215,10 +215,8 @@ public class DishOperation {
 
     public void search_by_name() {
         read_data_from_File();
-
         String name;
         int found = 0;
-
         do {
             System.out.print("\nEnter the dish name to be searched: ");
             name = scan.nextLine();
@@ -234,14 +232,14 @@ public class DishOperation {
                 break;
             }
         }
-        
         System.out.print("\n");
         if(found == 1) {
             int position_located = 0;
             dish_Details_Header();
             for (int position = 1; position <= menuList.getLength(); position++) {
                 if (name.equalsIgnoreCase(menuList.getEntry(position).getName())){
-                    System.out.printf("| %-4d    %-4s    %-21s    %-9.2f    |\n", position, menuList.getEntry(position).getId(), menuList.getEntry(position).getName(), menuList.getEntry(position).getPrice());
+                    System.out.printf("| %-4d    %-4s    %-21s    %-9.2f    |\n", position, menuList.getEntry(position).getId(),
+                                       menuList.getEntry(position).getName(), menuList.getEntry(position).getPrice());
                     position_located = position;
                 }
             }
