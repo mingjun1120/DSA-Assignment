@@ -55,6 +55,10 @@ public interface SortedLinkedListInterface<T extends Comparable<T>>{
      */
 
     Iterator<T> getIterator();
-
-
+    /*
+     * Description   - Iterate through the list and save each entry in the list.
+     * Precondition  - The list is not null.
+     * Postcondition - The list remains unchanged.
+     * Return        - An iterator contains all the entries in the list.
+     */
 }

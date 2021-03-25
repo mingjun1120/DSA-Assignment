@@ -8,7 +8,7 @@ import entity.*;
 
 public class TransHistOperation {
     public static Scanner scan = new Scanner(System.in);
-    public static StackInterface<TransHist> tran_history = new LinkedStack<>();
+    public static StackInterface<TransactionHistory> tran_history = new LinkedStack<>();
     DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss a");
 
@@ -21,9 +21,9 @@ public class TransHistOperation {
         System.out.println("+----------------------------------------------------------------+");
          System.out.printf("| %-7s  |  %-10s  |  %-11s  | %-8s | %-9s |\n", "TRAN ID", "DATE", "TIME", "ORDER ID", "TOTAL(RM)");
         System.out.println("+----------|--------------|---------------|----------|-----------+");
-        Iterator<TransHist> it = tran_history.getIterator();
+        Iterator<TransactionHistory> it = tran_history.getIterator();
         while(it.hasNext()) {
-            TransHist th = it.next();
+            TransactionHistory th = it.next();
             System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
                     th.getTranTime().format(formatter_date),
                     th.getTranTime().format(formatter_time),
@@ -133,9 +133,9 @@ public class TransHistOperation {
         int found_end = 0;
         int found_start = 0;
         //LocalDate earliestDate = null;
-        Iterator<TransHist> it = tran_history.getIterator();
+        Iterator<TransactionHistory> it = tran_history.getIterator();
         while(it.hasNext()) {
-            TransHist th = it.next();
+            TransactionHistory th = it.next();
             if (LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
             {
                 found_end = 1;
@@ -143,9 +143,9 @@ public class TransHistOperation {
             }
             //earliestDate = LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date);
         }
-        Iterator<TransHist> itHis = tran_history.getIterator();
+        Iterator<TransactionHistory> itHis = tran_history.getIterator();
         while(it.hasNext()) {
-            TransHist th = itHis.next();
+            TransactionHistory th = itHis.next();
             if (LocalDate.parse(start_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
             {
                 found_start = 1;
@@ -155,11 +155,11 @@ public class TransHistOperation {
 
         int cont = 0;
         int cont2 = 0;
-        Iterator<TransHist> it2 = tran_history.getIterator();
+        Iterator<TransactionHistory> it2 = tran_history.getIterator();
         display_tranHis_header(start_date_str, end_date_str);
         if (found_end == 1) {
             while(it2.hasNext()) {
-                TransHist th = it2.next();
+                TransactionHistory th = it2.next();
                 // || LocalDate.parse(start_date_str, formatter_date).isBefore(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))
                 // && LocalDate.parse(end_date_str, formatter_date).isAfter(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))
                 if (LocalDate.parse(end_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date)))
@@ -201,7 +201,7 @@ public class TransHistOperation {
             if (found_start == 1) {
                 int check = 0;
                 while(it2.hasNext()) {
-                    TransHist th = it2.next();
+                    TransactionHistory th = it2.next();
                     if (!(LocalDate.parse(start_date_str, formatter_date).isEqual(LocalDate.parse(th.getTranTime().format(formatter_date), formatter_date))) && check == 0)
                     {
                         System.out.printf("|    %-5s |  %-10s  |  %-11s  |   %-5s  |   %-5.2f   |\n", th.getTranID(),
@@ -358,7 +358,7 @@ public class TransHistOperation {
         return error;
     }
 
-    public static void push(TransHist t){
+    public static void push(TransactionHistory t){
         tran_history.push(t);
     }
 }

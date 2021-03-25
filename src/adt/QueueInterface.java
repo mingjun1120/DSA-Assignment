@@ -14,7 +14,6 @@ public interface QueueInterface<T> {
     void enqueue(T newEntry);
     /*
      * Description   - Insert an object of type T into the queue
-     * Precondition  - Queue is not full
      * Postcondition - T object is inserted at the last of the queue
      * Return        - None
      */
@@ -76,4 +75,10 @@ public interface QueueInterface<T> {
      */
 
     Iterator<T> getIterator();
+    /*
+     * Description   - Iterate through the queue and save each entry in the queue.
+     * Precondition  - The queue is not null.
+     * Postcondition - The queue remains unchanged.
+     * Return        - An iterator contains all the entries in the queue.
+     */
 }

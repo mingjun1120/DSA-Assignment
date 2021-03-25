@@ -19,13 +19,13 @@ public class Dish implements Serializable {
     public Dish(String name, double price, int id) {
         this.id = "M".concat(String.valueOf(id));
         this.name = name;
-        this.price = price;
+        this.price = Double.parseDouble(df.format(price));
     }
 
     public Dish(String name, double price) {
         this.id = "M".concat(String.valueOf(id_no++));
         this.name = name;
-        this.price = price;
+        this.price = Double.parseDouble(df.format(price));
     }
 
     public String getId() { return id; }

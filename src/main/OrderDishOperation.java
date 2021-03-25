@@ -220,7 +220,7 @@ public class OrderDishOperation {
                 current_ordered.enqueue(new Order(orderedList.getLast().getOrderID(), orderedList.getLast().getOrderTime(), sum, orderList.getAllEntries()));
 
                 read_tran_history_from_File();
-                TransHist th = TransHistOperation.tran_history.peek();
+                TransactionHistory th = TransHistOperation.tran_history.peek();
                 push_confirmed_order_as_TranHis(localDateTime, th);
 
                 orderList.clear();
@@ -243,12 +243,12 @@ public class OrderDishOperation {
         return error;
     }
 
-    private void push_confirmed_order_as_TranHis(LocalDateTime localDateTime, TransHist th) {
+    private void push_confirmed_order_as_TranHis(LocalDateTime localDateTime, TransactionHistory th) {
         if (th == null){
-            TransHistOperation.push(new TransHist(localDateTime, orderedList.getLast()));
+            TransHistOperation.push(new TransactionHistory(localDateTime, orderedList.getLast()));
         } else {
             int id_no = Integer.parseInt(th.getTranID().substring(1));
-            TransHistOperation.push(new TransHist(++id_no, localDateTime, orderedList.getLast()));
+            TransHistOperation.push(new TransactionHistory(++id_no, localDateTime, orderedList.getLast()));
         }
     }
 
@@ -424,7 +424,7 @@ public class OrderDishOperation {
         try {
             FileInputStream fileIn = new FileInputStream("src/tranHistory.txt");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            TransHistOperation.tran_history = (LinkedStack<TransHist>)in.readObject();
+            TransHistOperation.tran_history = (LinkedStack<TransactionHistory>)in.readObject();
             in.close();
             fileIn.close();
         } catch (IOException i) {
