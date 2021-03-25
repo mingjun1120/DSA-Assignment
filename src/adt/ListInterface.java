@@ -14,6 +14,7 @@ public interface ListInterface<T> {
      * Description   - remove an object from the list
      * Precondition  - list is not full
      * Postcondition - The selected object has been removed from the list
+     * Return        - return an object of type T
      */
 
     T getEntry(int givenPosition);
