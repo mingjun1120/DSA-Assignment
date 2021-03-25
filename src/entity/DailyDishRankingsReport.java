@@ -1,7 +1,7 @@
 package entity;
 
 public class DailyDishRankingsReport implements Comparable<DailyDishRankingsReport> {
-    private static final String reportName = "Daily Dish Rankings";
+    private static final String REPORT_NAME = "Daily Dish Rankings Report";
     private String dishName;
     private int orderedQty;
     private double totalPrice;
@@ -16,7 +16,7 @@ public class DailyDishRankingsReport implements Comparable<DailyDishRankingsRepo
     }
 
     public static String getReportName() {
-        return reportName;
+        return REPORT_NAME;
     }
 
     public int getOrderedQty() {
