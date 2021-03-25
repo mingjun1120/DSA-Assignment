@@ -1,22 +1,18 @@
 package entity;
-
 import java.time.LocalDateTime;
 
 public class DailySalesReport implements Comparable<DailySalesReport>{
-
-    private static final String reportName = "Daily Report";
+    private static final String REPORT_NAME = "Daily Report";
     private LocalDateTime cusOrderDateTime;
     private Order customerOrder;
-    //private static int id_no = 1;
 
     public DailySalesReport(LocalDateTime cusOrderDateTime, Order customerOrder) {
-        //this.reportID = "RPD".concat(String.valueOf(id_no++));
         this.cusOrderDateTime = cusOrderDateTime;
         this.customerOrder = customerOrder;
     }
 
     public static String getReportName() {
-        return reportName;
+        return REPORT_NAME;
     }
 
     public LocalDateTime getCusOrderDateTime() {
