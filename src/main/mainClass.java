@@ -94,7 +94,7 @@ public class mainClass {
     private static void switch_func4(int selection) {
         switch (selection) {
             case 1: reportOp.display_Daily_Sales_Report(); break;
-            case 2: reportOp.display_Daily_Dish_Rankings(); break;
+            case 2: reportOp.display_Daily_Dish_Rankings_Report(); break;
             default:
         }
     }

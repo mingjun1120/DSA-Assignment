@@ -8,9 +8,10 @@ import java.time.LocalDateTime;
 
 public class ReportOperation {
     SortedLinkedListInterface<DailySalesReport> dailyReportList = new SortedLinkedList<>();
-    StackInterface<DailyDishRankingsReport> dailyDishRankingStacked = new LinkedStack<>();
     SortedLinkedListInterface<DailyDishRankingsReport> dailyDishRanking = new SortedLinkedList<>();
+    StackInterface<DailyDishRankingsReport> dailyDishRankingStacked = new LinkedStack<>();
     QueueInterface<Order> orderedList = new LinkedQueue<>();
+    
     DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss a");
 
@@ -80,7 +81,7 @@ public class ReportOperation {
         System.out.println("+----------------------------------------------------------------------------------------------------------+");
     }
 
-    public void display_Daily_Dish_Rankings() {
+    public void display_Daily_Dish_Rankings_Report() {
         dailyDishRanking.clear();
         dailyReportList.clear();
         dailyDishRankingStacked.clear();
