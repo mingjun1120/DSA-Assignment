@@ -42,9 +42,10 @@ public class mainClass {
 
                 case 4: do {
                             reportTypeTable();
-                            selection = doSelection(4, "Enter your choice (1-");
+                            selection = doSelection(
+                                    3, "Enter your choice (1-");
                             switch_func4(selection);
-                        } while (selection != 4);
+                        } while (selection != 3);
                         break;
 
                 default: if (orderOp.current_ordered.size() > 0) {
@@ -94,7 +95,6 @@ public class mainClass {
         switch (selection) {
             case 1: reportOp.display_Daily_Sales_Report(); break;
             case 2: reportOp.display_Daily_Dish_Rankings(); break;
-            case 3: reportOp.display_Weekly_Sales_Report(); break;
             default:
         }
     }
@@ -154,8 +154,7 @@ public class mainClass {
         System.out.println("+------------------------------------+");
         System.out.println("|         1. Daily Sales Report      |");
         System.out.println("|         2. Daily Dish Rankings     |");
-        System.out.println("|         3. Weekly Sales Report     |");
-        System.out.println("|         4. Exit                    |");
+        System.out.println("|         3. Exit                    |");
         System.out.println("+------------------------------------+");
     }
 

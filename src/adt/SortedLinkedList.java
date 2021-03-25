@@ -1,7 +1,6 @@
 package adt;
 
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.Iterator;
 
 public class SortedLinkedList<T extends Comparable<T>> implements SortedLinkedListInterface<T>, Serializable {

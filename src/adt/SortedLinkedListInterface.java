@@ -22,7 +22,7 @@ public interface SortedLinkedListInterface<T extends Comparable<T>>{
     boolean remove (T anEntry);
     /*
      * Description   - Removes the given element from the list.
-     * Precondition  - The given elements exist in the list.
+     * Precondition  - The given element exist in the list.
      * Postcondition - The given element has been removed from the list.
      * Return        - The element that was removed if it exists in the set; null otherwise.
      */
