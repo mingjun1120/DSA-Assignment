@@ -11,7 +11,7 @@ public class ReportOperation {
     SortedLinkedListInterface<DailyDishRankingsReport> dailyDishRanking = new SortedLinkedList<>();
     StackInterface<DailyDishRankingsReport> dailyDishRankingStacked = new LinkedStack<>();
     QueueInterface<Order> orderedList = new LinkedQueue<>();
-    
+
     DateTimeFormatter formatter_date = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     DateTimeFormatter formatter_time = DateTimeFormatter.ofPattern("HH:mm:ss a");
 

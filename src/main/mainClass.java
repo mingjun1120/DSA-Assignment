@@ -12,6 +12,8 @@ public class mainClass {
     public static void main(String[] args) {
         int operation_selection;
 
+        logo();
+
         do {
             //Print operation (e.g. Order, Modify Menu, Report & etc.)
             operationMenuTable();
@@ -54,6 +56,19 @@ public class mainClass {
                          }
             }
         } while(operation_selection >= 1 && operation_selection <= 4);
+    }
+
+    private static void logo() {
+        System.out.println();
+        System.out.println(" _   _                 _ _             _   _       _ _           _ _           _ ");
+        System.out.println("| \\ | |               | | |           | | | |     | (_)         (_) |         | |");
+        System.out.println("|  \\| | ___   ___   __| | | ___  ___  | | | |_ __ | |_ _ __ ___  _| |_ ___  __| |");
+        System.out.println("| . ` |/ _ \\ / _ \\ / _` | |/ _ \\/ __| | | | | '_ \\| | | '_ ` _ \\| | __/ _ \\/ _` |");
+        System.out.println("| |\\  | (_) | (_) | (_| | |  __/\\__ \\ | |_| | | | | | | | | | | | | ||  __/ (_| |");
+        System.out.println("\\_| \\_/\\___/ \\___/ \\__,_|_|\\___||___/  \\___/|_| |_|_|_|_| |_| |_|_|\\__\\___|\\__,_|");
+        System.out.println();
+        System.out.println("Business Hour   : 8:00 a.m.  - 6:00 p.m.");
+        System.out.println("Stall Phone No. : 09-20632063");
     }
 
     private static void orderQueue() {
